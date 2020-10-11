@@ -1,0 +1,76 @@
+body {
+    margin: 5vh 5vw 2vh;
+    background-color: #eeeeee;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+form {
+    display: flex;
+}
+
+form > * {
+    font-size: 20px;
+    margin: 0;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    color: #33313b;
+}
+
+input:focus, button:focus {
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    width: auto;
+    padding: 10px 20px;
+    color: #eeeeee;
+    background-color: #0D4B60;
+    border: 0.1px solid #0D4B60;
+}
+
+button:hover {
+    box-shadow: 0 0 0.5vw #33313b;
+}
+
+h2 {
+    padding-top: 3vh;
+    color: #33313b;
+}
+
+#error-message {
+    margin: 50px 0 20px;
+    text-align: center;
+}
+
+#spinner {
+    /* Since the spinner image is 114px wide, calc(50% - 57px) centers it horizontally: */
+    margin: 50px calc(50% - 57px) 20px;
+}
+
+.gifs-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: scroll;
+    position: relative;
+}
+
+.gifs {
+    margin-right: 10px;
+}
+
+#more-button {
+    position: relative;
+    z-index: 20;
+    /* transform: translateX(-60px); */
+    /* background-color: rgba(220, 220, 220, 0.5); */
+    /* color: rgb(20, 20, 20); */
+    background-color: #0D4B60;
+    color: #eeeeee;
+    font-size: 20px;
+    padding: 90px 20px;
+    cursor: pointer;
+}
