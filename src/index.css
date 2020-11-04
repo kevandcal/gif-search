@@ -60,6 +60,8 @@ h2 {
 
 .gifs {
     margin-right: 10px;
+    min-height: 200px;
+    min-width: auto;
 }
 
 #more-button {
