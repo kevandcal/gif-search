@@ -1,7 +1,7 @@
 import React from 'react';
 
-const MoreButton = (props) => (
-  <div id="more-button" onClick={props.runApiSearch}>></div>
+const MoreButton = ({ runApiSearch }) => (
+  <div id="more-button" onClick={runApiSearch}>></div>
 );
 
 export default MoreButton;
