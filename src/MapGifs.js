@@ -1,7 +1,7 @@
 import React from 'react';
 import MoreButton from './MoreButton';
 
-const mapGifs = (props) => (
+const MapGifs = (props) => (
   <div className="gifs-container">
     {props.arr.map(gif => (
       <img
@@ -15,4 +15,4 @@ const mapGifs = (props) => (
   </div>
 );
 
-export default mapGifs;
+export default MapGifs;

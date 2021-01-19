@@ -7,7 +7,6 @@ export default function SearchForGifs() {
   const [gifSearch, setGifSearch] = useState("");
   const [searchResultGifs, setSearchResultGifs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFirstSearch, setIsFirstSearch] = useState(true);
   const [failedToLoad, setFailedToLoad] = useState(false);
   const [offset, setOffset] = useState(0);
 
@@ -22,14 +21,8 @@ export default function SearchForGifs() {
           if (jsonRes.meta.status < 200 || jsonRes.meta.status > 299) {
             throw new Error(jsonRes.meta.msg);
           } else {
-            setIsLoading(true);
             setOffset(offset + 15);
-            if (isFirstSearch) {
-              setSearchResultGifs(jsonRes.data);
-              setIsFirstSearch(false);
-            } else {
-              setSearchResultGifs(searchResultGifs.concat(jsonRes.data))
-            }
+            setSearchResultGifs(searchResultGifs.concat(jsonRes.data))
           }
         })
         .catch(err => {
