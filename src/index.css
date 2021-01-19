@@ -59,9 +59,13 @@ h2 {
 }
 
 .gifs {
-    margin-right: 10px;
     min-height: 200px;
     min-width: auto;
+}
+
+a {
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 #more-button {

@@ -68,7 +68,7 @@ export default function SearchForGifs() {
         <h2>{gifSearch.charAt(0).toUpperCase() + gifSearch.substring(1).toLowerCase()} GIFs</h2>
       )}
 
-      {isLoading && gifSearch !== "" && (
+      {isLoading && (
         // While search results are loading, render spinner:
         <img id="spinner" alt="Search results are loading" src="./spinner.gif" />
       )}
