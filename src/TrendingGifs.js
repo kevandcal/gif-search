@@ -27,6 +27,7 @@ export default function TrendingGifs(mapGifs) {
 
   useEffect(() => {
     runApiSearch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
