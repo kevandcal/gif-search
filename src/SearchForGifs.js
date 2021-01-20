@@ -20,6 +20,8 @@ export default function SearchForGifs() {
           // Check in meta data whether response is OK:
           if (jsonRes.meta.status < 200 || jsonRes.meta.status > 299) {
             throw new Error(jsonRes.meta.msg);
+          } else if (jsonRes.data.length === 0) {
+            throw new Error('No valid results');
           } else {
             setOffset(offset + 15);
             setSearchResultGifs(searchResultGifs.concat(jsonRes.data))
@@ -50,6 +52,7 @@ export default function SearchForGifs() {
       <form onSubmit={e => {
         e.preventDefault();
         if (typedString !== gifSearch) {
+          setOffset(0);
           setSearchResultGifs([]);
           setFailedToLoad(false);
           setGifSearch(typedString);
