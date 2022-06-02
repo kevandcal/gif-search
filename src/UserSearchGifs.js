@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import MapGifs from './MapGifs';
+import RowOfGifs from './RowOfGifs';
 import { API_KEY } from './secrets.json';
 
-export default function SearchForGifs() {
+export default function UserSearchGifs() {
   const [typedString, setTypedString] = useState("");
   const [gifSearch, setGifSearch] = useState("");
   const [searchResultGifs, setSearchResultGifs] = useState([]);
@@ -10,11 +10,25 @@ export default function SearchForGifs() {
   const [failedToLoad, setFailedToLoad] = useState(false);
   const [offset, setOffset] = useState(0);
 
+  const submitHandler = e => {
+    e.preventDefault();
+    if (typedString !== gifSearch) {
+      setOffset(0);
+      setSearchResultGifs([]);
+      setFailedToLoad(false);
+      setGifSearch(typedString);
+      setTypedString("");
+    }
+  };
+
+  const inputChangeHandler = e => setTypedString(e.target.value);
+
   const runApiSearch = () => {
+    const limit = 15;
     // This condition prevents this API request being made on the intitial mount:
     if (gifSearch !== "") {
       setIsLoading(true);
-      fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${gifSearch}&limit=15&offset=${offset}`)
+      fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${gifSearch}&limit=${limit}&offset=${offset}`)
         .then(res => res.json())
         .then(jsonRes => {
           // Check in meta data whether response is OK:
@@ -23,7 +37,7 @@ export default function SearchForGifs() {
           } else if (jsonRes.data.length === 0) {
             throw new Error('No valid results');
           } else {
-            setOffset(offset + 15);
+            setOffset(offset + limit);
             setSearchResultGifs(searchResultGifs.concat(jsonRes.data))
           }
         })
@@ -35,35 +49,24 @@ export default function SearchForGifs() {
     }
   };
 
-
-  useEffect(() => {
-    runApiSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gifSearch]);
-
-  useEffect(() => {
+  const handleLoading = () => {
     if (isLoading && searchResultGifs.length > 0) {
       setIsLoading(false);
     }
-  }, [isLoading, searchResultGifs.length]);
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(runApiSearch, [gifSearch]);
+  useEffect(handleLoading, [isLoading, searchResultGifs.length]);
 
   return (
     <React.Fragment>
-      <form onSubmit={e => {
-        e.preventDefault();
-        if (typedString !== gifSearch) {
-          setOffset(0);
-          setSearchResultGifs([]);
-          setFailedToLoad(false);
-          setGifSearch(typedString);
-          setTypedString("");
-        }
-      }}>
+      <form onSubmit={submitHandler}>
         <input
           type="text"
           placeholder="What type of GIFs would you like to see?"
           value={typedString}
-          onChange={e => setTypedString(e.target.value)}
+          onChange={inputChangeHandler}
         />
         <button>Search</button>
       </form>
@@ -83,7 +86,7 @@ export default function SearchForGifs() {
         <p id="error-message">Oops, something went wrong with your search. Check console for error message, or simply try again.</p>
       )}
 
-      <MapGifs arr={searchResultGifs} runApiSearch={runApiSearch} />
+      <RowOfGifs gifs={searchResultGifs} runApiSearch={runApiSearch} />
     </React.Fragment>
   );
 }

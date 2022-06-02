@@ -1,9 +1,9 @@
 import React from 'react';
 import MoreButton from './MoreButton';
 
-const MapGifs = (props) => (
+const RowOfGifs = ({ gifs, runApiSearch }) => (
   <div className="gifs-container">
-    {props.arr.map(gif => (
+    {gifs.map(gif => (
       <a
         key={gif.id}
         target="_blank"
@@ -17,8 +17,8 @@ const MapGifs = (props) => (
         </img>
       </a>
     ))}
-    {props.arr.length > 0 && <MoreButton runApiSearch={props.runApiSearch} />}
+    {gifs.length > 0 && <MoreButton runApiSearch={runApiSearch} />}
   </div>
 );
 
-export default MapGifs;
+export default RowOfGifs;

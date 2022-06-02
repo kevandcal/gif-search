@@ -1,10 +1,10 @@
 import React from 'react';
-import SearchForGifs from './SearchForGifs';
+import UserSearchGifs from './UserSearchGifs';
 import TrendingGifs from './TrendingGifs';
 
 const App = () => (
   <React.Fragment>
-    <SearchForGifs />
+    <UserSearchGifs />
     <TrendingGifs />
   </React.Fragment>
 )
