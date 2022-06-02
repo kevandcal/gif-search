@@ -2,9 +2,12 @@
 
 This is a small app built in React that allows users to search the Giphy database and also displays its top currently trending GIFs.
 
-## Demo (click to try for yourself)
+## Demo
 
-[![GIF Search](public/gif-search.gif)](https://kevandcal.github.io/gif-search/)
+<!-- [![GIF Search](public/gif-search.gif)](https://kevandcal.github.io/gif-search/) -->
+![GIF Search](public/gif-search.gif)
+
+[try for yourself](https://kevandcal.github.io/gif-search/)
 
 ## Built with
 
