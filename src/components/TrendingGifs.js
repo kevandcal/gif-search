@@ -17,8 +17,8 @@ export default function TrendingGifs() {
         if (jsonRes.meta.status < 200 || jsonRes.meta.status > 299) {
           throw new Error(jsonRes.meta.msg);
         } else {
-          console.log(jsonRes.data);
           const gifsToSet = offset === 0 ? jsonRes.data : trendingGifs.concat(jsonRes.data);
+          // console.log('gifsToSet: ', gifsToSet);
           setTrendingGifs(gifsToSet);
           setOffset(offset + limit);
           // setApiReqIsRunning(false);

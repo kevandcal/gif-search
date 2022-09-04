@@ -52,45 +52,33 @@ h2 {
     margin: 50px calc(50% - 57px) 20px;
 }
 
-.row-of-gifs {
+.gifs-container {
     display: flex;
     justify-content: center;
+    height: 500px;
+    overflow-y: scroll;
 }
 
-.gifs-container {
-    /* max-height: 200px;
-    display: flex;
-    flex-wrap: nowrap;
-    flex-wrap: wrap;
-    overflow: hidden;
-    scroll-behavior: smooth;
-    position: relative; */
-
-    width: 1020px;
-    line-height: 0;
-    -webkit-column-count: 5;
+.gifs {
+    /* width: 1020px; */
+    /* line-height: 0; */
+    /* -webkit-column-count: 5; */
     -webkit-column-gap: 5px;
-    -moz-column-count: 5;
+    /* -moz-column-count: 5; */
     -moz-column-gap: 5px;
-    column-count: 5;
+    /* column-count: 5; */
     column-gap: 5px;
-
-    /* display: grid;
-    grid-template-columns: repeat(5, 200px);
-    row-gap: 10px; */
 }
 
 /* .gifs-container::-webkit-scrollbar {
     display: none;
 } */
 
-.gifs {
-    /* width: 100%; */
-    margin-bottom: 5px;
+.gif {
+    /* margin-bottom: 5px; */
     width: 200px;
     height: auto;
-    /* min-height: 200px; */
-    /* min-width: auto; */
+    cursor: pointer;
 }
 
 .horizontal-button {
