@@ -8,7 +8,7 @@ form {
     display: flex;
 }
 
-form > * {
+form>* {
     font-size: 20px;
     margin: 0;
 }
@@ -19,7 +19,8 @@ input {
     color: #33313b;
 }
 
-input:focus, button:focus {
+input:focus,
+button:focus {
     outline: none;
 }
 
@@ -56,6 +57,7 @@ h2 {
     flex-wrap: nowrap;
     overflow: scroll;
     position: relative;
+    max-height: 200px;
 }
 
 .gifs {
