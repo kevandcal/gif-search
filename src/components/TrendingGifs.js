@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import RowOfGifs from './RowOfGifs';
-import { API_KEY } from './secrets.json';
+import { API_KEY } from '../secrets.json';
 
 export default function TrendingGifs() {
   const [trendingGifs, setTrendingGifs] = useState([]);
   const [offset, setOffset] = useState(0);
+  // const [apiReqIsRunning, setApiReqIsRunning] = useState(false);
 
   const runApiSearch = () => {
-    const limit = 15;
+    // setApiReqIsRunning(true);
+    const limit = 20;
     fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=${limit}&offset=${offset}`)
       .then(res => res.json())
       .then(jsonRes => {
@@ -15,9 +17,11 @@ export default function TrendingGifs() {
         if (jsonRes.meta.status < 200 || jsonRes.meta.status > 299) {
           throw new Error(jsonRes.meta.msg);
         } else {
+          console.log(jsonRes.data);
           const gifsToSet = offset === 0 ? jsonRes.data : trendingGifs.concat(jsonRes.data);
           setTrendingGifs(gifsToSet);
           setOffset(offset + limit);
+          // setApiReqIsRunning(false);
         }
       })
       .catch(err => console.log("Error:", err))

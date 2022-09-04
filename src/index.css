@@ -8,7 +8,7 @@ form {
     display: flex;
 }
 
-form > * {
+form>* {
     font-size: 20px;
     margin: 0;
 }
@@ -19,7 +19,8 @@ input {
     color: #33313b;
 }
 
-input:focus, button:focus {
+input:focus,
+button:focus {
     outline: none;
 }
 
@@ -51,32 +52,87 @@ h2 {
     margin: 50px calc(50% - 57px) 20px;
 }
 
+.row-of-gifs {
+    display: flex;
+    justify-content: center;
+}
+
 .gifs-container {
+    /* max-height: 200px;
     display: flex;
     flex-wrap: nowrap;
-    overflow: scroll;
-    position: relative;
+    flex-wrap: wrap;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    position: relative; */
+
+    width: 1020px;
+    line-height: 0;
+    -webkit-column-count: 5;
+    -webkit-column-gap: 5px;
+    -moz-column-count: 5;
+    -moz-column-gap: 5px;
+    column-count: 5;
+    column-gap: 5px;
+
+    /* display: grid;
+    grid-template-columns: repeat(5, 200px);
+    row-gap: 10px; */
 }
+
+/* .gifs-container::-webkit-scrollbar {
+    display: none;
+} */
 
 .gifs {
-    min-height: 200px;
-    min-width: auto;
+    /* width: 100%; */
+    margin-bottom: 5px;
+    width: 200px;
+    height: auto;
+    /* min-height: 200px; */
+    /* min-width: auto; */
 }
 
-a {
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-#more-button {
+.horizontal-button {
     position: relative;
-    z-index: 20;
+    /* height: 200px; */
+    height: 30px;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* z-index: 20; */
     /* transform: translateX(-60px); */
     /* background-color: rgba(220, 220, 220, 0.5); */
     /* color: rgb(20, 20, 20); */
     background-color: #0D4B60;
     color: #eeeeee;
     font-size: 20px;
-    padding: 90px 20px;
     cursor: pointer;
+    user-select: none;
 }
+
+#right-button {
+    /* margin-left: 10px; */
+    /* min-width: 50px; */
+}
+
+#left-button {
+    /* margin-right: 10px; */
+}
+
+/* .left-button {
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+    width: 0;
+    margin: 0;
+}
+
+.left-button-visible {
+    visibility: visible;
+    opacity: 1;
+    min-width: 50px;
+    margin-right: 10px;
+    transition: 0.3s
+} */
