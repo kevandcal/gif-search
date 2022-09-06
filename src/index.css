@@ -10,6 +10,7 @@ body {
     --content-width: 90vw;
     --search-bar-height: 50px;
     --search-btn-width: 90px;
+    --gif-heigh-width: 295px;
     /* --theme-color: #0D4B60; */
     /* --theme-color: rgb(110, 57, 95); */
     /* --theme-color-alt: rgb(176, 90, 152); */
@@ -110,36 +111,20 @@ h2 {
     width: 100vw;
 }
 
-/* .gifs {
-    width: var(--content-width);
-    max-width: 1195px;
-    line-height: 0;
-    column-gap: 5px;
-    -webkit-column-gap: 5px;
-    -moz-column-gap: 5px;
-} */
-
 .gifs-grid {
-    /* display: grid;
+    display: grid;
     grid-gap: 5px;
-    grid-template-columns: repeat(4, 295px); */
-    display: 'flex';
-    flex-direction: row;
-    flex-wrap: wrap;
+    column-gap: 5px;
+    grid-template-columns: repeat(auto-fill, var(--gif-heigh-width));
     /* width: 90vw; */
-    max-width: 1195px;
-    /* column-gap: 5px; */
+    /* max-width: 1195px; */
 }
 
 .gif {
-    /* margin-bottom: 5px; */
-    /* width: 395px; */
+    height: var(--gif-heigh-width);
+    width: var(--gif-heigh-width);
     /* this is for narrow (phone) screens:  */
     max-width: var(--content-width);
-    /* height: auto; */
-    height: 395px;
-    width: 395px;
     object-fit: cover;
     cursor: pointer;
-    /* margin-right: 5px; */
 }

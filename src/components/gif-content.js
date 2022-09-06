@@ -3,40 +3,23 @@ import { useWindowSize } from '../helper/window-size';
 import spinner from '../images/spinner.gif'
 import { Gif } from './gif';
 
-export function GifContent({ fetchData, gifs, queryString, failedToLoad, displaySpinner }) {
+export function GifContent({ fetchData, gifs, failedToLoad, displaySpinner }) {
   const gifsContainerRef = useRef(null);
-  const { width, height } = useWindowSize();
-  // const [gifsStyles, setGifsStyles] = useState({ width: 0, columnCount: 0, WebkitColumnCount: 0, MozColumnCount: 0 });
-  const [columnCount, setColumnCount] = useState(0);
-  const [gifsWidth, setGifsWidth] = useState(0);
-  // const [gifWidth, setGifWidth] = useState(0);
+  const { width } = useWindowSize();
+  const [gifGridWidth, setGifGridWidth] = useState(0);
 
-  const gifsStyles = { width: gifsWidth, columnCount, WebkitColumnCount: columnCount, MozColumnCount: columnCount };
+  const gifGridStyle = { width: !gifGridWidth ? 0 : gifGridWidth };
 
-  const calculateGifsColumns = () => {
+  const calculateGridWidth = () => {
     const availableWidth = width * 0.9;
     const columnGap = 5;
     // this is for narrow (phone) screens:
-    const gifWidth = availableWidth < 395 ? availableWidth : 395;
-    const totalGifWidth = columnGap + gifWidth;
-    const columnsThatFit = Math.floor((availableWidth + columnGap) / totalGifWidth);
-    const columnAmount = columnsThatFit > 3 ? 3 : columnsThatFit;
-    const containerWidth = (columnAmount * totalGifWidth) - columnGap;
-    if (columnAmount && containerWidth) {
-      // setGifsStyles({ width: containerWidth, columnCount: columnAmount, WebkitColumnCount: columnAmount, MozColumnCount: columnAmount });
-      setGifsWidth(containerWidth);
-      setColumnCount(columnAmount);
-    }
+    const gifWidth = availableWidth < 295 ? availableWidth : 295;
+    const columnsThatFit = Math.floor((availableWidth + columnGap) / (gifWidth + columnGap));
+    const columnAmount = columnsThatFit > 5 ? 5 : columnsThatFit;
+    const gridWidth = (columnAmount * gifWidth) + ((columnAmount - 1) * columnGap);
+    setGifGridWidth(gridWidth);
   };
-
-  // const calculateGifWidth = () => {
-  //   const availableWidth = width * 0.9 < 1195 ? width * 0.9 : 1195;
-  //   const columns = 3;
-  //   const columnGap = 5;
-  //   const columnGapTotal = columnGap * (columns - 1);
-  //   const individualGifWidth = (availableWidth - columnGapTotal) / columns;
-  //   setGifWidth(individualGifWidth);
-  // };
 
   const infiniteScroll = () => {
     const refEl = gifsContainerRef.current;
@@ -45,9 +28,7 @@ export function GifContent({ fetchData, gifs, queryString, failedToLoad, display
     }
   };
 
-  useEffect(calculateGifsColumns, [width]);
-  // useEffect(calculateGifWidth, [width]);
-
+  useEffect(calculateGridWidth, [width]);
 
   let content = null;
   if (failedToLoad) {
@@ -69,19 +50,10 @@ export function GifContent({ fetchData, gifs, queryString, failedToLoad, display
         <div className='gifs-container' ref={gifsContainerRef} onScroll={infiniteScroll}>
           <div
             className="gifs-grid"
-            style={gifsStyles}
+            style={gifGridStyle}
           >
             {gifs.map((gif, index) => (
-              <img
-                key={index}
-                alt={gif.title}
-                className="gif"
-                // style={{ width: gifWidth }}
-                // src={gif.images.fixed_width_downsampled.url}
-                src={gif.images.fixed_height_downsampled.url}
-                onClick={() => window.open(gif.embed_url, '_blank')}
-              />
-              // <Gif key={index} gifObject={gif} />
+              <Gif key={index} gifObject={gif} />
             ))}
           </div>
         </div >
