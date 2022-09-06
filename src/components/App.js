@@ -46,7 +46,7 @@ export function App() {
   //     .catch(err => console.log("Error:", err))
   // };
 
-  // const queryApi = () => {
+  // const fetchData = () => {
   //   const limit = 20;
   //   // This condition prevents this API request being made on the intitial mount:
   //   if (queryString !== "") {
@@ -73,14 +73,15 @@ export function App() {
   // };
 
 
-  const queryApi = () => {
-    const fetchData = async () => {
+  const fetchData = () => {
+    const queryApi = async () => {
       setIsLoading(true);
-      const limit = 20;
+      const limit = !offset ? 20 : 10; // requests 20 gifs initially, adds 10 at a time thereafter
       const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${queryString}&limit=${limit}&offset=${offset}`);
       const { data, meta } = await response.json();
-      const statusNotOk = meta.status < 200 || meta.status > 299;
+      console.log('data: ', data);
       setIsLoading(false);
+      const statusNotOk = meta.status < 200 || meta.status > 299;
       if (!statusNotOk && data.length) {
         setGifs(gifs.concat(data))
         setOffset(offset + limit);
@@ -92,11 +93,11 @@ export function App() {
       }
     };
     if (queryString && !isLoading) {
-      fetchData();
+      queryApi();
     }
   };
 
-  // const queryApi = async () => {
+  // const fetchData = async () => {
   //   if (queryString) {
   //     setIsLoading(true);
   //     const limit = 20;
@@ -139,7 +140,7 @@ export function App() {
   //     setFailedToLoad(false);
   //     setQueryString(typedString);
   //     setTypedString("");
-  //     queryApi();
+  //     fetchData();
   //   }
   // };
 
@@ -149,17 +150,18 @@ export function App() {
     }
   };
 
-  useEffect(queryApi, [queryString]);
-  useEffect(handleLoading, [isLoading, gifs.length]);
-  useEffect(() => console.log('gifs: ', gifs), [gifs]);
+  const setTrendingGifsOnLoad = () => setQueryString('trending');
 
+  useEffect(fetchData, [queryString]);
+  useEffect(handleLoading, [isLoading, gifs.length]);
+  useEffect(setTrendingGifsOnLoad, []);
 
   return (
     <React.Fragment>
       {/* <UserSearchGifs /> */}
       {/* <TrendingGifs /> */}
-      <TopBar queryApi={queryApi} queryString={queryString} setQueryString={setQueryString} setGifs={setGifs} setOffset={setOffset} setFailedToLoad={setFailedToLoad} />
-      <GifContent queryApi={queryApi} gifs={gifs} failedToLoad={failedToLoad} displaySpinner={displaySpinner} />
+      <TopBar queryString={queryString} setQueryString={setQueryString} setGifs={setGifs} setOffset={setOffset} setFailedToLoad={setFailedToLoad} />
+      <GifContent fetchData={fetchData} gifs={gifs} queryString={queryString} failedToLoad={failedToLoad} displaySpinner={displaySpinner} />
     </React.Fragment>
   );
 }

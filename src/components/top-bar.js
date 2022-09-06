@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-export function TopBar({ queryApi, queryString, setQueryString, setGifs, setOffset, setFailedToLoad }) {
+export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFailedToLoad }) {
   const [typedString, setTypedString] = useState("");
-  // const [queryString, setQueryString] = useState('');
   // const [title, setTitle] = useState('');
 
   const handleInputChange = e => setTypedString(e.target.value);
@@ -15,13 +14,9 @@ export function TopBar({ queryApi, queryString, setQueryString, setGifs, setOffs
       setGifs([]);
       setFailedToLoad(false);
       setQueryString(typedString);
-      // setTitle(typedString);
       setTypedString("");
     }
   };
-
-  // useEffect(() => console.log('queryString: ', queryString), [queryString]);
-  // useEffect(queryApi, [queryString]);
 
   return (
     <>
@@ -34,7 +29,7 @@ export function TopBar({ queryApi, queryString, setQueryString, setGifs, setOffs
         />
         <button>Search</button>
       </form>
-      <p>{queryString}</p>
+      {/* <p>{queryString}</p> */}
     </>
   );
 }

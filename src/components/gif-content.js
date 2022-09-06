@@ -2,50 +2,63 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from '../helper/window-size';
 import spinner from '../images/spinner.gif'
 
-export function GifContent({ queryApi, gifs, failedToLoad, displaySpinner }) {
+export function GifContent({ fetchData, gifs, queryString, failedToLoad, displaySpinner }) {
   const gifsContainerRef = useRef(null);
   const { width, height } = useWindowSize();
-  const [gifsStyles, setGifsStyles] = useState({ width: 0, columnCount: 0, WebkitColumnCount: 0, MozColumnCount: 0 });
+  // const [gifsStyles, setGifsStyles] = useState({ width: 0, columnCount: 0, WebkitColumnCount: 0, MozColumnCount: 0 });
+  const [columnCount, setColumnCount] = useState(0);
+  const [gifsWidth, setGifsWidth] = useState(0);
+  // const [gifWidth, setGifWidth] = useState(0);
+
+  const gifsStyles = { width: gifsWidth, columnCount, WebkitColumnCount: columnCount, MozColumnCount: columnCount };
 
   const calculateGifsColumns = () => {
     const availableWidth = width * 0.9;
     const columnGap = 5;
-    const gifWidth = 295;
+    // this is for narrow (phone) screens:
+    const gifWidth = availableWidth < 395 ? availableWidth : 395;
     const totalGifWidth = columnGap + gifWidth;
-    let columnAmount = Math.floor((availableWidth + columnGap) / totalGifWidth);
-    if (columnAmount > 4) {
-      columnAmount = 4;
-    }
-    const gifsWidth = (columnAmount * totalGifWidth) - columnGap;
-    if (columnAmount && gifsWidth) {
-      setGifsStyles({ width: gifsWidth, columnCount: columnAmount, WebkitColumnCount: columnAmount, MozColumnCount: columnAmount });
+    const columnsThatFit = Math.floor((availableWidth + columnGap) / totalGifWidth);
+    const columnAmount = columnsThatFit > 3 ? 3 : columnsThatFit;
+    const containerWidth = (columnAmount * totalGifWidth) - columnGap;
+    if (columnAmount && containerWidth) {
+      // setGifsStyles({ width: containerWidth, columnCount: columnAmount, WebkitColumnCount: columnAmount, MozColumnCount: columnAmount });
+      setGifsWidth(containerWidth);
+      setColumnCount(columnAmount);
     }
   };
+
+  // const calculateGifWidth = () => {
+  //   const availableWidth = width * 0.9 < 1195 ? width * 0.9 : 1195;
+  //   const columns = 3;
+  //   const columnGap = 5;
+  //   const columnGapTotal = columnGap * (columns - 1);
+  //   const individualGifWidth = (availableWidth - columnGapTotal) / columns;
+  //   setGifWidth(individualGifWidth);
+  // };
 
   const infiniteScroll = () => {
     const refEl = gifsContainerRef.current;
     if (refEl?.scrollTop + refEl?.clientHeight >= refEl?.scrollHeight) {
-      queryApi();
+      fetchData();
     }
     // console.log('refEl?.scrollTop: ', refEl?.scrollTop);
     // console.log('refEl?.clientHeight: ', refEl?.clientHeight);
     // console.log('refEl?.scrollHeight: ', refEl?.scrollHeight);
   };
 
-  // const handleLoading = () => {
-  //   if (isLoading && gifs.length) {
-  //     setIsLoading(false);
-  //   }
-  // };
-
   useEffect(calculateGifsColumns, [width]);
-  // useEffect(handleLoading, [isLoading, gifs.length]);
+  // useEffect(calculateGifWidth, [width]);
+
 
   let content = null;
   if (failedToLoad) {
     content = (
       // If search fails, remove spinner and inform user:
-      <p id="error-message">Oops, something went wrong with your search. Check console for error message, or simply try again.</p>
+      <p id="error-message">
+        Oops, something went wrong with your search. Click <a href='/'>here</a> to refresh.
+        {/* <span onClick={() => window.location.reload()}>here</span> */}
+      </p>
     );
   } else if (displaySpinner) {
     content = (
@@ -56,7 +69,7 @@ export function GifContent({ queryApi, gifs, failedToLoad, displaySpinner }) {
     content = (
       <>
         {/* Search query becomes heading, formatted with capital first letter: */}
-        {/* <h2>{gifSearch.charAt(0).toUpperCase() + gifSearch.substring(1).toLowerCase()} GIFs</h2> */}
+        {/* <h2>{queryString.charAt(0).toUpperCase() + queryString.substring(1).toLowerCase()} GIFs</h2> */}
         <div className='gifs-container' ref={gifsContainerRef} onScroll={infiniteScroll}>
           <div
             className="gifs"
