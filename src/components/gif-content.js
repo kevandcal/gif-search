@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from '../helper/window-size';
 import spinner from '../images/spinner.gif'
+import { Gif } from './gif';
 
 export function GifContent({ fetchData, gifs, queryString, failedToLoad, displaySpinner }) {
   const gifsContainerRef = useRef(null);
@@ -42,9 +43,6 @@ export function GifContent({ fetchData, gifs, queryString, failedToLoad, display
     if (refEl?.scrollTop + refEl?.clientHeight >= refEl?.scrollHeight) {
       fetchData();
     }
-    // console.log('refEl?.scrollTop: ', refEl?.scrollTop);
-    // console.log('refEl?.clientHeight: ', refEl?.clientHeight);
-    // console.log('refEl?.scrollHeight: ', refEl?.scrollHeight);
   };
 
   useEffect(calculateGifsColumns, [width]);
@@ -68,11 +66,9 @@ export function GifContent({ fetchData, gifs, queryString, failedToLoad, display
   } else {
     content = (
       <>
-        {/* Search query becomes heading, formatted with capital first letter: */}
-        {/* <h2>{queryString.charAt(0).toUpperCase() + queryString.substring(1).toLowerCase()} GIFs</h2> */}
         <div className='gifs-container' ref={gifsContainerRef} onScroll={infiniteScroll}>
           <div
-            className="gifs"
+            className="gifs-grid"
             style={gifsStyles}
           >
             {gifs.map((gif, index) => (
@@ -82,9 +78,10 @@ export function GifContent({ fetchData, gifs, queryString, failedToLoad, display
                 className="gif"
                 // style={{ width: gifWidth }}
                 // src={gif.images.fixed_width_downsampled.url}
-                src={gif.images.fixed_width.url}
+                src={gif.images.fixed_height_downsampled.url}
                 onClick={() => window.open(gif.embed_url, '_blank')}
               />
+              // <Gif key={index} gifObject={gif} />
             ))}
           </div>
         </div >

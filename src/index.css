@@ -105,38 +105,41 @@ h2 {
     height: calc(80vh - 50px);
     overflow-y: scroll;
     position: absolute;
-    /* padding: 10vh 0 5vh; */
-    /* margin: 10vh 0 5vh; */
     padding-top: 5vh;
     margin: 5vh 0;
-    /* top: 10vh; */
-    /* margin-top: 10vh; */
-    /* padding-bottom: 5vh; */
     width: 100vw;
 }
 
-.gifs {
-    /* width: 100%; */
+/* .gifs {
     width: var(--content-width);
     max-width: 1195px;
     line-height: 0;
-    /* column-count: 3;
-    -webkit-column-count: 3;
-    -moz-column-count: 3; */
     column-gap: 5px;
     -webkit-column-gap: 5px;
     -moz-column-gap: 5px;
-    /* row-gap: 5px; */
-    /* padding: 10vh 0 5vh; */
-    /* position: absolute; */
-    /* margin: 10vh 0 5vh; */
+} */
+
+.gifs-grid {
+    /* display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(4, 295px); */
+    display: 'flex';
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* width: 90vw; */
+    max-width: 1195px;
+    /* column-gap: 5px; */
 }
 
 .gif {
-    margin-bottom: 5px;
-    width: 395px;
+    /* margin-bottom: 5px; */
+    /* width: 395px; */
     /* this is for narrow (phone) screens:  */
     max-width: var(--content-width);
-    height: auto;
+    /* height: auto; */
+    height: 395px;
+    width: 395px;
+    object-fit: cover;
     cursor: pointer;
+    /* margin-right: 5px; */
 }
