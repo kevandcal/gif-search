@@ -7,7 +7,8 @@ export function Gif({ gifObject }) {
     <img
       alt={gifObject.title}
       className="gif"
-      src={gifObject.images.fixed_height_downsampled.url}
+      // src={gifObject.images.fixed_height_downsampled.url}
+      src={gifObject.images.fixed_height.url}
       onClick={handleClick}
     />
   );

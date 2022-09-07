@@ -14,9 +14,9 @@ export function GifContent({ fetchData, gifs, failedToLoad, displaySpinner }) {
     const availableWidth = width * 0.9;
     const columnGap = 5;
     // this is for narrow (phone) screens:
-    const gifWidth = availableWidth < 295 ? availableWidth : 295;
+    const gifWidth = availableWidth < 395 ? availableWidth : 395;
     const columnsThatFit = Math.floor((availableWidth + columnGap) / (gifWidth + columnGap));
-    const columnAmount = columnsThatFit > 5 ? 5 : columnsThatFit;
+    const columnAmount = columnsThatFit > 3 ? 3 : columnsThatFit;
     const gridWidth = (columnAmount * gifWidth) + ((columnAmount - 1) * columnGap);
     setGifGridWidth(gridWidth);
   };

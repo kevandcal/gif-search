@@ -9,7 +9,7 @@ export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFai
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (typedString && typedString != queryString) {
+    if (typedString && typedString !== queryString) {
       setOffset(0);
       setGifs([]);
       setFailedToLoad(false);

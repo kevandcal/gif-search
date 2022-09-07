@@ -17,7 +17,7 @@ export function App() {
   const fetchData = () => {
     const queryApi = async () => {
       setIsLoading(true);
-      const limit = !offset ? 20 : 10; // requests 20 gifs initially, adds 10 at a time thereafter
+      const limit = !offset ? 18 : 12; // requests 18 gifs initially, adds 12 at a time thereafter
       const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${queryString}&limit=${limit}&offset=${offset}`);
       const { data, meta } = await response.json();
       console.log('data: ', data);
