@@ -11,6 +11,8 @@ export function App() {
   const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [failedToLoad, setFailedToLoad] = useState(false);
+  const [topBarIsStyled, setTopBarIsStyled] = useState(false);
+  const [isHighResolution, setIsHighResolution] = useState(false);
 
   const displaySpinner = isLoading && offset === 0;
 
@@ -20,7 +22,6 @@ export function App() {
       const limit = !offset ? 18 : 12; // requests 18 gifs initially, adds 12 at a time thereafter
       const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${queryString}&limit=${limit}&offset=${offset}`);
       const { data, meta } = await response.json();
-      console.log('data: ', data);
       setIsLoading(false);
       const statusNotOk = meta.status < 200 || meta.status > 299;
       if (!statusNotOk && data.length) {
@@ -54,8 +55,8 @@ export function App() {
     <React.Fragment>
       {/* <UserSearchGifs /> */}
       {/* <TrendingGifs /> */}
-      <TopBar queryString={queryString} setQueryString={setQueryString} setGifs={setGifs} setOffset={setOffset} setFailedToLoad={setFailedToLoad} />
-      <GifContent fetchData={fetchData} gifs={gifs} queryString={queryString} failedToLoad={failedToLoad} displaySpinner={displaySpinner} />
+      <TopBar queryString={queryString} setQueryString={setQueryString} setGifs={setGifs} setOffset={setOffset} setFailedToLoad={setFailedToLoad} topBarIsStyled={topBarIsStyled} setTopBarIsStyled={setTopBarIsStyled} isHighResolution={isHighResolution} setIsHighResolution={setIsHighResolution} />
+      <GifContent fetchData={fetchData} gifs={gifs} failedToLoad={failedToLoad} displaySpinner={displaySpinner} setTopBarIsStyled={setTopBarIsStyled} isHighResolution={isHighResolution} />
     </React.Fragment>
   );
 }
