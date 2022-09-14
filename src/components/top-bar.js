@@ -1,19 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, isHighResolution, setIsHighResolution }) {
+  const topBarRef = useRef(null);
   const [typedString, setTypedString] = useState("");
-  // const [title, setTitle] = useState('');
+  const [darkModeIsActive, setDarkModeIsActive] = useState(false);
 
   const resBtnText = `${isHighResolution ? 'Decrease ' : 'Increase'} resolution`;
 
-  const changeResolution = e => { e.preventDefault(); setIsHighResolution(prev => !prev) };
+  const handleResBtn = e => { e.preventDefault(); setIsHighResolution(prev => !prev) };
+
+  const darkModeBtnText = `Dark mode ${darkModeIsActive ? 'off ' : 'on'}`;
+
+  const handleDarkModeBtn = e => { e.preventDefault(); setDarkModeIsActive(prev => !prev) };
+
+  const toggleDarkMode = () => {
+    if (darkModeIsActive) {
+      document.body.classList.add('dark');
+      topBarRef.current.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+      topBarRef.current.classList.remove('dark');
+    }
+  };
+
+  const handleTopBarScrollStyling = () => {
+    if (topBarIsStyled) {
+      topBarRef.current.classList.add('styled');
+    } else {
+      topBarRef.current.classList.remove('styled');
+    }
+  };
 
   const handleInputChange = e => setTypedString(e.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
-    setTopBarIsStyled(false);
     if (typedString && typedString !== queryString) {
+      setTopBarIsStyled(false);
       setOffset(0);
       setGifs([]);
       setFailedToLoad(false);
@@ -23,9 +46,11 @@ export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFai
   };
 
   // useEffect(() => console.log('topBarIsStyled: ', topBarIsStyled), [topBarIsStyled]);
+  useEffect(toggleDarkMode, [darkModeIsActive]);
+  useEffect(handleTopBarScrollStyling, [topBarIsStyled]);
 
   return (
-    <div id='top-bar' className={topBarIsStyled ? 'darker' : null}>
+    <div id='top-bar' ref={topBarRef}>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -35,7 +60,8 @@ export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFai
         />
         <button>Search</button>
       </form>
-      <button onClick={changeResolution}>{resBtnText}</button>
+      <button onClick={handleResBtn}>{resBtnText}</button>
+      <button onClick={handleDarkModeBtn}>{darkModeBtnText}</button>
       {/* <p>{queryString}</p> */}
     </div>
   );

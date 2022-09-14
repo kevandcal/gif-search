@@ -2,8 +2,13 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #eee;
+    background-color: #F2F3F4;
     font-family: Helvetica, Arial, sans-serif;
+    transition: 0.3s;
+}
+
+body.dark {
+    background-color: #373D3F;
 }
 
 :root {
@@ -11,7 +16,7 @@ body {
     --top-bar-height: 70px;
     --search-bar-height: 50px;
     --search-btn-width: 90px;
-    --gif-height-width: 395px;
+    --gif-height-width: 393px;
     /* --theme-color: #0D4B60; */
     /* --theme-color: rgb(110, 57, 95); */
     /* --theme-color-alt: rgb(176, 90, 152); */
@@ -28,12 +33,18 @@ body {
     /* padding: 5vh 0; */
     /* height: var(--search-bar-height); */
     border-bottom: 2px solid transparent;
+    transition: 0.3s;
+    z-index: 999;
 }
 
-#top-bar.darker {
-    background-color: #d7f1e6;
+#top-bar.styled {
+    background-color: #d65f8d;
     border-bottom-color: var(--theme-color);
-    transition: 0.3s;
+    box-shadow: 0 0 10px var(--theme-color);
+}
+
+#top-bar.styled.dark {
+    background-color: #131516;
 }
 
 form {
@@ -55,10 +66,6 @@ form {
     align-items: flex-end; */
 }
 
-form.darker {
-    background-color: black;
-}
-
 form>* {
     font-size: 16px;
     margin: 0;
@@ -68,12 +75,12 @@ input {
     /* height: var(--search-height); */
     /* height: 100%; */
     /* padding: 10px; */
-    line-height: 48px;
+    line-height: 46px;
     padding: 0 10px;
     width: 100%;
     /* font-size: 16px; */
     /* border-color: var(--theme-color); */
-    border: 1px solid var(--theme-color);
+    border: 2px solid var(--theme-color);
     /* border-right: none; */
     color: #33313b;
     transition: 0.3s;
@@ -102,7 +109,7 @@ button {
     padding: 0;
     color: #eeeeee;
     background-color: var(--theme-color);
-    /* border: 1px solid var(--theme-color); */
+    /* border: 2px solid var(--theme-color); */
     border: none;
     transition: 0.3s;
 }
@@ -155,4 +162,5 @@ h2 {
     max-width: var(--content-width);
     object-fit: cover;
     cursor: pointer;
+    border: 1px solid var(--theme-color);
 }

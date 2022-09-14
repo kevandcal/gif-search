@@ -5,13 +5,9 @@ export function Gif({ gifObject, isHighResolution }) {
   const { images } = gifObject;
   const resCondition = isHighResolution ? images.fixed_height.url : images.fixed_height_downsampled.url;
   const [src, setSrc] = useState(resCondition);
+  const [isInViewport, setIsInViewport] = useState(true); // true as default so that visible gifs are immediately active on load
 
   const handleClick = () => window.open(gifObject.embed_url, '_blank');
-
-  const updateSrc = isInViewport => {
-    const url = !isInViewport ? images.fixed_height_still.url : resCondition;
-    setSrc(url);
-  };
 
   const checkWhetherInViewport = () => {
     const windowHeight = window.innerHeight;
@@ -20,9 +16,9 @@ export function Gif({ gifObject, isHighResolution }) {
     const boundaryBottom = windowHeight * 0.95; // 5vh margin bottom
     const { top: gifTop, bottom: gifBottom } = gifRef.current.getBoundingClientRect();
     const isInBounds = gifBottom > boundaryTop && gifTop < boundaryBottom;
-    updateSrc(isInBounds);
+    setIsInViewport(isInBounds);
     // const isFullyInBounds = gifTop >= boundaryTop && gifBottom <= boundaryBottom;
-    // updateSrc(isFullyInBounds);
+    // setIsInViewport(isFullyInBounds);
   };
 
   const intervalViewportCheck = () => {
@@ -30,14 +26,14 @@ export function Gif({ gifObject, isHighResolution }) {
     return () => clearInterval(intervalId);
   };
 
+  const updateSrc = () => {
+    const url = !isInViewport ? images.fixed_height_still.url : resCondition;
+    setSrc(url);
+  };
+
   useEffect(intervalViewportCheck, []);
-  // useEffect(checkWhetherInViewport, []);
+  useEffect(updateSrc, [isInViewport, isHighResolution]);
 
-  // useEffect(checkWhetherInViewport, [gifRef.current?.getBoundingClientRect().y]);
-  // useEffect(updateGifOffsetY, [gifRef.current?.getBoundingClientRect().y]);
-  // useEffect(updateSrc, []);
-
-  // return !src ? <div ref={gifRef} className="gif" /> : (
   return (
     <img
       ref={gifRef}
