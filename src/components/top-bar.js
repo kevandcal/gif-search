@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, isHighResolution, setIsHighResolution }) {
   const [typedString, setTypedString] = useState("");
@@ -22,7 +22,7 @@ export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFai
     }
   };
 
-  useEffect(() => console.log('topBarIsStyled: ', topBarIsStyled), [topBarIsStyled]);
+  // useEffect(() => console.log('topBarIsStyled: ', topBarIsStyled), [topBarIsStyled]);
 
   return (
     <div id='top-bar' className={topBarIsStyled ? 'darker' : null}>

@@ -10,7 +10,7 @@ body {
     --content-width: 90vw;
     --search-bar-height: 50px;
     --search-btn-width: 90px;
-    --gif-heigh-width: 395px;
+    --gif-height-width: 395px;
     /* --theme-color: #0D4B60; */
     /* --theme-color: rgb(110, 57, 95); */
     /* --theme-color-alt: rgb(176, 90, 152); */
@@ -138,13 +138,13 @@ h2 {
     display: grid;
     grid-gap: 5px;
     column-gap: 5px;
-    grid-template-columns: repeat(auto-fill, var(--gif-heigh-width));
+    grid-template-columns: repeat(auto-fill, var(--gif-height-width));
     /* width is set using JS in gif-content.js */
 }
 
 .gif {
-    height: var(--gif-heigh-width);
-    width: var(--gif-heigh-width);
+    height: var(--gif-height-width);
+    width: var(--gif-height-width);
     /* this is for narrow (phone) screens:  */
     max-width: var(--content-width);
     object-fit: cover;
