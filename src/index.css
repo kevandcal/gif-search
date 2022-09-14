@@ -2,12 +2,13 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #eeeeee;
+    background-color: #eee;
     font-family: Helvetica, Arial, sans-serif;
 }
 
 :root {
     --content-width: 90vw;
+    --top-bar-height: 70px;
     --search-bar-height: 50px;
     --search-btn-width: 90px;
     --gif-height-width: 395px;
@@ -21,8 +22,11 @@ body {
 }
 
 #top-bar {
-    padding: 5vh 0;
-    height: var(--search-bar-height);
+    height: var(--top-bar-height);
+    display: flex;
+    align-items: center;
+    /* padding: 5vh 0; */
+    /* height: var(--search-bar-height); */
     border-bottom: 2px solid transparent;
 }
 
@@ -36,6 +40,7 @@ form {
     display: flex;
     align-items: flex-end;
     margin: 0 auto;
+    height: var(--search-bar-height);
     width: 795px;
     max-width: var(--content-width);
     /* margin-top: 5vh; */
@@ -63,23 +68,23 @@ input {
     /* height: var(--search-height); */
     /* height: 100%; */
     /* padding: 10px; */
-    line-height: 46px;
+    line-height: 48px;
     padding: 0 10px;
     width: 100%;
     /* font-size: 16px; */
     /* border-color: var(--theme-color); */
-    border: 2px solid var(--theme-color);
-    border-right: none;
+    border: 1px solid var(--theme-color);
+    /* border-right: none; */
     color: #33313b;
     transition: 0.3s;
 }
 
 input:focus {
     outline: none;
-    /* border-color: #33313b; */
-    border-left-color: var(--theme-color-alt);
+    border-color: var(--theme-color-alt);
+    /* border-left-color: var(--theme-color-alt);
     border-top-color: var(--theme-color-alt);
-    border-bottom-color: var(--theme-color-alt);
+    border-bottom-color: var(--theme-color-alt); */
     ;
 }
 
@@ -97,7 +102,8 @@ button {
     padding: 0;
     color: #eeeeee;
     background-color: var(--theme-color);
-    border: 0.1px solid var(--theme-color);
+    /* border: 1px solid var(--theme-color); */
+    border: none;
     transition: 0.3s;
 }
 
@@ -126,7 +132,7 @@ h2 {
 .gifs-container {
     display: flex;
     justify-content: center;
-    height: calc(80vh - 50px);
+    height: calc(90vh - var(--top-bar-height));
     overflow-y: scroll;
     position: absolute;
     padding-top: 5vh;

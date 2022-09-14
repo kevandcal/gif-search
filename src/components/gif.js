@@ -15,7 +15,8 @@ export function Gif({ gifObject, isHighResolution }) {
 
   const checkWhetherInViewport = () => {
     const windowHeight = window.innerHeight;
-    const boundaryTop = 50 + (windowHeight * 0.1); // 50px search bar plus 10vh padding 
+    // const boundaryTop = 50 + (windowHeight * 0.1); // 50px search bar plus 10vh padding 
+    const boundaryTop = 70;
     const boundaryBottom = windowHeight * 0.95; // 5vh margin bottom
     const { top: gifTop, bottom: gifBottom } = gifRef.current.getBoundingClientRect();
     const isInBounds = gifBottom > boundaryTop && gifTop < boundaryBottom;
