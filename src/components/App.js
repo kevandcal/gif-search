@@ -12,7 +12,7 @@ export function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [failedToLoad, setFailedToLoad] = useState(false);
   const [topBarIsStyled, setTopBarIsStyled] = useState(false);
-  const [isHighResolution, setIsHighResolution] = useState(false);
+  const [isHighResolution, setIsHighResolution] = useState(true);
 
   const displaySpinner = isLoading && offset === 0;
 
