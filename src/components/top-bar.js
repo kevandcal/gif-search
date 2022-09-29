@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import './ToggleButton';
+import { ToggleButton } from './ToggleButton';
 
 export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, isHighResolution, setIsHighResolution }) {
   const topBarRef = useRef(null);
@@ -60,6 +62,8 @@ export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFai
         />
         <button>Search</button>
       </form>
+      <ToggleButton label='yo' />
+      <ToggleButton label='asdfasd' />
       <button onClick={handleResBtn}>{resBtnText}</button>
       <button onClick={handleDarkModeBtn}>{darkModeBtnText}</button>
       {/* <p>{queryString}</p> */}

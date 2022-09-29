@@ -20,7 +20,12 @@ export function App() {
     const queryApi = async () => {
       setIsLoading(true);
       const limit = !offset ? 18 : 12; // requests 18 gifs initially, adds 12 at a time thereafter
-      const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${queryString}&limit=${limit}&offset=${offset}`);
+      const searchForTrending = queryString === 'trending';
+      const endpoint = searchForTrending ? 'trending' : 'search';
+      const q = searchForTrending ? '' : `&q=${queryString}`;
+      // modifying the URL for trending gifs finds currently trending gifs rather than gifs about trending
+      const url = `https://api.giphy.com/v1/gifs/${endpoint}?api_key=${API_KEY}${q}&limit=${limit}&offset=${offset}`;
+      const response = await fetch(url);
       const { data, meta } = await response.json();
       setIsLoading(false);
       const statusNotOk = meta.status < 200 || meta.status > 299;
