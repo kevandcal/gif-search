@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from '../helper/window-size';
 import spinner from '../images/spinner.gif'
-import { Gif } from './gif';
+import { Gif } from './Gif';
 
-export function GifContent({ fetchData, gifs, failedToLoad, displaySpinner, setTopBarIsStyled, isHighResolution }) {
+export function GifContent({ fetchData, gifs, failedToLoad, displaySpinner, setTopBarIsStyled, isHighResolution, playOnlyOnHover }) {
   const gifsContainerRef = useRef(null);
   const { width, height } = useWindowSize();
   const [gifGridWidth, setGifGridWidth] = useState(0);
@@ -57,7 +57,7 @@ export function GifContent({ fetchData, gifs, failedToLoad, displaySpinner, setT
             style={gifGridStyle}
           >
             {gifs.map((gif, index) => (
-              <Gif key={index} gifObject={gif} isHighResolution={isHighResolution} />
+              <Gif key={index} gifObject={gif} isHighResolution={isHighResolution} playOnlyOnHover={playOnlyOnHover} />
             ))}
           </div>
         </div >

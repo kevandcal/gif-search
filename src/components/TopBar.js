@@ -2,18 +2,38 @@ import React, { useEffect, useRef, useState } from 'react';
 import './ToggleButton';
 import { ToggleButton } from './ToggleButton';
 
-export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, isHighResolution, setIsHighResolution }) {
+export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, isHighResolution, setIsHighResolution, playOnlyOnHover, setPlayOnlyOnHover, isChildFriendly, setIsChildFriendly }) {
   const topBarRef = useRef(null);
   const [typedString, setTypedString] = useState("");
   const [darkModeIsActive, setDarkModeIsActive] = useState(false);
 
   const resBtnText = `${isHighResolution ? 'Decrease ' : 'Increase'} resolution`;
 
-  const handleResBtn = e => { e.preventDefault(); setIsHighResolution(prev => !prev) };
+  const handleResBtn = e => {
+    e.preventDefault();
+    setIsHighResolution(prev => !prev);
+  };
+
+  const playOnHoverText = `Hover to play ${playOnlyOnHover ? 'on ' : 'off'}`;
+
+  const handlePlayOnHoverBtn = e => {
+    e.preventDefault();
+    setPlayOnlyOnHover(prev => !prev);
+  };
+
+  const childFriendlyText = `Child friendly ${isChildFriendly ? 'on ' : 'off'}`;
+
+  const handleChildFriendlyBtn = e => {
+    e.preventDefault();
+    setIsChildFriendly(prev => !prev);
+  };
 
   const darkModeBtnText = `Dark mode ${darkModeIsActive ? 'off ' : 'on'}`;
 
-  const handleDarkModeBtn = e => { e.preventDefault(); setDarkModeIsActive(prev => !prev) };
+  const handleDarkModeBtn = e => {
+    e.preventDefault();
+    setDarkModeIsActive(prev => !prev);
+  };
 
   const toggleDarkMode = () => {
     if (darkModeIsActive) {
@@ -65,6 +85,8 @@ export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFai
       <ToggleButton label='yo' />
       <ToggleButton label='asdfasd' />
       <button onClick={handleResBtn}>{resBtnText}</button>
+      <button onClick={handlePlayOnHoverBtn}>{playOnHoverText}</button>
+      <button onClick={handleChildFriendlyBtn}>{childFriendlyText}</button>
       <button onClick={handleDarkModeBtn}>{darkModeBtnText}</button>
       {/* <p>{queryString}</p> */}
     </div>
