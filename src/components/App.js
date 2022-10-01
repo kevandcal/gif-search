@@ -14,7 +14,6 @@ export function App() {
   const [topBarIsStyled, setTopBarIsStyled] = useState(false);
   const [isHighResolution, setIsHighResolution] = useState(true);
   const [playOnlyOnHover, setPlayOnlyOnHover] = useState(false);
-  const [isChildFriendly, setIsChildFriendly] = useState(false);
 
   const displaySpinner = isLoading && offset === 0;
 
@@ -25,9 +24,8 @@ export function App() {
       const searchForTrending = queryString === 'trending';
       const endpoint = searchForTrending ? 'trending' : 'search';
       const q = searchForTrending ? '' : `&q=${queryString}`;
-      const rating = isChildFriendly ? '&rating=g' : '';
       // modifying the URL for trending gifs finds currently trending gifs rather than gifs about trending
-      const url = `https://api.giphy.com/v1/gifs/${endpoint}?api_key=${API_KEY}${q}&limit=${limit}&offset=${offset}${rating}`;
+      const url = `https://api.giphy.com/v1/gifs/${endpoint}?api_key=${API_KEY}${q}&limit=${limit}&offset=${offset}`;
       const response = await fetch(url);
       const { data, meta } = await response.json();
       setIsLoading(false);
@@ -53,27 +51,18 @@ export function App() {
     }
   };
 
-  const handleChildFriendliness = () => {
-    if (gifs.length && isChildFriendly) {
-      const childFriendlyGifs = gifs.filter(gif => gif.rating === 'g');
-      setGifs(childFriendlyGifs);
-    }
-  };
-
   const setTrendingGifsOnLoad = () => setQueryString('trending');
 
   useEffect(fetchData, [queryString]);
   useEffect(handleLoading, [isLoading, gifs.length]);
   useEffect(setTrendingGifsOnLoad, []);
-  useEffect(handleChildFriendliness, [gifs.length, isChildFriendly]);
-  useEffect(() => console.log(gifs), [gifs.length]);
 
   return (
     <React.Fragment>
       {/* <UserSearchGifs /> */}
       {/* <TrendingGifs /> */}
-      <TopBar queryString={queryString} setQueryString={setQueryString} setGifs={setGifs} setOffset={setOffset} setFailedToLoad={setFailedToLoad} topBarIsStyled={topBarIsStyled} setTopBarIsStyled={setTopBarIsStyled} isHighResolution={isHighResolution} setIsHighResolution={setIsHighResolution} playOnlyOnHover={playOnlyOnHover} setPlayOnlyOnHover={setPlayOnlyOnHover} isChildFriendly={isChildFriendly} setIsChildFriendly={setIsChildFriendly} />
-      <GifContent fetchData={fetchData} gifs={gifs} failedToLoad={failedToLoad} displaySpinner={displaySpinner} setTopBarIsStyled={setTopBarIsStyled} isHighResolution={isHighResolution} playOnlyOnHover={playOnlyOnHover} />
+      <TopBar queryString={queryString} setQueryString={setQueryString} setGifs={setGifs} setOffset={setOffset} setFailedToLoad={setFailedToLoad} topBarIsStyled={topBarIsStyled} setTopBarIsStyled={setTopBarIsStyled} isHighResolution={isHighResolution} setIsHighResolution={setIsHighResolution} playOnlyOnHover={playOnlyOnHover} setPlayOnlyOnHover={setPlayOnlyOnHover} />
+      <GifContent fetchData={fetchData} gifs={gifs} failedToLoad={failedToLoad} displaySpinner={displaySpinner} setTopBarIsStyled={setTopBarIsStyled} isHighResolution={isHighResolution} playOnlyOnHover={playOnlyOnHover} setOffset={setOffset} />
     </React.Fragment>
   );
 }

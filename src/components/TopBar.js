@@ -2,47 +2,32 @@ import React, { useEffect, useRef, useState } from 'react';
 import './ToggleButton';
 import { ToggleButton } from './ToggleButton';
 
-export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, isHighResolution, setIsHighResolution, playOnlyOnHover, setPlayOnlyOnHover, isChildFriendly, setIsChildFriendly }) {
+export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, isHighResolution, setIsHighResolution, playOnlyOnHover, setPlayOnlyOnHover }) {
   const topBarRef = useRef(null);
   const [typedString, setTypedString] = useState("");
   const [darkModeIsActive, setDarkModeIsActive] = useState(false);
 
-  const resBtnText = `${isHighResolution ? 'Decrease ' : 'Increase'} resolution`;
+  const resBtnText = `${isHighResolution ? 'Decrease' : 'Increase'} resolution`;
 
   const handleResBtn = e => {
     e.preventDefault();
     setIsHighResolution(prev => !prev);
   };
 
-  const playOnHoverText = `Hover to play ${playOnlyOnHover ? 'on ' : 'off'}`;
+  const playOnHoverText = `Hover to play ${playOnlyOnHover ? 'on' : 'off'}`;
 
   const handlePlayOnHoverBtn = e => {
     e.preventDefault();
     setPlayOnlyOnHover(prev => !prev);
   };
 
-  const childFriendlyText = `Child friendly ${isChildFriendly ? 'on ' : 'off'}`;
-
-  const handleChildFriendlyBtn = e => {
-    e.preventDefault();
-    setIsChildFriendly(prev => !prev);
-  };
-
-  const darkModeBtnText = `Dark mode ${darkModeIsActive ? 'off ' : 'on'}`;
+  const darkModeBtnText = `Dark mode ${darkModeIsActive ? 'off' : 'on'}`;
 
   const handleDarkModeBtn = e => {
     e.preventDefault();
     setDarkModeIsActive(prev => !prev);
-  };
-
-  const toggleDarkMode = () => {
-    if (darkModeIsActive) {
-      document.body.classList.add('dark');
-      topBarRef.current.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-      topBarRef.current.classList.remove('dark');
-    }
+    document.body.classList.toggle('dark');
+    topBarRef.current.classList.toggle('dark');
   };
 
   const handleTopBarScrollStyling = () => {
@@ -68,7 +53,6 @@ export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFai
   };
 
   // useEffect(() => console.log('topBarIsStyled: ', topBarIsStyled), [topBarIsStyled]);
-  useEffect(toggleDarkMode, [darkModeIsActive]);
   useEffect(handleTopBarScrollStyling, [topBarIsStyled]);
 
   return (
@@ -86,7 +70,6 @@ export function TopBar({ queryString, setQueryString, setGifs, setOffset, setFai
       <ToggleButton label='asdfasd' />
       <button onClick={handleResBtn}>{resBtnText}</button>
       <button onClick={handlePlayOnHoverBtn}>{playOnHoverText}</button>
-      <button onClick={handleChildFriendlyBtn}>{childFriendlyText}</button>
       <button onClick={handleDarkModeBtn}>{darkModeBtnText}</button>
       {/* <p>{queryString}</p> */}
     </div>

@@ -3,7 +3,7 @@ import { useWindowSize } from '../helper/window-size';
 import spinner from '../images/spinner.gif'
 import { Gif } from './Gif';
 
-export function GifContent({ fetchData, gifs, failedToLoad, displaySpinner, setTopBarIsStyled, isHighResolution, playOnlyOnHover }) {
+export function GifContent({ fetchData, gifs, failedToLoad, displaySpinner, setTopBarIsStyled, isHighResolution, isChildFriendly, playOnlyOnHover, setOffset }) {
   const gifsContainerRef = useRef(null);
   const { width, height } = useWindowSize();
   const [gifGridWidth, setGifGridWidth] = useState(0);
