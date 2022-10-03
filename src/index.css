@@ -27,6 +27,7 @@ body.dark {
     height: var(--top-bar-height);
     display: flex;
     align-items: center;
+    justify-content: center;
     /* padding: 5vh 0; */
     /* height: var(--search-bar-height); */
     border-bottom: 2px solid transparent;
@@ -44,12 +45,66 @@ body.dark {
     background-color: #131516;
 }
 
+#top-bar-content {
+    display: flex;
+    align-items: center;
+    max-width: var(--content-width);
+}
+
+#settings-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: var(--search-bar-height);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#settings-icon-container:hover {
+    opacity: 0.5;
+}
+
+#settings-icon-container.dark-mode {
+    color: #eee;
+}
+
+#settings-dialog {
+    position: fixed;
+    top: 60px;
+    z-index: 99;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+    border: 1px solid var(--theme-color);
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+#settings-dialog.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.settings-btn {
+    z-index: 9999;
+    width: 100%;
+}
+
+/* #settings-icon-container:hover {
+    background-color: antiquewhite;
+} */
+
+/* #input-form-container {} */
+
 form {
     display: flex;
     align-items: flex-end;
     margin: 0 auto;
     height: var(--search-bar-height);
-    width: 795px;
+    width: 745px;
+    /* 795px - 50px for icon container */
     max-width: var(--content-width);
     /* margin-top: 5vh; */
     /* margin: 5vh 25vw 0; */
@@ -100,13 +155,9 @@ button {
     cursor: pointer;
     height: var(--search-bar-height);
     width: var(--search-btn-width);
-    /* border-radius: 10; */
-    /* width: auto; */
-    /* padding: 10px 20px; */
     padding: 0;
     color: #eeeeee;
     background-color: var(--theme-color);
-    /* border: 2px solid var(--theme-color); */
     border: none;
     transition: 0.3s;
 }
