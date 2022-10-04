@@ -58,15 +58,25 @@ body.dark {
     width: 50px;
     height: var(--search-bar-height);
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
-#settings-icon-container:hover {
+/* #settings-icon-container:hover {
     opacity: 0.5;
-}
+} */
 
 #settings-icon-container.dark-mode {
     color: #eee;
+}
+
+#settings-icon-container.open {
+    color: var(--theme-color);
+}
+
+#settings-icon-container:hover,
+#settings-icon-container.dark-mode:hover,
+#settings-icon-container.open:hover {
+    color: var(--theme-color-alt);
 }
 
 #settings-dialog {
@@ -77,9 +87,11 @@ body.dark {
     opacity: 0;
     transition: 0.3s;
     border: 1px solid var(--theme-color);
-    width: 200px;
+    background-color: #fff;
+    width: max-content;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 0 8px var(--theme-color);
 }
 
 #settings-dialog.open {
@@ -87,16 +99,57 @@ body.dark {
     opacity: 1;
 }
 
-.settings-btn {
-    z-index: 9999;
-    width: 100%;
+#settings-dialog.dark-mode {
+    background-color: #131516;
 }
 
-/* #settings-icon-container:hover {
-    background-color: antiquewhite;
-} */
+#settings-dialog.dark-mode .settings-btn {
+    border-bottom-color: #20212b;
+    background-color: #131516;
+}
 
-/* #input-form-container {} */
+#settings-dialog.dark-mode *:hover {
+    background-color: #20212b;
+}
+
+.settings-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 12px;
+    width: 220px;
+    border-bottom: 1px solid #eee;
+    transition: 0.3s;
+    cursor: pointer;
+    user-select: none;
+}
+
+.settings-btn:last-child {
+    border-bottom: none;
+}
+
+.settings-btn:hover {
+    background-color: #eee;
+}
+
+.settings-btn:hover .toggle-switch-icon,
+.settings-btn:hover .settings-btn-text {
+    color: var(--theme-color-alt);
+}
+
+.settings-btn-text {
+    transition: 0.3s;
+    margin-right: 15px;
+    color: var(--theme-color);
+    font-size: 14px;
+}
+
+.toggle-switch-icon {
+    color: var(--theme-color);
+    transition: 0.3s;
+    height: 20px;
+    width: auto;
+}
 
 form {
     display: flex;
@@ -104,38 +157,27 @@ form {
     margin: 0 auto;
     height: var(--search-bar-height);
     width: 745px;
-    /* 795px - 50px for icon container */
+    /* 745px = 795px - 50px for icon container */
     max-width: var(--content-width);
-    /* margin-top: 5vh; */
-    /* margin: 5vh 25vw 0; */
-    /* margin: 5vh auto 0; */
-    /* margin: 0 auto;
-    padding: 5vh 0;
-    height: var(--search-bar-height);
-    width: 795px;
-    max-width: var(--content-width);
-    display: flex;
-    align-items: flex-end; */
 }
 
 form>* {
-    font-size: 16px;
+    font-size: 15px;
     margin: 0;
 }
 
 input {
-    /* height: var(--search-height); */
-    /* height: 100%; */
-    /* padding: 10px; */
     line-height: 46px;
     padding: 0 10px;
     width: 100%;
-    /* font-size: 16px; */
-    /* border-color: var(--theme-color); */
     border: 2px solid var(--theme-color);
-    /* border-right: none; */
     color: #33313b;
     transition: 0.3s;
+}
+
+input.dark-mode {
+    color: #eee;
+    background-color: #33313b;
 }
 
 input:focus {
@@ -147,22 +189,22 @@ input:focus {
     ;
 }
 
-button:focus {
-    outline: none;
-}
-
-button {
+#submit-btn {
     cursor: pointer;
     height: var(--search-bar-height);
     width: var(--search-btn-width);
     padding: 0;
-    color: #eeeeee;
+    color: #eee;
     background-color: var(--theme-color);
     border: none;
     transition: 0.3s;
 }
 
-button:hover {
+#submit-btn:focus {
+    outline: none;
+}
+
+#submit-btn:hover {
     /* box-shadow: 0 0 0.5vw #33313b; */
     background-color: var(--theme-color-alt);
 }
@@ -179,9 +221,16 @@ h2 {
     text-align: center;
 }
 
+#spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - var(--top-bar-height));
+}
+
 #spinner {
-    /* Since the spinner image is 114px wide, calc(50% - 57px) centers it horizontally: */
-    margin: 50px calc(50% - 57px) 20px;
+    height: 100px;
+    color: var(--theme-color);
 }
 
 .gifs-container {

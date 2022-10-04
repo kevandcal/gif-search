@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export function Gif({ gifObject, isHighResolution, playOnlyOnHover }) {
+export function Gif({ gifObject, isLowResolution, playOnlyOnHover }) {
   const gifRef = useRef(null);
   const { images } = gifObject;
   const [src, setSrc] = useState('');
   const [isInViewport, setIsInViewport] = useState(true); // true as default so that visible gifs are immediately active on load
 
-  const resCondition = isHighResolution ? images.fixed_height.url : images.fixed_height_downsampled.url;
+  const resCondition = isLowResolution ? images.fixed_height_downsampled.url : images.fixed_height.url;
 
   const handleClick = () => window.open(gifObject.embed_url, '_blank');
 
@@ -50,7 +50,7 @@ export function Gif({ gifObject, isHighResolution, playOnlyOnHover }) {
   };
 
   useEffect(checkIntervalViewport, []);
-  useEffect(updateSrc, [isInViewport, isHighResolution, playOnlyOnHover]);
+  useEffect(updateSrc, [isInViewport, isLowResolution, playOnlyOnHover]);
 
   return !src ? null : (
     <img

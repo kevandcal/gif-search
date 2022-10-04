@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useWindowSize } from '../helper/window-size';
-import spinner from '../images/spinner.gif'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Gif } from './Gif';
 
-export function GifContent({ fetchData, gifs, failedToLoad, displaySpinner, setTopBarIsStyled, isHighResolution, playOnlyOnHover }) {
-  const gifsContainerRef = useRef(null);
+export function GifContent({ fetchData, gifs, gifsContainerRef, failedToLoad, displaySpinner, setTopBarIsStyled, isLowResolution, playOnlyOnHover }) {
   const { width, height } = useWindowSize();
   const [gifGridWidth, setGifGridWidth] = useState(0);
 
@@ -46,7 +46,9 @@ export function GifContent({ fetchData, gifs, failedToLoad, displaySpinner, setT
   } else if (displaySpinner) {
     content = (
       // while search results are loading, render spinner:
-      <img id="spinner" alt="Search results are loading" src={spinner} />
+      <div id="spinner-container">
+        <FontAwesomeIcon icon={faSpinner} id="spinner" className='fa-spin' />
+      </div>
     );
   } else {
     content = (
@@ -57,7 +59,7 @@ export function GifContent({ fetchData, gifs, failedToLoad, displaySpinner, setT
             style={gifGridStyle}
           >
             {gifs.map((gif, index) => (
-              <Gif key={index} gifObject={gif} isHighResolution={isHighResolution} playOnlyOnHover={playOnlyOnHover} />
+              <Gif key={index} gifObject={gif} isLowResolution={isLowResolution} playOnlyOnHover={playOnlyOnHover} />
             ))}
           </div>
         </div >

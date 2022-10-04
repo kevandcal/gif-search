@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { API_KEY } from '../secrets.json';
 import { TopBar } from './TopBar';
 import { GifContent } from './GifContent';
@@ -6,13 +6,14 @@ import { GifContent } from './GifContent';
 // import TrendingGifs from './TrendingGifs';
 
 export function App() {
+  const gifsContainerRef = useRef(null);
   const [gifs, setGifs] = useState([]);
   const [queryString, setQueryString] = useState('');
   const [apiResOffset, setApiResOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [failedToLoad, setFailedToLoad] = useState(false);
   const [topBarIsStyled, setTopBarIsStyled] = useState(false);
-  const [isHighResolution, setIsHighResolution] = useState(true);
+  const [isLowResolution, setIsLowResolution] = useState(false);
   const [playOnlyOnHover, setPlayOnlyOnHover] = useState(false);
 
   const displaySpinner = isLoading && apiResOffset === 0;
@@ -59,10 +60,27 @@ export function App() {
 
   return (
     <React.Fragment>
-      {/* <UserSearchGifs /> */}
-      {/* <TrendingGifs /> */}
-      <TopBar queryString={queryString} setQueryString={setQueryString} setGifs={setGifs} setApiResOffset={setApiResOffset} setFailedToLoad={setFailedToLoad} topBarIsStyled={topBarIsStyled} setTopBarIsStyled={setTopBarIsStyled} isHighResolution={isHighResolution} setIsHighResolution={setIsHighResolution} playOnlyOnHover={playOnlyOnHover} setPlayOnlyOnHover={setPlayOnlyOnHover} />
-      <GifContent fetchData={fetchData} gifs={gifs} failedToLoad={failedToLoad} displaySpinner={displaySpinner} setTopBarIsStyled={setTopBarIsStyled} isHighResolution={isHighResolution} playOnlyOnHover={playOnlyOnHover} setApiResOffset={setApiResOffset} />
+      <TopBar
+        queryString={queryString}
+        gifsContainerRef={gifsContainerRef}
+        setQueryString={setQueryString}
+        setGifs={setGifs}
+        setApiResOffset={setApiResOffset}
+        setFailedToLoad={setFailedToLoad}
+        topBarIsStyled={topBarIsStyled}
+        setTopBarIsStyled={setTopBarIsStyled}
+        setIsLowResolution={setIsLowResolution}
+        setPlayOnlyOnHover={setPlayOnlyOnHover} />
+      <GifContent
+        fetchData={fetchData}
+        gifs={gifs}
+        gifsContainerRef={gifsContainerRef}
+        failedToLoad={failedToLoad}
+        displaySpinner={displaySpinner}
+        setTopBarIsStyled={setTopBarIsStyled}
+        isLowResolution={isLowResolution}
+        playOnlyOnHover={playOnlyOnHover}
+        setApiResOffset={setApiResOffset} />
     </React.Fragment>
   );
 }

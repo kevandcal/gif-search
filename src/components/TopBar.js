@@ -6,8 +6,9 @@ import './ToggleButton';
 // import { SettingsButton } from './SettingsButton';
 import { SettingsDialog } from './SettingsDialog';
 
-export function TopBar({ queryString, setQueryString, setGifs, setApiResOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, isHighResolution, setIsHighResolution, playOnlyOnHover, setPlayOnlyOnHover }) {
+export function TopBar({ queryString, gifsContainerRef, setQueryString, setGifs, setApiResOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, setIsLowResolution, setPlayOnlyOnHover }) {
   const settingsIconRef = useRef(null);
+  const inputRef = useRef(null);
   const [typedString, setTypedString] = useState("");
   const [darkModeIsActive, setDarkModeIsActive] = useState(false);
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
@@ -25,7 +26,13 @@ export function TopBar({ queryString, setQueryString, setGifs, setApiResOffset, 
   //   topBarClassName = 'styled';
   // }
 
-  const settingsIconClassName = darkModeIsActive ? 'dark-mode' : '';
+  // const settingsIconClassName = darkModeIsActive ? 'dark-mode' : '';
+  const settingsIconClassName = darkModeIsActive && settingsDialogIsOpen ? 'dark-mode open'
+    : darkModeIsActive ? 'dark-mode'
+      : settingsDialogIsOpen ? 'open'
+        : '';
+
+  const inputClassName = darkModeIsActive ? 'dark-mode' : '';
 
   const settingsIconClickHandler = () => setSettingsDialogIsOpen(prev => !prev);
 
@@ -43,7 +50,9 @@ export function TopBar({ queryString, setQueryString, setGifs, setApiResOffset, 
       setGifs([]);
       setFailedToLoad(false);
       setQueryString(typedString);
-      setTypedString("");
+      inputRef.current.blur();
+      gifsContainerRef.current.scroll({ top: 0 });
+      // setTypedString("");
     }
   };
 
@@ -67,11 +76,13 @@ export function TopBar({ queryString, setQueryString, setGifs, setApiResOffset, 
           <form onSubmit={handleSubmit}>
             <input
               type="text"
+              ref={inputRef}
+              className={inputClassName}
               placeholder="What type of GIFs would you like to see?"
               value={typedString}
               onChange={handleInputChange}
             />
-            <button>Search</button>
+            <button id='submit-btn'>Search</button>
           </form>
         </div>
         {/* <ToggleButton label='yo' />
@@ -82,7 +93,15 @@ export function TopBar({ queryString, setQueryString, setGifs, setApiResOffset, 
       ))} */}
         {/* <p>{queryString}</p> */}
       </div>
-      <SettingsDialog isHighResolution={isHighResolution} setIsHighResolution={setIsHighResolution} playOnlyOnHover={playOnlyOnHover} setPlayOnlyOnHover={setPlayOnlyOnHover} darkModeIsActive={darkModeIsActive} setDarkModeIsActive={setDarkModeIsActive} settingsDialogIsOpen={settingsDialogIsOpen} settingsIconRef={settingsIconRef} />
+      <SettingsDialog
+        settingsDialogIsOpen={settingsDialogIsOpen}
+        setSettingsDialogIsOpen={setSettingsDialogIsOpen}
+        settingsIconRef={settingsIconRef}
+        darkModeIsActive={darkModeIsActive}
+        setDarkModeIsActive={setDarkModeIsActive}
+        setIsLowResolution={setIsLowResolution}
+        setPlayOnlyOnHover={setPlayOnlyOnHover}
+      />
     </div>
   );
 }
