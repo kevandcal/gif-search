@@ -27,16 +27,13 @@ export function TopBar({ queryString, setQueryString, setGifs, setApiResOffset, 
 
   const settingsIconClassName = darkModeIsActive ? 'dark-mode' : '';
 
-  const settingsIconClickHandler = () => {
-    setSettingsDialogIsOpen(prev => !prev);
-    console.log(settingsIconRef.current.offsetLeft);
-  }
+  const settingsIconClickHandler = () => setSettingsDialogIsOpen(prev => !prev);
+
+  const handleInputChange = e => setTypedString(e.target.value);
 
   const handleDarkMode = () => {
     document.body.classList.toggle('dark', darkModeIsActive);
   };
-
-  const handleInputChange = e => setTypedString(e.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();

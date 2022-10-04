@@ -25,7 +25,7 @@ export function App() {
       const endpoint = searchForTrending ? 'trending' : 'search';
       const q = searchForTrending ? '' : `&q=${queryString}`;
       // modifying the URL for trending gifs finds currently trending gifs rather than gifs about trending
-      const url = `https://api.giphy.com/v1/gifs/${endpoint}?api_key=${API_KEY}${q}&limit=${limit}&apiResOffset=${apiResOffset}`;
+      const url = `https://api.giphy.com/v1/gifs/${endpoint}?api_key=${API_KEY}${q}&limit=${limit}&offset=${apiResOffset}`;
       const response = await fetch(url);
       const { data, meta } = await response.json();
       setIsLoading(false);
