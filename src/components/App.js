@@ -6,9 +6,11 @@ import { GifContent } from './GifContent';
 // import TrendingGifs from './TrendingGifs';
 
 export function App() {
+  const trendingGifsQueryCode = 'ljasdfkjlafjlkdfsajkladfskjldfljk';
   const gifsContainerRef = useRef(null);
   const [gifs, setGifs] = useState([]);
-  const [queryString, setQueryString] = useState('');
+  // const [queryString, setQueryString] = useState('');
+  const [queryString, setQueryString] = useState(trendingGifsQueryCode);
   const [apiResOffset, setApiResOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [failedToLoad, setFailedToLoad] = useState(false);
@@ -22,7 +24,8 @@ export function App() {
     const queryApi = async () => {
       setIsLoading(true);
       const limit = !apiResOffset ? 18 : 12; // requests 18 gifs initially, adds 12 at a time thereafter
-      const searchForTrending = queryString === 'trending';
+      // const searchForTrending = queryString === 'home-trending-default';
+      const searchForTrending = queryString === trendingGifsQueryCode;
       const endpoint = searchForTrending ? 'trending' : 'search';
       const q = searchForTrending ? '' : `&q=${queryString}`;
       // modifying the URL for trending gifs finds currently trending gifs rather than gifs about trending
@@ -52,17 +55,21 @@ export function App() {
     }
   };
 
-  const setTrendingGifsOnLoad = () => setQueryString('trending');
+  // const loadTrendingGifs = () => setQueryString(trendingGifsQueryCode);
+  // const setTrendingGifsOnLoad = () => setQueryString('home-trending-default');
 
   useEffect(fetchData, [queryString]);
+  useEffect(() => console.log('queryString: ', queryString), [queryString]);
   useEffect(handleLoading, [isLoading, gifs.length]);
-  useEffect(setTrendingGifsOnLoad, []);
+  // useEffect(setTrendingGifsOnLoad, []);
+  // useEffect(loadTrendingGifs, []);
 
   return (
     <React.Fragment>
       <TopBar
-        queryString={queryString}
+        trendingGifsQueryCode={trendingGifsQueryCode}
         gifsContainerRef={gifsContainerRef}
+        queryString={queryString}
         setQueryString={setQueryString}
         setGifs={setGifs}
         setApiResOffset={setApiResOffset}

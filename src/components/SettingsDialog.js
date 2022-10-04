@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from '../helper/window-size';
-// import { ToggleButton } from './ToggleButton';
 import { SettingsButton } from './SettingsButton';
 
 export function SettingsDialog({
@@ -37,8 +36,6 @@ export function SettingsDialog({
       : darkModeIsActive ? 'dark-mode'
         : '';
 
-  // const clickInsideHandler = () => setSettingsDialogIsOpen(true);
-
   const handleClickOutside = e => {
     if (!dialogRef.current.contains(e.target) && !settingsIconRef.current.contains(e.target)) {
       setSettingsDialogIsOpen(false);
@@ -51,7 +48,12 @@ export function SettingsDialog({
   };
 
   const updateDialogOffsetLeft = () => {
-    setDialogOffsetLeft(settingsIconRef.current?.offsetLeft);
+    const offsetLeft = settingsIconRef.current?.offsetLeft;
+    const dialogWidth = 220;
+    const iconWidth = 16;
+    const result = offsetLeft - dialogWidth + (iconWidth / 2);
+    setDialogOffsetLeft(result);
+    // setDialogOffsetLeft(settingsIconRef.current?.offsetLeft);
   };
 
   useEffect(updateDialogOffsetLeft, [width]);
@@ -63,7 +65,6 @@ export function SettingsDialog({
       ref={dialogRef}
       className={dialogClassName}
       style={{ left: dialogOffsetLeft }}
-    // onClick={clickInsideHandler}
     >
       {settingsButtonData.map(obj => (
         <SettingsButton setFunction={obj.setFunction} text={obj.text} key={obj.text} />
