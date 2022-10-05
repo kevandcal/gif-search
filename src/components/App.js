@@ -17,6 +17,7 @@ export function App() {
   const [topBarIsStyled, setTopBarIsStyled] = useState(false);
   const [isLowResolution, setIsLowResolution] = useState(false);
   const [playOnlyOnHover, setPlayOnlyOnHover] = useState(false);
+  const [lazyLoadingIsOn, setLazyLoadingIsOn] = useState(true);
 
   const displaySpinner = isLoading && apiResOffset === 0;
 
@@ -76,8 +77,13 @@ export function App() {
         setFailedToLoad={setFailedToLoad}
         topBarIsStyled={topBarIsStyled}
         setTopBarIsStyled={setTopBarIsStyled}
+        isLowResolution={isLowResolution}
         setIsLowResolution={setIsLowResolution}
-        setPlayOnlyOnHover={setPlayOnlyOnHover} />
+        playOnlyOnHover={playOnlyOnHover}
+        setPlayOnlyOnHover={setPlayOnlyOnHover}
+        lazyLoadingIsOn={lazyLoadingIsOn}
+        setLazyLoadingIsOn={setLazyLoadingIsOn}
+      />
       <GifContent
         fetchData={fetchData}
         gifs={gifs}
@@ -87,7 +93,9 @@ export function App() {
         setTopBarIsStyled={setTopBarIsStyled}
         isLowResolution={isLowResolution}
         playOnlyOnHover={playOnlyOnHover}
-        setApiResOffset={setApiResOffset} />
+        setApiResOffset={setApiResOffset}
+        lazyLoadingIsOn={lazyLoadingIsOn}
+      />
       <footer><span id='attribution'>Powered by GIPHY</span></footer>
     </React.Fragment>
   );

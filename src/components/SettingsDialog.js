@@ -8,8 +8,12 @@ export function SettingsDialog({
   settingsIconRef,
   darkModeIsActive,
   setDarkModeIsActive,
+  isLowResolution,
   setIsLowResolution,
+  playOnlyOnHover,
   setPlayOnlyOnHover,
+  lazyLoadingIsOn,
+  setLazyLoadingIsOn
 }) {
   const { width } = useWindowSize();
   const dialogRef = useRef(null);
@@ -17,15 +21,23 @@ export function SettingsDialog({
 
   const settingsButtonData = [
     {
+      setFunction: setLazyLoadingIsOn,
+      state: lazyLoadingIsOn,
+      text: 'Lazy loading',
+    },
+    {
       setFunction: setIsLowResolution,
-      text: 'Decrease resolution'
+      state: isLowResolution,
+      text: 'Low resolution'
     },
     {
       setFunction: setPlayOnlyOnHover,
+      state: playOnlyOnHover,
       text: 'Play only on hover'
     },
     {
       setFunction: setDarkModeIsActive,
+      state: darkModeIsActive,
       text: 'Dark mode'
     }
   ];
@@ -67,7 +79,7 @@ export function SettingsDialog({
       style={{ left: dialogOffsetLeft }}
     >
       {settingsButtonData.map(obj => (
-        <SettingsButton setFunction={obj.setFunction} text={obj.text} key={obj.text} />
+        <SettingsButton setFunction={obj.setFunction} isActive={obj.state} text={obj.text} key={obj.text} />
       ))}
     </div>
   );

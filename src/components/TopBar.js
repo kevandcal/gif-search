@@ -4,7 +4,7 @@ import { faGear, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from './SettingsDialog';
 import { InputField } from './InputField';
 
-export function TopBar({ trendingGifsQueryCode, gifsContainerRef, queryString, setQueryString, setGifs, setApiResOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, setIsLowResolution, setPlayOnlyOnHover }) {
+export function TopBar({ trendingGifsQueryCode, gifsContainerRef, queryString, setQueryString, setGifs, setApiResOffset, setFailedToLoad, topBarIsStyled, setTopBarIsStyled, isLowResolution, setIsLowResolution, playOnlyOnHover, setPlayOnlyOnHover, lazyLoadingIsOn, setLazyLoadingIsOn }) {
   const settingsIconRef = useRef(null);
   const inputRef = useRef(null);
   const [typedString, setTypedString] = useState("");
@@ -108,8 +108,12 @@ export function TopBar({ trendingGifsQueryCode, gifsContainerRef, queryString, s
         settingsIconRef={settingsIconRef}
         darkModeIsActive={darkModeIsActive}
         setDarkModeIsActive={setDarkModeIsActive}
+        isLowResolution={isLowResolution}
         setIsLowResolution={setIsLowResolution}
+        playOnlyOnHover={playOnlyOnHover}
         setPlayOnlyOnHover={setPlayOnlyOnHover}
+        lazyLoadingIsOn={lazyLoadingIsOn}
+        setLazyLoadingIsOn={setLazyLoadingIsOn}
       />
     </div>
   );

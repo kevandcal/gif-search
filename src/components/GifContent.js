@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Gif } from './Gif';
 
-export function GifContent({ fetchData, gifs, gifsContainerRef, failedToLoad, displaySpinner, setTopBarIsStyled, isLowResolution, playOnlyOnHover }) {
+export function GifContent({ fetchData, gifs, gifsContainerRef, failedToLoad, displaySpinner, setTopBarIsStyled, isLowResolution, playOnlyOnHover, lazyLoadingIsOn }) {
   const { width, height } = useWindowSize();
   const [gifGridWidth, setGifGridWidth] = useState(0);
 
@@ -59,7 +59,7 @@ export function GifContent({ fetchData, gifs, gifsContainerRef, failedToLoad, di
             style={gifGridStyle}
           >
             {gifs.map((gif, index) => (
-              <Gif key={index} gifObject={gif} isLowResolution={isLowResolution} playOnlyOnHover={playOnlyOnHover} />
+              <Gif key={index} gifObject={gif} gifsContainerRef={gifsContainerRef} isLowResolution={isLowResolution} playOnlyOnHover={playOnlyOnHover} lazyLoadingIsOn={lazyLoadingIsOn} />
             ))}
           </div>
         </div >

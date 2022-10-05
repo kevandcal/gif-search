@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons'
 
-export function SettingsButton({ setFunction, text }) {
-  const [toggleSwitchIsOn, setToggleSwitchIsOn] = useState(false);
-
-  const toggleIcon = toggleSwitchIsOn ? faToggleOn : faToggleOff;
+export function SettingsButton({ setFunction, isActive, text }) {
+  const toggleIcon = isActive ? faToggleOn : faToggleOff;
 
   const clickHandler = e => {
     e.preventDefault();
     setFunction(prev => !prev);
-    setToggleSwitchIsOn(prev => !prev);
   };
 
   return (
