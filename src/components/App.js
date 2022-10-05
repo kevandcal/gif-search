@@ -88,6 +88,7 @@ export function App() {
         isLowResolution={isLowResolution}
         playOnlyOnHover={playOnlyOnHover}
         setApiResOffset={setApiResOffset} />
+      <footer><span id='attribution'>Powered by GIPHY</span></footer>
     </React.Fragment>
   );
 }

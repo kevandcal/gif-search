@@ -26,7 +26,7 @@ export function GifContent({ fetchData, gifs, gifsContainerRef, failedToLoad, di
   const handleScroll = () => {
     const refEl = gifsContainerRef.current;
     // infinite scroll:
-    if (refEl?.scrollTop + refEl?.clientHeight >= refEl?.scrollHeight) {
+    if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight) {
       fetchData();
     }
     // change top bar styling when scrolled beyond 5vh:
