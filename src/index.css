@@ -14,6 +14,7 @@ body.dark {
 :root {
     --content-width: 90vw;
     --top-bar-height: 70px;
+    --top-bar-border-bottom-width: 2px;
     --search-bar-height: 50px;
     --search-btn-width: 90px;
     --gif-height-width: 393px;
@@ -30,7 +31,7 @@ body.dark {
     justify-content: center;
     /* padding: 5vh 0; */
     /* height: var(--search-bar-height); */
-    border-bottom: 2px solid transparent;
+    border-bottom: var(--top-bar-border-bottom-width) solid transparent;
     transition: 0.3s;
     z-index: 999;
 }
@@ -286,7 +287,7 @@ h2 {
     display: flex;
     justify-content: center;
     /* height: calc(90vh - var(--top-bar-height)); */
-    height: calc(92vh - var(--top-bar-height));
+    height: calc(92vh - var(--top-bar-height) - var(--top-bar-border-bottom-width));
     overflow-y: scroll;
     /* position: absolute; */
     padding-top: 5vh;
