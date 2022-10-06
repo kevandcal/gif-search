@@ -40,7 +40,7 @@ body.dark {
     /* background-color: #d65f8d; */
     background-color: rgb(245, 245, 245);
     border-bottom-color: var(--theme-color);
-    box-shadow: 0 0 10px var(--theme-color);
+    /* box-shadow: 0 0 10px var(--theme-color); */
 }
 
 #top-bar.styled.dark {
@@ -64,17 +64,11 @@ body.dark {
 }
 
 .top-bar-icon-container.dark-mode {
-    /* color: #eee; */
-    color: var(--theme-color);
-}
-
-.top-bar-icon-container.open {
     color: var(--theme-color);
 }
 
 .top-bar-icon-container:hover,
-.top-bar-icon-container.dark-mode:hover,
-.top-bar-icon-container.open:hover {
+.top-bar-icon-container.dark-mode:hover {
     color: var(--theme-color-alt);
 }
 
