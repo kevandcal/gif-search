@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear, faHome } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from './SettingsDialog';
 import { InputField } from './InputField';
 
@@ -10,7 +10,6 @@ export function TopBar({ trendingGifsQueryCode, gifsContainerRef, queryString, s
   const [typedString, setTypedString] = useState("");
   const [darkModeIsActive, setDarkModeIsActive] = useState(false);
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
-  // const [displayTrendingGifs, setDisplayTrendingGifs] = useState(false);
 
   const topBarClassName = darkModeIsActive && topBarIsStyled ? 'dark styled'
     : darkModeIsActive ? 'dark'
@@ -25,16 +24,14 @@ export function TopBar({ trendingGifsQueryCode, gifsContainerRef, queryString, s
   //   topBarClassName = 'styled';
   // }
 
-  // const settingsIconClassName = darkModeIsActive ? 'dark-mode' : '';
-  const settingsIconClassName = darkModeIsActive && settingsDialogIsOpen ? 'dark-mode open'
-    : darkModeIsActive ? 'dark-mode'
-      : settingsDialogIsOpen ? 'open'
-        : '';
+  const topBarIconContainerClassName = 'top-bar-icon-container'.concat(darkModeIsActive ? ' dark-mode' : '');
 
   const settingsIconClickHandler = () => setSettingsDialogIsOpen(prev => !prev);
 
   const submitQuery = query => {
-    if (query && query !== queryString) {
+    if (!query) {
+      window.alert('Please enter a search term');
+    } else if (query !== queryString) {
       setTopBarIsStyled(false);
       setApiResOffset(0);
       setGifs([]);
@@ -62,19 +59,18 @@ export function TopBar({ trendingGifsQueryCode, gifsContainerRef, queryString, s
   useEffect(handleDarkMode, [darkModeIsActive]);
 
   const homeIcon = (
-    <div onClick={homeIconClickHandler}>
-      <FontAwesomeIcon icon={faHome} />
+    <div onClick={homeIconClickHandler} className={topBarIconContainerClassName}>
+      <FontAwesomeIcon icon={faHome} className='top-bar-icon' />
     </div>
   );
 
   const settingsIcon = (
     <div
-      id='settings-icon-container'
-      className={settingsIconClassName}
+      className={topBarIconContainerClassName}
       ref={settingsIconRef}
       onClick={settingsIconClickHandler}
     >
-      <FontAwesomeIcon icon={faGear} className='settings-icon' />
+      <FontAwesomeIcon icon={faEllipsisV} className='top-bar-icon' />
     </div>
   );
 

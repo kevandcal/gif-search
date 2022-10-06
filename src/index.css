@@ -53,7 +53,7 @@ body.dark {
     max-width: var(--content-width);
 }
 
-#settings-icon-container {
+.top-bar-icon-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,22 +63,24 @@ body.dark {
     transition: 0.2s;
 }
 
-/* #settings-icon-container:hover {
-    opacity: 0.5;
-} */
-
-#settings-icon-container.dark-mode {
-    color: #eee;
-}
-
-#settings-icon-container.open {
+.top-bar-icon-container.dark-mode {
+    /* color: #eee; */
     color: var(--theme-color);
 }
 
-#settings-icon-container:hover,
-#settings-icon-container.dark-mode:hover,
-#settings-icon-container.open:hover {
+.top-bar-icon-container.open {
+    color: var(--theme-color);
+}
+
+.top-bar-icon-container:hover,
+.top-bar-icon-container.dark-mode:hover,
+.top-bar-icon-container.open:hover {
     color: var(--theme-color-alt);
+}
+
+.top-bar-icon {
+    height: 20px;
+    width: auto;
 }
 
 #settings-dialog {
@@ -234,9 +236,9 @@ input:focus {
 }
 
 #x-icon {
-    height: 22px;
+    height: 20px;
     width: auto;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 #submit-btn {
@@ -322,7 +324,6 @@ footer {
     height: 3vh;
     display: flex;
     align-items: center;
-    color: var(--theme-color);
 }
 
 #attribution {

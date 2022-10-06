@@ -9,7 +9,6 @@ export function App() {
   const trendingGifsQueryCode = 'ljasdfkjlafjlkdfsajkladfskjldfljk';
   const gifsContainerRef = useRef(null);
   const [gifs, setGifs] = useState([]);
-  // const [queryString, setQueryString] = useState('');
   const [queryString, setQueryString] = useState(trendingGifsQueryCode);
   const [apiResOffset, setApiResOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +24,6 @@ export function App() {
     const queryApi = async () => {
       setIsLoading(true);
       const limit = !apiResOffset ? 18 : 12; // requests 18 gifs initially, adds 12 at a time thereafter
-      // const searchForTrending = queryString === 'home-trending-default';
       const searchForTrending = queryString === trendingGifsQueryCode;
       const endpoint = searchForTrending ? 'trending' : 'search';
       const q = searchForTrending ? '' : `&q=${queryString}`;
@@ -41,8 +39,8 @@ export function App() {
       } else {
         // handle errors:
         setFailedToLoad(true);
-        // const error = statusNotOk ? meta.msg : 'No valid results';
-        // throw new Error(error);
+        const error = statusNotOk ? meta.msg : 'No valid results';
+        throw new Error(error);
       }
     };
     if (queryString && !isLoading) {
@@ -56,14 +54,8 @@ export function App() {
     }
   };
 
-  // const loadTrendingGifs = () => setQueryString(trendingGifsQueryCode);
-  // const setTrendingGifsOnLoad = () => setQueryString('home-trending-default');
-
   useEffect(fetchData, [queryString]);
-  useEffect(() => console.log('queryString: ', queryString), [queryString]);
   useEffect(handleLoading, [isLoading, gifs.length]);
-  // useEffect(setTrendingGifsOnLoad, []);
-  // useEffect(loadTrendingGifs, []);
 
   return (
     <React.Fragment>

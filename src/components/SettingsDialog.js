@@ -42,7 +42,6 @@ export function SettingsDialog({
     }
   ];
 
-  // const dialogClassName = settingsDialogIsOpen ? 'open' : '';
   const dialogClassName = settingsDialogIsOpen && darkModeIsActive ? 'open dark-mode'
     : settingsDialogIsOpen ? 'open'
       : darkModeIsActive ? 'dark-mode'
