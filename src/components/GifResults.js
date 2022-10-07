@@ -4,13 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Gif } from './Gif';
 
-export function GifContent({ fetchData, gifs, gifsContainerRef, failedToLoad, displaySpinner, setTopBarIsStyled, isLowResolution, playOnlyOnHover, lazyLoadingIsOn }) {
+export function GifResults({ fetchData, gifs, gifsContainerRef, failedToLoad, displaySpinner, setTopBarIsStyled, isLowResolution, playOnlyOnHover, lazyLoadingIsOn }) {
   const { width, height } = useWindowSize();
   const [gifGridWidth, setGifGridWidth] = useState(0);
 
   const gifGridStyle = { width: !gifGridWidth ? 0 : gifGridWidth };
-
-  const refreshPage = () => window.location.reload();
 
   const calculateGridWidth = () => {
     const availableWidth = width * 0.9;
@@ -36,34 +34,32 @@ export function GifContent({ fetchData, gifs, gifsContainerRef, failedToLoad, di
   useEffect(calculateGridWidth, [width]);
 
   let content = null;
-  if (failedToLoad) {
-    content = (
-      // if search fails, remove spinner and inform user:
-      <p id="error-message">
-        Oops, something went wrong with your search. Click <u onClick={refreshPage}>here</u> to refresh.
-      </p>
-    );
-  } else if (displaySpinner) {
+  if (displaySpinner) {
     content = (
       // while search results are loading, render spinner:
       <div id="spinner-container">
         <FontAwesomeIcon icon={faSpinner} id="spinner" className='fa-spin' />
       </div>
     );
+  } else if (failedToLoad) {
+    content = (
+      // if search fails, remove spinner and inform user:
+      <p id="error-message">
+        Oops, something went wrong with your search. Click <a href='/'>here</a> to refresh.
+      </p>
+    );
   } else {
     content = (
-      <>
-        <div className='gifs-container' ref={gifsContainerRef} onScroll={handleScroll}>
-          <div
-            className="gifs-grid"
-            style={gifGridStyle}
-          >
-            {gifs.map((gif, index) => (
-              <Gif key={index} gifObject={gif} gifsContainerRef={gifsContainerRef} isLowResolution={isLowResolution} playOnlyOnHover={playOnlyOnHover} lazyLoadingIsOn={lazyLoadingIsOn} />
-            ))}
-          </div>
-        </div >
-      </>
+      <div className='gifs-container' ref={gifsContainerRef} onScroll={handleScroll}>
+        <div
+          className="gifs-grid"
+          style={gifGridStyle}
+        >
+          {gifs.map((gif, index) => (
+            <Gif key={index} gifObject={gif} gifsContainerRef={gifsContainerRef} isLowResolution={isLowResolution} playOnlyOnHover={playOnlyOnHover} lazyLoadingIsOn={lazyLoadingIsOn} />
+          ))}
+        </div>
+      </div >
     );
   }
 

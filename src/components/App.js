@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { API_KEY } from '../secrets.json';
 import { TopBar } from './TopBar';
-import { GifContent } from './GifContent';
-// import UserSearchGifs from './UserSearchGifs';
-// import TrendingGifs from './TrendingGifs';
+import { GifResults } from './GifResults';
 
 export function App() {
-  const trendingGifsQueryCode = 'ljasdfkjlafjlkdfsajkladfskjldfljk';
+  const trendingGifsQueryCode = 'jlkasdfpoiqwerklnazxcmvasjf';
   const gifsContainerRef = useRef(null);
   const [gifs, setGifs] = useState([]);
   const [queryString, setQueryString] = useState(trendingGifsQueryCode);
@@ -37,10 +35,7 @@ export function App() {
         setGifs(gifs.concat(data))
         setApiResOffset(apiResOffset + limit);
       } else {
-        // handle errors:
         setFailedToLoad(true);
-        const error = statusNotOk ? meta.msg : 'No valid results';
-        throw new Error(error);
       }
     };
     if (queryString && !isLoading) {
@@ -76,7 +71,7 @@ export function App() {
         lazyLoadingIsOn={lazyLoadingIsOn}
         setLazyLoadingIsOn={setLazyLoadingIsOn}
       />
-      <GifContent
+      <GifResults
         fetchData={fetchData}
         gifs={gifs}
         gifsContainerRef={gifsContainerRef}

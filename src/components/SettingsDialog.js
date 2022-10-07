@@ -64,7 +64,6 @@ export function SettingsDialog({
     const iconWidth = 16;
     const result = offsetLeft - dialogWidth + (iconWidth / 2);
     setDialogOffsetLeft(result);
-    // setDialogOffsetLeft(settingsIconRef.current?.offsetLeft);
   };
 
   useEffect(updateDialogOffsetLeft, [width]);

@@ -3,7 +3,8 @@
     --top-bar-height: 70px;
     --top-bar-border-bottom-width: 2px;
     --search-bar-height: 50px;
-    --search-btn-width: 90px;
+    /* --search-btn-width: 90px; */
+    --icon-height: 20px;
     --gif-height-width: 393px;
     --theme-color: #0D4B60;
     --theme-color-alt: #2a91b3;
@@ -58,23 +59,19 @@ body.dark {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--theme-color);
     width: 50px;
     height: var(--search-bar-height);
     cursor: pointer;
     transition: var(--transition-duration);
 }
 
-.top-bar-icon-container.dark-mode {
-    color: var(--theme-color);
-}
-
-.top-bar-icon-container:hover,
-.top-bar-icon-container.dark-mode:hover {
+.top-bar-icon-container:hover {
     color: var(--theme-color-alt);
 }
 
 .top-bar-icon {
-    height: 20px;
+    height: var(--icon-height);
     width: auto;
 }
 
@@ -146,7 +143,7 @@ body.dark {
 .toggle-switch-icon {
     color: var(--theme-color);
     transition: var(--transition-duration);
-    height: 20px;
+    height: var(--icon-height);
     width: auto;
 }
 
@@ -192,27 +189,12 @@ input {
     padding-left: 15px;
     font-size: 16px;
     background-color: white;
-    /* background-color: #eee; */
-    /* line-height: 46px;
-    padding: 0 10px;
-    width: 100%;
-    border: 2px solid var(--theme-color);
-    color: #33313b; */
     transition: var(--transition-duration);
 }
-
-/* input.dark-mode {
-    color: #eee;
-    background-color: #33313b;
-} */
 
 input:focus {
     outline: none;
     border-color: var(--theme-color-alt);
-    /* border-left-color: var(--theme-color-alt);
-    border-top-color: var(--theme-color-alt);
-    border-bottom-color: var(--theme-color-alt); */
-    ;
 }
 
 #x-icon-container {
@@ -231,15 +213,18 @@ input:focus {
 }
 
 #x-icon {
-    height: 20px;
+    height: var(--icon-height);
     width: auto;
     transition: var(--transition-duration);
 }
 
 #submit-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     height: var(--search-bar-height);
-    width: var(--search-btn-width);
+    /* width: var(--search-btn-width); */
     padding: 0;
     color: #eee;
     background-color: var(--theme-color);
@@ -254,6 +239,12 @@ input:focus {
 #submit-btn:hover {
     /* box-shadow: 0 0 0.5vw #33313b; */
     background-color: var(--theme-color-alt);
+}
+
+#magnifying-glass-icon {
+    height: var(--icon-height);
+    width: auto;
+    padding: 0 22px;
 }
 
 h2 {
