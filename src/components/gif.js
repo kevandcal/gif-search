@@ -59,5 +59,5 @@ export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHo
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     />
-  )
+  );
 }

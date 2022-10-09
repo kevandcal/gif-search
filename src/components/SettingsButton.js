@@ -15,5 +15,5 @@ export function SettingsButton({ setFunction, isActive, text }) {
       <span className='settings-btn-text'>{text}</span>
       <FontAwesomeIcon icon={toggleIcon} className='toggle-switch-icon' />
     </div>
-  )
+  );
 }

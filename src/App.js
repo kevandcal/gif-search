@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { API_KEY } from '../secrets.json';
-import { TopBar } from './TopBar';
-import { GifResults } from './GifResults';
+import { API_KEY } from './secrets.json';
+import { TopBar } from './components/TopBar';
+import { GifResults } from './components/GifResults';
 
 export function App() {
   const trendingGifsQueryCode = 'jlkasdfpoiqwerklnazxcmvasjf';
