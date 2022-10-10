@@ -1,11 +1,10 @@
 :root {
     --content-width: 90vw;
     --top-bar-height: 70px;
-    --top-bar-border-bottom-width: 2px;
     --search-bar-height: 50px;
     /* --search-btn-width: 90px; */
     --icon-height: 20px;
-    --gif-height-width: 393px;
+    --gif-height-width: 395px;
     --theme-color: #0D4B60;
     --theme-color-alt: #2a91b3;
     --transition-duration: 0.3s;
@@ -27,13 +26,13 @@ body.dark {
 }
 
 #top-bar {
-    height: var(--top-bar-height);
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* padding: 5vh 0; */
-    /* height: var(--search-bar-height); */
-    border-bottom: var(--top-bar-border-bottom-width) solid transparent;
+    height: var(--top-bar-height);
+    width: 100%;
+    border-bottom: 2px solid transparent;
     transition: var(--transition-duration);
     z-index: 999;
 }
@@ -51,6 +50,7 @@ body.dark {
 
 #top-bar-content {
     display: flex;
+    justify-content: center;
     align-items: center;
     max-width: var(--content-width);
 }
@@ -60,7 +60,7 @@ body.dark {
     align-items: center;
     justify-content: center;
     color: var(--theme-color);
-    width: 50px;
+    width: var(--search-bar-height);
     height: var(--search-bar-height);
     cursor: pointer;
     transition: var(--transition-duration);
@@ -77,7 +77,7 @@ body.dark {
 
 #settings-dialog {
     position: fixed;
-    top: 60px;
+    top: 58px;
     z-index: 99;
     visibility: hidden;
     opacity: 0;
@@ -152,9 +152,8 @@ form {
     align-items: flex-end;
     margin: 0 auto;
     height: var(--search-bar-height);
-    width: 745px;
-    /* 745px = 795px - 50px for icon container */
-    max-width: var(--content-width);
+    width: var(--content-width);
+    max-width: 795px;
 }
 
 form>* {
@@ -163,9 +162,8 @@ form>* {
 }
 
 #input-container {
-    /* line-height: 46px; */
-    height: 46px;
-    /* padding: 0 10px; */
+    box-sizing: border-box;
+    height: var(--search-bar-height);
     width: 100%;
     border: 2px solid var(--theme-color);
     color: #33313b;
@@ -247,13 +245,6 @@ input:focus {
     padding: 0 22px;
 }
 
-h2 {
-    /* padding-top: 3vh; */
-    padding: 5vh 0;
-    text-align: center;
-    color: #33313b;
-}
-
 #error-message {
     margin: 50px 0 20px;
     text-align: center;
@@ -274,8 +265,8 @@ h2 {
 .gifs-container {
     display: flex;
     justify-content: center;
-    /* height: calc(90vh - var(--top-bar-height)); */
-    height: calc(92vh - var(--top-bar-height) - var(--top-bar-border-bottom-width));
+    /* 92vh accounts for 5vh padding-top and 3vh footer height: */
+    height: calc(92vh - var(--top-bar-height));
     overflow-y: scroll;
     /* position: absolute; */
     padding-top: 5vh;
@@ -291,6 +282,7 @@ h2 {
 }
 
 .gif {
+    box-sizing: border-box;
     height: var(--gif-height-width);
     width: var(--gif-height-width);
     /* this is for narrow (phone) screens:  */
@@ -316,4 +308,19 @@ footer {
     margin-left: 2vw;
     font-size: 9px;
     color: var(--theme-color);
+}
+
+@media (max-width: 600px) {
+    :root {
+        --top-bar-height: 55px;
+        --search-bar-height: 40px;
+        --icon-height: 18px;
+    }
+}
+
+@media (max-width: 500px) {
+    input {
+        font-size: 15px;
+        padding-left: 8px;
+    }
 }

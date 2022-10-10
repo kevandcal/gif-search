@@ -17,7 +17,7 @@ export function SearchBar({
   };
 
   return (
-    <div id='input-form-container'>
+    <>
       <form onSubmit={submitHandler}>
         <InputField
           inputRef={inputRef}
@@ -29,7 +29,7 @@ export function SearchBar({
           <FontAwesomeIcon icon={faMagnifyingGlass} id="magnifying-glass-icon" />
         </button>
       </form>
-    </div>
+    </>
   );
 }
 
