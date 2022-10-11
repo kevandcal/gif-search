@@ -21,7 +21,7 @@ export function App() {
   const fetchData = () => {
     const queryApi = async () => {
       setIsLoading(true);
-      const limit = !apiResOffset ? 18 : 12; // requests 18 gifs initially, adds 12 at a time thereafter
+      const limit = 18;
       const searchForTrending = queryString === trendingGifsQueryCode;
       const endpoint = searchForTrending ? 'trending' : 'search';
       const q = searchForTrending ? '' : `&q=${queryString}`;
@@ -74,6 +74,7 @@ export function App() {
       <GifResults
         fetchData={fetchData}
         gifs={gifs}
+        setGifs={setGifs}
         gifsContainerRef={gifsContainerRef}
         failedToLoad={failedToLoad}
         displaySpinner={displaySpinner}

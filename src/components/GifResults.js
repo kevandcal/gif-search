@@ -4,11 +4,51 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Gif } from './Gif';
 
-export function GifResults({ fetchData, gifs, gifsContainerRef, failedToLoad, displaySpinner, setTopBarIsStyled, isLowResolution, playOnlyOnHover, lazyLoadingIsOn }) {
+export function GifResults({
+  fetchData,
+  gifs,
+  setGifs,
+  gifsContainerRef,
+  failedToLoad,
+  displaySpinner,
+  setTopBarIsStyled,
+  isLowResolution,
+  playOnlyOnHover,
+  lazyLoadingIsOn
+}) {
   const { width, height } = useWindowSize();
   const [gifGridWidth, setGifGridWidth] = useState(0);
+  const [showMoreBtn, setShowMoreBtn] = useState(false);
 
+  const maxGifs = 72;
   const gifGridStyle = { width: !gifGridWidth ? 0 : gifGridWidth };
+
+  const scrollHandler = () => {
+    const refEl = gifsContainerRef.current;
+    // infinite scroll:
+    if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !showMoreBtn) {
+      fetchData();
+    }
+    // change top bar styling when scrolled beyond 5vh:
+    setTopBarIsStyled(refEl.scrollTop >= height * 0.05);
+  };
+
+  const moreBtnClickHandler = () => {
+    fetchData();
+    setShowMoreBtn(false);
+  };
+
+  const handleMoreGifs = () => {
+    // display more button:
+    if (gifs.length && gifs.length % maxGifs === 0) {
+      setShowMoreBtn(true);
+    }
+    // remove previously displayed gifs once click of more button loads more gifs:
+    if (gifs.length > maxGifs) {
+      setGifs(prev => prev.slice(maxGifs));
+      gifsContainerRef.current.scroll({ top: 0 });
+    }
+  };
 
   const calculateGridWidth = () => {
     const availableWidth = width * 0.9;
@@ -21,17 +61,10 @@ export function GifResults({ fetchData, gifs, gifsContainerRef, failedToLoad, di
     setGifGridWidth(gridWidth);
   };
 
-  const handleScroll = () => {
-    const refEl = gifsContainerRef.current;
-    // infinite scroll:
-    if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight) {
-      fetchData();
-    }
-    // change top bar styling when scrolled beyond 5vh:
-    setTopBarIsStyled(refEl.scrollTop >= height * 0.05);
-  };
-
   useEffect(calculateGridWidth, [width]);
+  useEffect(handleMoreGifs, [gifs.length]);
+
+  const moreBtn = !showMoreBtn ? null : <button onClick={moreBtnClickHandler}>MORE</button>;
 
   let content = null;
   if (displaySpinner) {
@@ -50,7 +83,7 @@ export function GifResults({ fetchData, gifs, gifsContainerRef, failedToLoad, di
     );
   } else {
     content = (
-      <div className='gifs-container' ref={gifsContainerRef} onScroll={handleScroll}>
+      <div className='gifs-container' ref={gifsContainerRef} onScroll={scrollHandler}>
         <div
           className="gifs-grid"
           style={gifGridStyle}
@@ -58,6 +91,7 @@ export function GifResults({ fetchData, gifs, gifsContainerRef, failedToLoad, di
           {gifs.map((gif, index) => (
             <Gif key={index} gifObject={gif} gifsContainerRef={gifsContainerRef} isLowResolution={isLowResolution} playOnlyOnHover={playOnlyOnHover} lazyLoadingIsOn={lazyLoadingIsOn} />
           ))}
+          {moreBtn}
         </div>
       </div >
     );
