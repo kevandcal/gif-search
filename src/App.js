@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { API_KEY } from './secrets.json';
 import { TopBar } from './components/TopBar';
 import { GifResults } from './components/GifResults';
+// import { MoreButton } from './components/MoreButton';
 
 export function App() {
   const trendingGifsQueryCode = 'jlkasdfpoiqwerklnazxcmvasjf';
@@ -15,6 +16,8 @@ export function App() {
   const [isLowResolution, setIsLowResolution] = useState(false);
   const [playOnlyOnHover, setPlayOnlyOnHover] = useState(false);
   const [lazyLoadingIsOn, setLazyLoadingIsOn] = useState(true);
+  // const [showMoreBtn, setShowMoreBtn] = useState(false);
+
 
   const displaySpinner = isLoading && apiResOffset === 0;
 
@@ -76,6 +79,7 @@ export function App() {
         gifs={gifs}
         setGifs={setGifs}
         gifsContainerRef={gifsContainerRef}
+        // showMoreBtn={showMoreBtn}
         failedToLoad={failedToLoad}
         displaySpinner={displaySpinner}
         setTopBarIsStyled={setTopBarIsStyled}
@@ -84,6 +88,14 @@ export function App() {
         setApiResOffset={setApiResOffset}
         lazyLoadingIsOn={lazyLoadingIsOn}
       />
+      {/* <MoreButton
+        gifs={gifs}
+        setGifs={setGifs}
+        gifsContainerRef={gifsContainerRef}
+        fetchData={fetchData}
+        showMoreBtn={showMoreBtn}
+        setShowMoreBtn={setShowMoreBtn}
+      /> */}
       <footer><span id='attribution'>Powered by GIPHY</span></footer>
     </React.Fragment>
   );

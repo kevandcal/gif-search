@@ -3,12 +3,14 @@ import { useWindowSize } from '../helper/window-size';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Gif } from './Gif';
+import { MoreButton } from './MoreButton';
 
 export function GifResults({
   fetchData,
   gifs,
   setGifs,
   gifsContainerRef,
+  // showMoreBtn,
   failedToLoad,
   displaySpinner,
   setTopBarIsStyled,
@@ -32,24 +34,6 @@ export function GifResults({
     setTopBarIsStyled(refEl.scrollTop >= height * 0.05);
   };
 
-  const moreBtnClickHandler = () => {
-    fetchData();
-    setShowMoreBtn(false);
-  };
-
-  const handleMoreGifs = () => {
-    const threshold = 72;
-    // display more button:
-    if (gifs.length && gifs.length % threshold === 0) {
-      setShowMoreBtn(true);
-    }
-    // remove previously displayed gifs once click of more button loads more gifs:
-    if (gifs.length > threshold) {
-      setGifs(prev => prev.slice(threshold));
-      gifsContainerRef.current.scroll({ top: 0 });
-    }
-  };
-
   const calculateGridWidth = () => {
     const availableWidth = width * 0.9;
     const columnGap = 5;
@@ -62,9 +46,6 @@ export function GifResults({
   };
 
   useEffect(calculateGridWidth, [width]);
-  useEffect(handleMoreGifs, [gifs.length]);
-
-  const moreBtn = !showMoreBtn ? null : <button onClick={moreBtnClickHandler}>MORE</button>;
 
   let content = null;
   if (displaySpinner) {
@@ -91,8 +72,15 @@ export function GifResults({
           {gifs.map((gif, index) => (
             <Gif key={index} gifObject={gif} gifsContainerRef={gifsContainerRef} isLowResolution={isLowResolution} playOnlyOnHover={playOnlyOnHover} lazyLoadingIsOn={lazyLoadingIsOn} />
           ))}
-          {moreBtn}
         </div>
+        <MoreButton
+          gifs={gifs}
+          setGifs={setGifs}
+          gifsContainerRef={gifsContainerRef}
+          fetchData={fetchData}
+          showMoreBtn={showMoreBtn}
+          setShowMoreBtn={setShowMoreBtn}
+        />
       </div >
     );
   }
