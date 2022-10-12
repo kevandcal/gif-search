@@ -28,7 +28,7 @@ export function InputField({ inputRef, darkModeIsActive, typedString, setTypedSt
     <div id="x-icon-container" onClick={xIconClickHandler}>
       <FontAwesomeIcon icon={faXmark} id='x-icon' />
     </div>
-  )
+  );
 
   return (
     <div id="input-container" className={inputClassName}>

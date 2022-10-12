@@ -83,6 +83,7 @@ body.dark {
     opacity: 0;
     transition: var(--transition-duration);
     border: 1px solid var(--theme-color);
+    border-radius: 2px;
     background-color: #fff;
     width: max-content;
     display: flex;
@@ -166,6 +167,7 @@ form>* {
     height: var(--search-bar-height);
     width: 100%;
     border: 2px solid var(--theme-color);
+    border-radius: 2px 0 0 2px;
     color: #33313b;
     transition: var(--transition-duration);
     display: flex;
@@ -227,6 +229,7 @@ input:focus {
     color: #eee;
     background-color: var(--theme-color);
     border: none;
+    border-radius: 0 2px 2px 0;
     transition: var(--transition-duration);
 }
 
@@ -250,16 +253,11 @@ input:focus {
     text-align: center;
 }
 
-#spinner-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - var(--top-bar-height));
-}
-
 #spinner {
     height: 100px;
     color: var(--theme-color);
+    position: absolute;
+    top: calc(50vh - 50px);
 }
 
 .gifs-container {

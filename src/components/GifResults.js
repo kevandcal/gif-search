@@ -3,36 +3,20 @@ import { useWindowSize } from '../helper/window-size';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Gif } from './Gif';
-import { MoreButton } from './MoreButton';
 
 export function GifResults({
-  fetchData,
   gifs,
-  setGifs,
   gifsContainerRef,
-  // showMoreBtn,
   failedToLoad,
   displaySpinner,
-  setTopBarIsStyled,
   isLowResolution,
   playOnlyOnHover,
   lazyLoadingIsOn
 }) {
-  const { width, height } = useWindowSize();
+  const { width } = useWindowSize();
   const [gifGridWidth, setGifGridWidth] = useState(0);
-  const [showMoreBtn, setShowMoreBtn] = useState(false);
 
   const gifGridStyle = { width: !gifGridWidth ? 0 : gifGridWidth };
-
-  const scrollHandler = () => {
-    const refEl = gifsContainerRef.current;
-    // infinite scroll:
-    if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !showMoreBtn) {
-      fetchData();
-    }
-    // change top bar styling when scrolled beyond 5vh:
-    setTopBarIsStyled(refEl.scrollTop >= height * 0.05);
-  };
 
   const calculateGridWidth = () => {
     const availableWidth = width * 0.9;
@@ -51,9 +35,7 @@ export function GifResults({
   if (displaySpinner) {
     content = (
       // while search results are loading, render spinner:
-      <div id="spinner-container">
-        <FontAwesomeIcon icon={faSpinner} id="spinner" className='fa-spin' />
-      </div>
+      <FontAwesomeIcon icon={faSpinner} id="spinner" className='fa-spin' />
     );
   } else if (failedToLoad) {
     content = (
@@ -64,24 +46,14 @@ export function GifResults({
     );
   } else {
     content = (
-      <div className='gifs-container' ref={gifsContainerRef} onScroll={scrollHandler}>
-        <div
-          className="gifs-grid"
-          style={gifGridStyle}
-        >
-          {gifs.map((gif, index) => (
-            <Gif key={index} gifObject={gif} gifsContainerRef={gifsContainerRef} isLowResolution={isLowResolution} playOnlyOnHover={playOnlyOnHover} lazyLoadingIsOn={lazyLoadingIsOn} />
-          ))}
-        </div>
-        <MoreButton
-          gifs={gifs}
-          setGifs={setGifs}
-          gifsContainerRef={gifsContainerRef}
-          fetchData={fetchData}
-          showMoreBtn={showMoreBtn}
-          setShowMoreBtn={setShowMoreBtn}
-        />
-      </div >
+      <div
+        className="gifs-grid"
+        style={gifGridStyle}
+      >
+        {gifs.map((gif, index) => (
+          <Gif key={index} gifObject={gif} gifsContainerRef={gifsContainerRef} isLowResolution={isLowResolution} playOnlyOnHover={playOnlyOnHover} lazyLoadingIsOn={lazyLoadingIsOn} />
+        ))}
+      </div>
     );
   }
 

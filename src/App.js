@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { API_KEY } from './secrets.json';
+import { useWindowSize } from './helper/window-size';
 import { TopBar } from './components/TopBar';
 import { GifResults } from './components/GifResults';
-// import { MoreButton } from './components/MoreButton';
+import { MoreButton } from './components/MoreButton';
 
 export function App() {
   const trendingGifsQueryCode = 'jlkasdfpoiqwerklnazxcmvasjf';
+  const { height } = useWindowSize();
   const gifsContainerRef = useRef(null);
   const [gifs, setGifs] = useState([]);
   const [queryString, setQueryString] = useState(trendingGifsQueryCode);
@@ -16,14 +18,14 @@ export function App() {
   const [isLowResolution, setIsLowResolution] = useState(false);
   const [playOnlyOnHover, setPlayOnlyOnHover] = useState(false);
   const [lazyLoadingIsOn, setLazyLoadingIsOn] = useState(true);
-  // const [showMoreBtn, setShowMoreBtn] = useState(false);
-
+  const [showMoreBtn, setShowMoreBtn] = useState(false);
 
   const displaySpinner = isLoading && apiResOffset === 0;
 
   const fetchData = () => {
     const queryApi = async () => {
       setIsLoading(true);
+      setShowMoreBtn(false);
       const limit = 18;
       const searchForTrending = queryString === trendingGifsQueryCode;
       const endpoint = searchForTrending ? 'trending' : 'search';
@@ -46,6 +48,16 @@ export function App() {
     }
   };
 
+  const scrollHandler = () => {
+    const refEl = gifsContainerRef.current;
+    // infinite scroll:
+    if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !showMoreBtn) {
+      fetchData();
+    }
+    // change top bar styling when scrolled beyond 5vh:
+    setTopBarIsStyled(refEl.scrollTop >= height * 0.05);
+  };
+
   const handleLoading = () => {
     if (isLoading && gifs.length) {
       setIsLoading(false);
@@ -56,7 +68,7 @@ export function App() {
   useEffect(handleLoading, [isLoading, gifs.length]);
 
   return (
-    <React.Fragment>
+    <>
       <TopBar
         trendingGifsQueryCode={trendingGifsQueryCode}
         gifsContainerRef={gifsContainerRef}
@@ -74,30 +86,27 @@ export function App() {
         lazyLoadingIsOn={lazyLoadingIsOn}
         setLazyLoadingIsOn={setLazyLoadingIsOn}
       />
-      <GifResults
-        fetchData={fetchData}
-        gifs={gifs}
-        setGifs={setGifs}
-        gifsContainerRef={gifsContainerRef}
-        // showMoreBtn={showMoreBtn}
-        failedToLoad={failedToLoad}
-        displaySpinner={displaySpinner}
-        setTopBarIsStyled={setTopBarIsStyled}
-        isLowResolution={isLowResolution}
-        playOnlyOnHover={playOnlyOnHover}
-        setApiResOffset={setApiResOffset}
-        lazyLoadingIsOn={lazyLoadingIsOn}
-      />
-      {/* <MoreButton
-        gifs={gifs}
-        setGifs={setGifs}
-        gifsContainerRef={gifsContainerRef}
-        fetchData={fetchData}
-        showMoreBtn={showMoreBtn}
-        setShowMoreBtn={setShowMoreBtn}
-      /> */}
+      <div className='gifs-container' ref={gifsContainerRef} onScroll={scrollHandler}>
+        <GifResults
+          gifs={gifs}
+          gifsContainerRef={gifsContainerRef}
+          failedToLoad={failedToLoad}
+          displaySpinner={displaySpinner}
+          isLowResolution={isLowResolution}
+          playOnlyOnHover={playOnlyOnHover}
+          lazyLoadingIsOn={lazyLoadingIsOn}
+        />
+        <MoreButton
+          gifs={gifs}
+          setGifs={setGifs}
+          gifsContainerRef={gifsContainerRef}
+          fetchData={fetchData}
+          showMoreBtn={showMoreBtn}
+          setShowMoreBtn={setShowMoreBtn}
+        />
+      </div>
       <footer><span id='attribution'>Powered by GIPHY</span></footer>
-    </React.Fragment>
+    </>
   );
 }
 
