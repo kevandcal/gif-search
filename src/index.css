@@ -278,6 +278,7 @@ input:focus {
     grid-gap: 5px;
     column-gap: 5px;
     grid-template-columns: repeat(auto-fill, var(--gif-height-width));
+    user-select: none;
     /* width is set using JS in gif-content.js */
 }
 
@@ -285,7 +286,7 @@ input:focus {
     box-sizing: border-box;
     height: var(--gif-height-width);
     width: var(--gif-height-width);
-    /* this is for narrow (phone) screens:  */
+    /* max-width limited to 90vw for narrow (phone) screens:  */
     max-width: var(--content-width);
     object-fit: cover;
     cursor: pointer;

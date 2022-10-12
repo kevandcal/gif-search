@@ -20,7 +20,6 @@ export function GifResults({
   const [gifGridWidth, setGifGridWidth] = useState(0);
   const [showMoreBtn, setShowMoreBtn] = useState(false);
 
-  const maxGifs = 72;
   const gifGridStyle = { width: !gifGridWidth ? 0 : gifGridWidth };
 
   const scrollHandler = () => {
@@ -39,13 +38,14 @@ export function GifResults({
   };
 
   const handleMoreGifs = () => {
+    const threshold = 72;
     // display more button:
-    if (gifs.length && gifs.length % maxGifs === 0) {
+    if (gifs.length && gifs.length % threshold === 0) {
       setShowMoreBtn(true);
     }
     // remove previously displayed gifs once click of more button loads more gifs:
-    if (gifs.length > maxGifs) {
-      setGifs(prev => prev.slice(maxGifs));
+    if (gifs.length > threshold) {
+      setGifs(prev => prev.slice(threshold));
       gifsContainerRef.current.scroll({ top: 0 });
     }
   };
