@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useWindowSize } from '../helper/window-size';
+import { useWindowSize } from '../hooks/useWindowSize';
 import { SettingsButton } from './SettingsButton';
 
 export function SettingsDialog({

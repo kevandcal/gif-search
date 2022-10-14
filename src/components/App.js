@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { API_KEY } from './secrets.json';
-import { useWindowSize } from './helper/window-size';
-import { TopBar } from './components/TopBar';
-import { GifResults } from './components/GifResults';
-import { MoreButton } from './components/MoreButton';
+import { API_KEY } from '../secrets.json';
+import { useWindowSize } from '../hooks/useWindowSize';
+import { TopBar } from './TopBar';
+import { GifResults } from './GifResults';
+import { MoreButton } from './MoreButton';
 
 export function App() {
   const trendingGifsQueryCode = 'jlkasdfpoiqwerklnazxcmvasjf';

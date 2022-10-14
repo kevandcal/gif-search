@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useWindowSize } from '../helper/window-size';
+import { useWindowSize } from '../hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Gif } from './Gif';
