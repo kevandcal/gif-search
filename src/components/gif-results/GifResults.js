@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +16,9 @@ export function GifResults({
   const { width } = useWindowSize();
   const [gifGridWidth, setGifGridWidth] = useState(0);
 
-  const gifGridStyle = { width: !gifGridWidth ? 0 : gifGridWidth };
+  const gifGridStyle = useMemo(() => (
+    { width: !gifGridWidth ? 0 : gifGridWidth }
+  ), [gifGridWidth]);
 
   const calculateGridWidth = () => {
     const availableWidth = width * 0.9;

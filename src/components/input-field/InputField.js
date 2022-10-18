@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -7,10 +7,12 @@ export function InputField({ inputRef, darkModeIsActive, typedString, setTypedSt
   const { width } = useWindowSize();
   const [focusInInput, setFocusInInput] = useState(false);
 
-  const inputClassName = darkModeIsActive && focusInInput ? 'dark-mode input-focus'
-    : darkModeIsActive ? 'dark-mode'
-      : focusInInput ? 'input-focus'
-        : '';
+  const inputClassName = useMemo(() => (
+    darkModeIsActive && focusInInput ? 'dark-mode input-focus'
+      : darkModeIsActive ? 'dark-mode'
+        : focusInInput ? 'input-focus'
+          : ''
+  ), [darkModeIsActive, focusInInput]);
 
   const placeholder = `What type of GIFS${width > 550 ? ' would you like to see' : ''}?`;
 

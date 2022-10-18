@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from '../settings-dialog/SettingsDialog';
@@ -27,10 +27,12 @@ export function TopBar({
   const [darkModeIsActive, setDarkModeIsActive] = useState(false);
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
 
-  const topBarClassName = darkModeIsActive && topBarIsStyled ? 'dark styled'
-    : darkModeIsActive ? 'dark'
-      : topBarIsStyled ? 'styled'
-        : '';
+  const topBarClassName = useMemo(() => (
+    darkModeIsActive && topBarIsStyled ? 'dark styled'
+      : darkModeIsActive ? 'dark'
+        : topBarIsStyled ? 'styled'
+          : ''
+  ), [darkModeIsActive, topBarIsStyled]);
 
   const settingsIconClickHandler = () => setSettingsDialogIsOpen(prev => !prev);
 

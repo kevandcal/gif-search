@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { SettingsButton } from '../settings-button/SettingsButton';
 
@@ -42,10 +42,12 @@ export function SettingsDialog({
     }
   ];
 
-  const dialogClassName = settingsDialogIsOpen && darkModeIsActive ? 'open dark-mode'
-    : settingsDialogIsOpen ? 'open'
-      : darkModeIsActive ? 'dark-mode'
-        : '';
+  const dialogClassName = useMemo(() => (
+    settingsDialogIsOpen && darkModeIsActive ? 'open dark-mode'
+      : settingsDialogIsOpen ? 'open'
+        : darkModeIsActive ? 'dark-mode'
+          : ''
+  ), [settingsDialogIsOpen, darkModeIsActive]);
 
   const handleClickOutside = e => {
     if (!dialogRef.current.contains(e.target) && !settingsIconRef.current.contains(e.target)) {

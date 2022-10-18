@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHover, lazyLoadingIsOn }) {
   const { images } = gifObject;
@@ -7,9 +7,13 @@ export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHo
   const [src, setSrc] = useState('');
   const [isInViewport, setIsInViewport] = useState(false);
 
-  const properResolutionUrl = isLowResolution ? images.fixed_height_downsampled.url : images.fixed_height.url;
+  const properResolutionUrl = useMemo(() => (
+    isLowResolution ? images.fixed_height_downsampled.url : images.fixed_height.url
+  ), [isLowResolution, images]);
 
-  const alt = isInViewport ? gifObject.title : '';
+  const alt = useMemo(() => (
+    isInViewport ? gifObject.title : ''
+  ), [isInViewport, gifObject]);
 
   const handleClick = () => window.open(gifObject.embed_url, '_blank');
 
