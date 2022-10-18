@@ -9,6 +9,8 @@ export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHo
 
   const properResolutionUrl = isLowResolution ? images.fixed_height_downsampled.url : images.fixed_height.url;
 
+  const alt = isInViewport ? gifObject.title : '';
+
   const handleClick = () => window.open(gifObject.embed_url, '_blank');
 
   const handleMouseEnter = () => {
@@ -52,7 +54,7 @@ export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHo
   return (
     <img
       ref={gifRef}
-      alt={isInViewport ? gifObject.title : ''}
+      alt={alt}
       className="gif"
       src={src}
       onClick={handleClick}
