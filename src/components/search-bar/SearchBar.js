@@ -1,7 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { InputField } from './InputField';
+import { InputField } from '../input-field/InputField';
 
 export function SearchBar({
   inputRef,
@@ -25,7 +25,7 @@ export function SearchBar({
           typedString={typedString}
           setTypedString={setTypedString}
         />
-        <button id='submit-btn'>
+        <button id='submit-btn' aria-label='Search'>
           <FontAwesomeIcon icon={faMagnifyingGlass} id="magnifying-glass-icon" />
         </button>
       </form>

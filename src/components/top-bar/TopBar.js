@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
-import { SettingsDialog } from './SettingsDialog';
-import { SearchBar } from './SearchBar';
+import { SettingsDialog } from '../settings-dialog/SettingsDialog';
+import { SearchBar } from '../search-bar/SearchBar';
 
 export function TopBar({
   trendingGifsQueryCode,

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useWindowSize } from '../hooks/useWindowSize';
+import { useWindowSize } from '../../hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { Gif } from './Gif';
+import { Gif } from '../gif/Gif';
 
 export function GifResults({
   gifs,

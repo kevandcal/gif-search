@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useWindowSize } from '../hooks/useWindowSize';
-import { SettingsButton } from './SettingsButton';
+import { useWindowSize } from '../../hooks/useWindowSize';
+import { SettingsButton } from '../settings-button/SettingsButton';
 
 export function SettingsDialog({
   settingsDialogIsOpen,
