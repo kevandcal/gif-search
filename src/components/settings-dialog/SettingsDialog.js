@@ -43,10 +43,7 @@ export function SettingsDialog({
   ];
 
   const dialogClassName = useMemo(() => (
-    settingsDialogIsOpen && darkModeIsActive ? 'open dark-mode'
-      : settingsDialogIsOpen ? 'open'
-        : darkModeIsActive ? 'dark-mode'
-          : ''
+    `${settingsDialogIsOpen ? 'open ' : ''}${darkModeIsActive ? 'dark-mode' : ''}`
   ), [settingsDialogIsOpen, darkModeIsActive]);
 
   const handleClickOutside = e => {

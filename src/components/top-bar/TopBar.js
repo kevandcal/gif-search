@@ -28,10 +28,7 @@ export function TopBar({
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
 
   const topBarClassName = useMemo(() => (
-    darkModeIsActive && topBarIsStyled ? 'dark styled'
-      : darkModeIsActive ? 'dark'
-        : topBarIsStyled ? 'styled'
-          : ''
+    `${darkModeIsActive ? 'dark ' : ''}${topBarIsStyled ? 'styled' : ''}`
   ), [darkModeIsActive, topBarIsStyled]);
 
   const settingsIconClickHandler = () => setSettingsDialogIsOpen(prev => !prev);

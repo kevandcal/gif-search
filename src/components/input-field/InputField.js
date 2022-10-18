@@ -8,13 +8,12 @@ export function InputField({ inputRef, darkModeIsActive, typedString, setTypedSt
   const [focusInInput, setFocusInInput] = useState(false);
 
   const inputClassName = useMemo(() => (
-    darkModeIsActive && focusInInput ? 'dark-mode input-focus'
-      : darkModeIsActive ? 'dark-mode'
-        : focusInInput ? 'input-focus'
-          : ''
+    `${darkModeIsActive ? 'dark-mode ' : ''}${focusInInput ? 'input-focus' : ''}`
   ), [darkModeIsActive, focusInInput]);
 
-  const placeholder = `What type of GIFS${width > 550 ? ' would you like to see' : ''}?`;
+  const placeholder = useMemo(() => (
+    `What type of GIFS${width > 550 ? ' would you like to see' : ''}?`
+  ), [width]);
 
   const inputChangeHandler = e => setTypedString(e.target.value);
 
