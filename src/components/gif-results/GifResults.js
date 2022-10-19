@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useWindowSize } from '../../hooks/useWindowSize';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { Gif } from '../gif/Gif';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { GifsGrid } from '../gifs-grid/GifsGrid';
 
-export function GifResults({
+export const GifResults = React.memo(({
   gifs,
   gifsContainerRef,
   failedToLoad,
@@ -12,53 +11,34 @@ export function GifResults({
   isLowResolution,
   playOnlyOnHover,
   lazyLoadingIsOn
-}) {
-  const { width } = useWindowSize();
-  const [gifGridWidth, setGifGridWidth] = useState(0);
-
-  const gifGridStyle = useMemo(() => (
-    { width: !gifGridWidth ? 0 : gifGridWidth }
-  ), [gifGridWidth]);
-
-  const calculateGridWidth = () => {
-    const availableWidth = width * 0.9;
-    const columnGap = 5;
-    // for narrow (phone) screens, reduce gif width to 90vw:
-    const gifWidth = availableWidth < 395 ? availableWidth : 395;
-    const columnsThatFit = Math.floor((availableWidth + columnGap) / (gifWidth + columnGap));
-    const columnAmount = columnsThatFit > 3 ? 3 : columnsThatFit;
-    const gridWidth = (columnAmount * gifWidth) + ((columnAmount - 1) * columnGap);
-    setGifGridWidth(gridWidth);
-  };
-
-  useEffect(calculateGridWidth, [width]);
+}) => {
 
   let content = null;
   if (displaySpinner) {
+    // while search results are loading, render spinner:
     content = (
-      // while search results are loading, render spinner:
       <FontAwesomeIcon icon={faSpinner} id="spinner" className='fa-spin' />
     );
   } else if (failedToLoad) {
+    // if search fails, remove spinner and inform user:
     content = (
-      // if search fails, remove spinner and inform user:
       <p id="error-message">
         Oops, something went wrong with your search. Click <a href='/'>here</a> to refresh.
       </p>
     );
   } else {
     content = (
-      <div
-        className="gifs-grid"
-        style={gifGridStyle}
-      >
-        {gifs.map((gif, index) => (
-          <Gif key={index} gifObject={gif} gifsContainerRef={gifsContainerRef} isLowResolution={isLowResolution} playOnlyOnHover={playOnlyOnHover} lazyLoadingIsOn={lazyLoadingIsOn} />
-        ))}
-      </div>
+      <GifsGrid
+        gifs={gifs}
+        gifsContainerRef={gifsContainerRef}
+        isLowResolution={isLowResolution}
+        playOnlyOnHover={playOnlyOnHover}
+        lazyLoadingIsOn={lazyLoadingIsOn}
+      />
     );
   }
 
   return content;
-}
+});
+
 

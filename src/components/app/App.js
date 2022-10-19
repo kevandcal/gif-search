@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { API_KEY } from '../../secrets.json';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { TopBar } from '../top-bar/TopBar';
@@ -22,33 +22,61 @@ export function App() {
 
   const displaySpinner = isLoading && apiResOffset === 0;
 
+  // const fetchData = () => {
+  //   const queryApi = async () => {
+  //     setIsLoading(true);
+  //     setShowMoreBtn(false);
+  //     const limit = 18;
+  //     const searchForTrending = queryString === trendingGifsQueryCode;
+  //     const endpoint = searchForTrending ? 'trending' : 'search';
+  //     const q = searchForTrending ? '' : `&q=${queryString}`;
+  //     // trending endpoint finds currently trending gifs, whereas search endpoint would find gifs about trending:
+  //     const url = `https://api.giphy.com/v1/gifs/${endpoint}?api_key=${API_KEY}${q}&limit=${limit}&offset=${apiResOffset}`;
+  //     const response = await fetch(url);
+  //     const { data, meta } = await response.json();
+  //     setIsLoading(false);
+  //     const statusNotOk = meta.status < 200 || meta.status > 299;
+  //     if (!statusNotOk && data.length) {
+  //       setGifs(gifs.concat(data))
+  //       setApiResOffset(apiResOffset + limit);
+  //     } else {
+  //       setFailedToLoad(true);
+  //     }
+  //   };
+  //   if (queryString && !isLoading) {
+  //     queryApi();
+  //   }
+  // };
+
+  const queryApi = async () => {
+    setIsLoading(true);
+    setShowMoreBtn(false);
+    const limit = 18;
+    const searchForTrending = queryString === trendingGifsQueryCode;
+    const endpoint = searchForTrending ? 'trending' : 'search';
+    const q = searchForTrending ? '' : `&q=${queryString}`;
+    // trending endpoint finds currently trending gifs, whereas search endpoint would find gifs about trending:
+    const url = `https://api.giphy.com/v1/gifs/${endpoint}?api_key=${API_KEY}${q}&limit=${limit}&offset=${apiResOffset}`;
+    const response = await fetch(url);
+    const { data, meta } = await response.json();
+    setIsLoading(false);
+    const statusNotOk = meta.status < 200 || meta.status > 299;
+    if (!statusNotOk && data.length) {
+      setGifs(gifs.concat(data))
+      setApiResOffset(apiResOffset + limit);
+    } else {
+      setFailedToLoad(true);
+    }
+  };
+
   const fetchData = () => {
-    const queryApi = async () => {
-      setIsLoading(true);
-      setShowMoreBtn(false);
-      const limit = 18;
-      const searchForTrending = queryString === trendingGifsQueryCode;
-      const endpoint = searchForTrending ? 'trending' : 'search';
-      const q = searchForTrending ? '' : `&q=${queryString}`;
-      // modifying the URL for trending gifs finds currently trending gifs rather than gifs about trending
-      const url = `https://api.giphy.com/v1/gifs/${endpoint}?api_key=${API_KEY}${q}&limit=${limit}&offset=${apiResOffset}`;
-      const response = await fetch(url);
-      const { data, meta } = await response.json();
-      setIsLoading(false);
-      const statusNotOk = meta.status < 200 || meta.status > 299;
-      if (!statusNotOk && data.length) {
-        setGifs(gifs.concat(data))
-        setApiResOffset(apiResOffset + limit);
-      } else {
-        setFailedToLoad(true);
-      }
-    };
     if (queryString && !isLoading) {
       queryApi();
     }
   };
 
-  const scrollHandler = () => {
+
+  const handleScroll = () => {
     const refEl = gifsContainerRef.current;
     // infinite scroll:
     if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !showMoreBtn) {
@@ -86,7 +114,7 @@ export function App() {
         lazyLoadingIsOn={lazyLoadingIsOn}
         setLazyLoadingIsOn={setLazyLoadingIsOn}
       />
-      <div className='gifs-container' ref={gifsContainerRef} onScroll={scrollHandler}>
+      <div className='gifs-container' ref={gifsContainerRef} onScroll={handleScroll}>
         <GifResults
           gifs={gifs}
           gifsContainerRef={gifsContainerRef}

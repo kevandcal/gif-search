@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 export function MoreButton({ gifs, setGifs, gifsContainerRef, fetchData, showMoreBtn, setShowMoreBtn }) {
 
-  const moreBtnClickHandler = e => {
+  const handleMoreBtnClick = e => {
     e.preventDefault();
     fetchData();
     setShowMoreBtn(false);
@@ -24,6 +24,6 @@ export function MoreButton({ gifs, setGifs, gifsContainerRef, fetchData, showMor
   useEffect(handleMoreGifs, [gifs.length]);
 
   return !showMoreBtn ? null : (
-    <button id='more-button' onClick={moreBtnClickHandler}>LOAD MORE</button>
+    <button id='more-button' onClick={handleMoreBtnClick}>LOAD MORE</button>
   );
 }

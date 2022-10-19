@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from '../settings-dialog/SettingsDialog';
@@ -27,11 +27,9 @@ export function TopBar({
   const [darkModeIsActive, setDarkModeIsActive] = useState(false);
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
 
-  const topBarClassName = useMemo(() => (
-    `${darkModeIsActive ? 'dark ' : ''}${topBarIsStyled ? 'styled' : ''}`
-  ), [darkModeIsActive, topBarIsStyled]);
+  const topBarClassName = `${darkModeIsActive ? 'dark ' : ''}${topBarIsStyled ? 'styled' : ''}`;
 
-  const settingsIconClickHandler = () => setSettingsDialogIsOpen(prev => !prev);
+  const handleSettingsIconClick = () => setSettingsDialogIsOpen(prev => !prev);
 
   const submitQuery = query => {
     if (!query) {
@@ -47,7 +45,8 @@ export function TopBar({
     }
   }
 
-  const homeIconClickHandler = () => {
+  const handleHomeIconClick = () => {
+    // window.location.reload();
     setTypedString('');
     submitQuery(trendingGifsQueryCode);
   };
@@ -64,7 +63,7 @@ export function TopBar({
       className={topBarClassName}
     >
       <div id='top-bar-content'>
-        <div onClick={homeIconClickHandler} className='top-bar-icon-container'>
+        <div onClick={handleHomeIconClick} className='top-bar-icon-container'>
           <FontAwesomeIcon icon={faHome} className='top-bar-icon' />
         </div>
         <SearchBar
@@ -77,7 +76,7 @@ export function TopBar({
         <div
           className='top-bar-icon-container'
           ref={settingsIconRef}
-          onClick={settingsIconClickHandler}
+          onClick={handleSettingsIconClick}
         >
           <FontAwesomeIcon icon={faEllipsisV} className='top-bar-icon' />
         </div>

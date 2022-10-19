@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -7,26 +7,21 @@ export function InputField({ inputRef, darkModeIsActive, typedString, setTypedSt
   const { width } = useWindowSize();
   const [focusInInput, setFocusInInput] = useState(false);
 
-  const inputClassName = useMemo(() => (
-    `${darkModeIsActive ? 'dark-mode ' : ''}${focusInInput ? 'input-focus' : ''}`
-  ), [darkModeIsActive, focusInInput]);
+  const inputClassName = `${darkModeIsActive ? 'dark-mode ' : ''}${focusInInput ? 'input-focus' : ''}`;
 
-  const placeholder = useMemo(() => (
-    `What type of GIFS${width > 550 ? ' would you like to see' : ''}?`
-  ), [width]);
+  const placeholder = `What type of GIFS${width > 550 ? ' would you like to see' : ''}?`;
 
-  const inputChangeHandler = e => setTypedString(e.target.value);
+  const handleInputChange = e => setTypedString(e.target.value);
+  const handleInputFocus = () => setFocusInInput(true);
+  const handleInputBlur = () => setFocusInInput(false);
 
-  const xIconClickHandler = () => {
+  const handleXIconClick = () => {
     setTypedString('');
     inputRef.current.focus();
   };
 
-  const inputFocusHandler = () => setFocusInInput(true);
-  const inputBlurHanlder = () => setFocusInInput(false);
-
   const xIcon = !typedString ? null : (
-    <div id="x-icon-container" onClick={xIconClickHandler}>
+    <div id="x-icon-container" onClick={handleXIconClick}>
       <FontAwesomeIcon icon={faXmark} id='x-icon' />
     </div>
   );
@@ -38,9 +33,9 @@ export function InputField({ inputRef, darkModeIsActive, typedString, setTypedSt
         ref={inputRef}
         placeholder={placeholder}
         value={typedString}
-        onChange={inputChangeHandler}
-        onFocus={inputFocusHandler}
-        onBlur={inputBlurHanlder}
+        onChange={handleInputChange}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
       />
       {xIcon}
     </div >

@@ -11,14 +11,14 @@ export function SearchBar({
   setTypedString
 }) {
 
-  const submitHandler = e => {
+  const handleSubmit = e => {
     e.preventDefault();
     submitQuery(typedString);
   };
 
   return (
     <>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={handleSubmit}>
         <InputField
           inputRef={inputRef}
           darkModeIsActive={darkModeIsActive}
