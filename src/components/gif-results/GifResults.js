@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GifsGrid } from '../gifs-grid/GifsGrid';
@@ -12,6 +12,8 @@ export const GifResults = React.memo(({
   playOnlyOnHover,
   lazyLoadingIsOn
 }) => {
+
+  useEffect(() => console.log('GifResults rerendered'));
 
   let content = null;
   if (displaySpinner) {
