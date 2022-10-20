@@ -293,16 +293,15 @@ input:focus {
     width: var(--gif-height-width);
     max-width: var(--content-width);
     border: none;
-    background-color: rgba(13, 75, 96, 0.1);
+    background-color: var(--theme-color);
     border-radius: 3px;
     margin: 50px 0;
     min-height: calc(var(--gif-height-width)/4);
-    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     transition: var(--transition-duration);
     overflow: hidden;
-    box-shadow: 0 0 4px #aaa;
+    color: var(--theme-color);
 }
 
 #more-button:hover {
@@ -310,57 +309,61 @@ input:focus {
 }
 
 #more-button:hover:before {
-    background-color: var(--theme-color-alt);
+    height: 0;
+}
+
+#more-button:hover:after {
+    width: 0;
 }
 
 #more-button:hover #more-button-text {
     color: var(--theme-color-alt);
+    animation-play-state: paused;
+}
+
+#more-button:before,
+#more-button:after {
+    content: '';
+    position: absolute;
+    background-color: #F2F3F4;
+    transition: 0.5s ease;
+}
+
+#more-button:before {
+    width: 100%;
+    height: calc(100% - 40px);
+}
+
+#more-button:after {
+    width: calc(100% - 40px);
+    height: 100%;
 }
 
 #more-button-text {
     z-index: 99;
     color: var(--theme-color);
+    font-size: 24px;
+    letter-spacing: 2px;
     transition: var(--transition-duration);
-    animation: more-btn-text 3s linear infinite;
+    animation: more-btn-text 1.5s linear alternate infinite;
 }
 
-#more-button:before {
-    content: '';
+#more-button-animation-span {
     position: absolute;
-    width: 150%;
-    height: 70%;
-    background-color: var(--theme-color);
-    animation: more-btn-border 3s linear infinite;
-}
-
-#more-button:after {
-    content: '';
-    position: absolute;
+    height: calc(100% - 4px);
+    width: calc(100% - 4px);
     background-color: #F2F3F4;
     inset: 2px;
-}
-
-@keyframes more-btn-border {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    z-index: 80;
 }
 
 @keyframes more-btn-text {
-    0% {
+    from {
         transform: scale(1);
     }
 
-    50% {
-        transform: scale(1.2);
-    }
-
-    100% {
-        transform: scale(1);
+    to {
+        transform: scale(0.6);
     }
 }
 

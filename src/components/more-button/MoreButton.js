@@ -26,6 +26,7 @@ export function MoreButton({ gifs, setGifs, gifsContainerRef, fetchData, showMor
   return !showMoreBtn ? null : (
     <button id='more-button' onClick={handleMoreBtnClick}>
       <span id='more-button-text'>LOAD MORE</span>
+      <span id='more-button-animation-span' />
     </button>
   );
 }
