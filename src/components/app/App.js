@@ -27,10 +27,10 @@ export function App() {
     setShowMoreBtn(false);
     const limit = 18;
     const searchForTrending = queryString === trendingGifsQueryCode;
-    const endpoint = searchForTrending ? 'trending' : 'search';
+    const path = searchForTrending ? 'trending' : 'search';
     const q = searchForTrending ? '' : `&q=${queryString}`;
-    // trending endpoint finds currently trending gifs, whereas search endpoint would find gifs about trending:
-    const url = `https://api.giphy.com/v1/gifs/${endpoint}?api_key=${API_KEY}${q}&limit=${limit}&offset=${apiResOffset}`;
+    // trending path finds currently trending gifs instead of searching for gifs about trending:
+    const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${API_KEY}${q}&limit=${limit}&offset=${apiResOffset}`;
     const response = await fetch(url);
     const { data, meta } = await response.json();
     setIsLoading(false);

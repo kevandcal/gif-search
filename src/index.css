@@ -286,22 +286,82 @@ input:focus {
 }
 
 #more-button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: var(--gif-height-width);
     max-width: var(--content-width);
-    background-color: transparent;
-    color: var(--theme-color);
-    border: 2px var(--theme-color) solid;
+    border: none;
+    background-color: rgba(13, 75, 96, 0.1);
     border-radius: 3px;
-    margin: 5px 0;
-    min-height: 4vh;
+    margin: 50px 0;
+    min-height: calc(var(--gif-height-width)/4);
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     transition: var(--transition-duration);
+    overflow: hidden;
+    box-shadow: 0 0 4px #aaa;
 }
 
 #more-button:hover {
-    border-color: var(--theme-color-alt);
+    background-color: var(--theme-color-alt);
+}
+
+#more-button:hover:before {
+    background-color: var(--theme-color-alt);
+}
+
+#more-button:hover #more-button-text {
     color: var(--theme-color-alt);
+}
+
+#more-button-text {
+    z-index: 99;
+    color: var(--theme-color);
+    transition: var(--transition-duration);
+    animation: more-btn-text 3s linear infinite;
+}
+
+#more-button:before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 70%;
+    background-color: var(--theme-color);
+    animation: more-btn-border 3s linear infinite;
+}
+
+#more-button:after {
+    content: '';
+    position: absolute;
+    background-color: #F2F3F4;
+    inset: 2px;
+}
+
+@keyframes more-btn-border {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes more-btn-text {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .gif {
