@@ -15,9 +15,9 @@ export function App() {
   const [isLowResolution, setIsLowResolution] = useState(false);
   const [playOnlyOnHover, setPlayOnlyOnHover] = useState(false);
   const [lazyLoadingIsOn, setLazyLoadingIsOn] = useState(true);
+  const [darkModeIsActive, setDarkModeIsActive] = useState(false);
 
   const apiLimit = 18;
-  const displaySpinner = isLoading && apiResOffset === 0;
 
   const queryApi = async () => {
     setIsLoading(true);
@@ -32,7 +32,7 @@ export function App() {
     const statusNotOk = meta.status < 200 || meta.status > 299;
     if (!statusNotOk && data.length) {
       setGifs(gifs.concat(data))
-      setApiResOffset(apiResOffset + apiLimit);
+      setApiResOffset(prev => prev + apiLimit);
     } else {
       setFailedToLoad(true);
     }
@@ -71,6 +71,8 @@ export function App() {
         setPlayOnlyOnHover={setPlayOnlyOnHover}
         lazyLoadingIsOn={lazyLoadingIsOn}
         setLazyLoadingIsOn={setLazyLoadingIsOn}
+        darkModeIsActive={darkModeIsActive}
+        setDarkModeIsActive={setDarkModeIsActive}
       />
       <MainSection
         gifs={gifs}
@@ -79,13 +81,17 @@ export function App() {
         fetchData={fetchData}
         apiLimit={apiLimit}
         failedToLoad={failedToLoad}
-        displaySpinner={displaySpinner}
+        isLoading={isLoading}
+        apiResOffset={apiResOffset}
         isLowResolution={isLowResolution}
+        darkModeIsActive={darkModeIsActive}
         playOnlyOnHover={playOnlyOnHover}
         lazyLoadingIsOn={lazyLoadingIsOn}
         setTopBarIsStyled={setTopBarIsStyled}
       />
-      <footer><span id='attribution'>Powered by GIPHY</span></footer>
+      <footer>
+        <span id='attribution'>Powered by GIPHY</span>
+      </footer>
     </>
   );
 }

@@ -22,10 +22,7 @@ export function GifsGrid({ gifs, gifsContainerRef, isLowResolution, playOnlyOnHo
   useEffect(calculateGridWidth, [width]);
 
   return (
-    <div
-      className="gifs-grid"
-      style={gifGridStyle}
-    >
+    <div id='gifs-grid' style={gifGridStyle}>
       {gifs.map((gif, index) => (
         <Gif
           key={index}

@@ -264,7 +264,7 @@ input:focus {
     top: calc(50vh - 50px);
 }
 
-.gifs-container {
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -276,7 +276,7 @@ input:focus {
     width: 100vw;
 }
 
-.gifs-grid {
+#gifs-grid {
     display: grid;
     grid-gap: 5px;
     column-gap: 5px;
@@ -290,18 +290,19 @@ input:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: var(--gif-height-width);
-    max-width: var(--content-width);
-    border: none;
+    min-height: calc(var(--gif-height-width)/4);
+    width: calc(var(--gif-height-width) - 4px);
+    max-width: calc(var(--content-width) - 4px);
     background-color: var(--theme-color);
+    color: var(--theme-color);
+    border: none;
     border-radius: 3px;
     margin: 50px 0;
-    min-height: calc(var(--gif-height-width)/4);
     font-weight: bold;
     cursor: pointer;
     transition: var(--transition-duration);
+    user-select: none;
     overflow: hidden;
-    color: var(--theme-color);
 }
 
 #more-button:hover {
@@ -326,7 +327,7 @@ input:focus {
     content: '';
     position: absolute;
     background-color: #F2F3F4;
-    transition: 0.5s ease;
+    transition: background-color var(--transition-duration), width 0.5s ease, height 0.5s ease;
 }
 
 #more-button:before {
@@ -353,7 +354,14 @@ input:focus {
     height: calc(100% - 4px);
     width: calc(100% - 4px);
     background-color: #F2F3F4;
+    transition: var(--transition-duration);
     z-index: 80;
+}
+
+#more-button.dark-mode:before,
+#more-button.dark-mode:after,
+#more-button-animation-span.dark-mode {
+    background-color: #181920;
 }
 
 @keyframes more-btn-text {

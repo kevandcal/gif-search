@@ -10,8 +10,10 @@ export function MainSection({
   fetchData,
   apiLimit,
   failedToLoad,
-  displaySpinner,
+  isLoading,
+  apiResOffset,
   isLowResolution,
+  darkModeIsActive,
   playOnlyOnHover,
   lazyLoadingIsOn,
   setTopBarIsStyled
@@ -20,6 +22,7 @@ export function MainSection({
 
   const threshold = apiLimit * 4;
   const showMoreBtn = gifs.length && gifs.length % threshold === 0;
+  const displaySpinner = isLoading && apiResOffset === 0;
 
   const handleScroll = () => {
     const refEl = gifsContainerRef.current;
@@ -32,7 +35,7 @@ export function MainSection({
   };
 
   return (
-    <main className='gifs-container' ref={gifsContainerRef} onScroll={handleScroll}>
+    <main ref={gifsContainerRef} onScroll={handleScroll}>
       <GifResults
         gifs={gifs}
         gifsContainerRef={gifsContainerRef}
@@ -49,6 +52,7 @@ export function MainSection({
         fetchData={fetchData}
         showMoreBtn={showMoreBtn}
         threshold={threshold}
+        darkModeIsActive={darkModeIsActive}
       />
     </main>
   )

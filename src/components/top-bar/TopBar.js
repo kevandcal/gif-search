@@ -19,12 +19,14 @@ export function TopBar({
   playOnlyOnHover,
   setPlayOnlyOnHover,
   lazyLoadingIsOn,
-  setLazyLoadingIsOn
+  setLazyLoadingIsOn,
+  darkModeIsActive,
+  setDarkModeIsActive
 }) {
   const settingsIconRef = useRef(null);
   const inputRef = useRef(null);
   const [typedString, setTypedString] = useState("");
-  const [darkModeIsActive, setDarkModeIsActive] = useState(false);
+  // const [darkModeIsActive, setDarkModeIsActive] = useState(false);
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
 
   const topBarClassName = `${darkModeIsActive ? 'dark ' : ''}${topBarIsStyled ? 'styled' : ''}`;

@@ -9,7 +9,7 @@ export function InputField({ inputRef, darkModeIsActive, typedString, setTypedSt
 
   const inputClassName = `${darkModeIsActive ? 'dark-mode ' : ''}${focusInInput ? 'input-focus' : ''}`;
 
-  const placeholder = `What type of GIFS${width > 550 ? ' would you like to see' : ''}?`;
+  const placeholder = `What type of GIFs${width > 550 ? ' would you like to see' : ''}?`;
 
   const handleInputChange = e => setTypedString(e.target.value);
   const handleInputFocus = () => setFocusInInput(true);
