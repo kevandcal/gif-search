@@ -4,7 +4,7 @@ import { LoadButton } from './LoadButton';
 
 describe(LoadButton, () => {
   it('has correct button text', () => {
-    const { getByRole } = render(<LoadButton gifs={[]} isDisplayed={true} />);
+    const { getByRole } = render(<LoadButton text='load more' gifs={[]} isDisplayed={true} />);
     const btnText = getByRole('button').textContent;
     expect(btnText).toBe('LOAD MORE');
   });

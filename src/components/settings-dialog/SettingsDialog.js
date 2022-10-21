@@ -13,7 +13,9 @@ export function SettingsDialog({
   playOnlyOnHover,
   setPlayOnlyOnHover,
   lazyLoadingIsOn,
-  setLazyLoadingIsOn
+  setLazyLoadingIsOn,
+  infiniteScrollIsActive,
+  setInfiniteScrollIsActive
 }) {
   const { width } = useWindowSize();
   const dialogRef = useRef(null);
@@ -34,6 +36,11 @@ export function SettingsDialog({
       setFunction: setPlayOnlyOnHover,
       state: playOnlyOnHover,
       text: 'Play only on hover'
+    },
+    {
+      setFunction: setInfiniteScrollIsActive,
+      state: infiniteScrollIsActive,
+      text: 'Infinte scroll'
     },
     {
       setFunction: setDarkModeIsActive,

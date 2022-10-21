@@ -13,34 +13,35 @@ export function App() {
   const [failedToLoad, setFailedToLoad] = useState(false);
   const [topBarIsStyled, setTopBarIsStyled] = useState(false);
   const [isLowResolution, setIsLowResolution] = useState(false);
-  const [playOnlyOnHover, setPlayOnlyOnHover] = useState(true);
+  const [playOnlyOnHover, setPlayOnlyOnHover] = useState(false);
   const [lazyLoadingIsOn, setLazyLoadingIsOn] = useState(true);
   const [darkModeIsActive, setDarkModeIsActive] = useState(false);
+  const [infiniteScrollIsActive, setInfiniteScrollIsActive] = useState(true);
 
-  const apiLimit = 18;
+  const gifsPerRequest = infiniteScrollIsActive ? 18 : 30;
 
-  const queryApi = async () => {
+  const queryApi = async (offset = apiResOffset) => {
     setIsLoading(true);
     const searchForTrending = queryString === trendingGifsQueryCode;
     const path = searchForTrending ? 'trending' : 'search';
     const q = searchForTrending ? '' : `&q=${queryString}`;
     // trending path finds currently trending gifs instead of searching for gifs about trending:
-    const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${API_KEY}${q}&limit=${apiLimit}&offset=${apiResOffset}`;
+    const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${API_KEY}${q}&limit=${gifsPerRequest}&offset=${offset}`;
     const response = await fetch(url);
     const { data, meta } = await response.json();
     setIsLoading(false);
     const statusNotOk = meta.status < 200 || meta.status > 299;
     if (!statusNotOk && data.length) {
-      setGifs(gifs.concat(data))
-      setApiResOffset(prev => prev + apiLimit);
+      setGifs(prev => infiniteScrollIsActive ? prev.concat(data) : data);
+      setApiResOffset(offset + gifsPerRequest);
     } else {
       setFailedToLoad(true);
     }
   };
 
-  const fetchData = () => {
+  const fetchData = offset => {
     if (queryString && !isLoading) {
-      queryApi();
+      queryApi(offset);
     }
   };
 
@@ -61,7 +62,6 @@ export function App() {
         queryString={queryString}
         setQueryString={setQueryString}
         setGifs={setGifs}
-        setApiResOffset={setApiResOffset}
         setFailedToLoad={setFailedToLoad}
         topBarIsStyled={topBarIsStyled}
         setTopBarIsStyled={setTopBarIsStyled}
@@ -73,13 +73,15 @@ export function App() {
         setLazyLoadingIsOn={setLazyLoadingIsOn}
         darkModeIsActive={darkModeIsActive}
         setDarkModeIsActive={setDarkModeIsActive}
+        infiniteScrollIsActive={infiniteScrollIsActive}
+        setInfiniteScrollIsActive={setInfiniteScrollIsActive}
       />
       <MainSection
         gifs={gifs}
         setGifs={setGifs}
         gifsContainerRef={gifsContainerRef}
         fetchData={fetchData}
-        apiLimit={apiLimit}
+        gifsPerRequest={gifsPerRequest}
         failedToLoad={failedToLoad}
         isLoading={isLoading}
         apiResOffset={apiResOffset}
@@ -88,6 +90,7 @@ export function App() {
         playOnlyOnHover={playOnlyOnHover}
         lazyLoadingIsOn={lazyLoadingIsOn}
         setTopBarIsStyled={setTopBarIsStyled}
+        infiniteScrollIsActive={infiniteScrollIsActive}
       />
       <footer>
         <span id='attribution'>Powered by GIPHY</span>

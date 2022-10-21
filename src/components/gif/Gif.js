@@ -49,7 +49,7 @@ export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHo
   };
 
   useEffect(handleLazyLoad, [gifRef, gifsContainerRef]);
-  useEffect(updateSrc, [isInViewport, isLowResolution, playOnlyOnHover])
+  useEffect(updateSrc, [isInViewport, isLowResolution, playOnlyOnHover, gifObject]);
 
   return (
     <img

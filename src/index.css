@@ -343,7 +343,8 @@ main {
 #load-button-text {
     z-index: 99;
     color: var(--theme-color);
-    font-size: 24px;
+    font-size: 20px;
+    text-transform: uppercase;
     letter-spacing: 2px;
     transition: var(--transition-duration);
     animation: load-btn-text 1.5s linear alternate infinite;
@@ -370,7 +371,7 @@ main {
     }
 
     to {
-        transform: scale(0.6);
+        transform: scale(1.5);
     }
 }
 

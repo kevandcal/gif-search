@@ -10,7 +10,7 @@ export function TopBar({
   queryString,
   setQueryString,
   setGifs,
-  setApiResOffset,
+  // setApiResOffset,
   setFailedToLoad,
   topBarIsStyled,
   setTopBarIsStyled,
@@ -21,7 +21,9 @@ export function TopBar({
   lazyLoadingIsOn,
   setLazyLoadingIsOn,
   darkModeIsActive,
-  setDarkModeIsActive
+  setDarkModeIsActive,
+  infiniteScrollIsActive,
+  setInfiniteScrollIsActive
 }) {
   const settingsIconRef = useRef(null);
   const inputRef = useRef(null);
@@ -37,7 +39,7 @@ export function TopBar({
       window.alert('Please enter a search term');
     } else if (query !== queryString) {
       setTopBarIsStyled(false);
-      setApiResOffset(0);
+      // setApiResOffset(0);
       setGifs([]);
       setFailedToLoad(false);
       setQueryString(query);
@@ -94,6 +96,8 @@ export function TopBar({
         setPlayOnlyOnHover={setPlayOnlyOnHover}
         lazyLoadingIsOn={lazyLoadingIsOn}
         setLazyLoadingIsOn={setLazyLoadingIsOn}
+        infiniteScrollIsActive={infiniteScrollIsActive}
+        setInfiniteScrollIsActive={setInfiniteScrollIsActive}
       />
     </div>
   );

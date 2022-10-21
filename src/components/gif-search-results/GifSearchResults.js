@@ -15,6 +15,7 @@ export const GifSearchResults = React.memo(({
 }) => {
 
   const displaySpinner = isLoading && apiResOffset === 0;
+  // should the second condition be apiResOffset % pageThreshold === 0 or !gifs.length instead of apiResOffset === 0?
 
   if (displaySpinner) {
     // while search results are loading, render spinner:

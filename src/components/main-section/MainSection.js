@@ -5,10 +5,9 @@ import { LoadButton } from '../load-button/LoadButton';
 
 export function MainSection({
   gifs,
-  setGifs,
   gifsContainerRef,
   fetchData,
-  apiLimit,
+  gifsPerRequest,
   failedToLoad,
   isLoading,
   apiResOffset,
@@ -16,25 +15,47 @@ export function MainSection({
   darkModeIsActive,
   playOnlyOnHover,
   lazyLoadingIsOn,
-  setTopBarIsStyled
+  setTopBarIsStyled,
+  infiniteScrollIsActive
 }) {
   const { height } = useWindowSize();
 
-  const threshold = apiLimit * 4;
-  const showMoreBtn = gifs.length && gifs.length % threshold === 0;
+  const displayPrevPageBtn = !infiniteScrollIsActive && apiResOffset > gifsPerRequest;
+  // const displayNextPageBtn = !infiniteScrollIsActive && gifs.length % gifsPerRequest === 0;
+  const displayNextPageBtn = !infiniteScrollIsActive;
 
   const handleScroll = () => {
     const refEl = gifsContainerRef.current;
     // infinite scroll:
-    if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !showMoreBtn) {
-      fetchData();
+    if (infiniteScrollIsActive) {
+      if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !displayNextPageBtn) {
+        fetchData();
+      }
     }
     // change top bar styling when scrolled beyond 5vh:
     setTopBarIsStyled(refEl.scrollTop >= height * 0.05);
   };
 
+  const handleGoBackBtnClick = e => {
+    e.preventDefault();
+    const offset = apiResOffset - (gifsPerRequest * 2);
+    fetchData(offset);
+  };
+
+  const handleMoreBtnClick = e => {
+    e.preventDefault();
+    fetchData();
+    gifsContainerRef.current.scroll({ top: 0 });
+  };
+
   return (
     <main ref={gifsContainerRef} onScroll={handleScroll}>
+      <LoadButton
+        text='Go Back'
+        onClick={handleGoBackBtnClick}
+        isDisplayed={displayPrevPageBtn}
+        darkModeIsActive={darkModeIsActive}
+      />
       <GifSearchResults
         gifs={gifs}
         gifsContainerRef={gifsContainerRef}
@@ -46,12 +67,9 @@ export function MainSection({
         lazyLoadingIsOn={lazyLoadingIsOn}
       />
       <LoadButton
-        gifs={gifs}
-        setGifs={setGifs}
-        gifsContainerRef={gifsContainerRef}
-        fetchData={fetchData}
-        isDisplayed={showMoreBtn}
-        threshold={threshold}
+        text='Load More'
+        onClick={handleMoreBtnClick}
+        isDisplayed={displayNextPageBtn}
         darkModeIsActive={darkModeIsActive}
       />
     </main>
