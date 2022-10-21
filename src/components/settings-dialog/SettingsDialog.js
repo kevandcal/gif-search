@@ -3,8 +3,8 @@ import { useWindowSize } from '../../hooks/useWindowSize';
 import { SettingsButton } from '../settings-button/SettingsButton';
 
 export function SettingsDialog({
-  settingsDialogIsOpen,
-  setSettingsDialogIsOpen,
+  isOpen,
+  setIsOpen,
   settingsIconRef,
   darkModeIsActive,
   setDarkModeIsActive,
@@ -42,11 +42,11 @@ export function SettingsDialog({
     }
   ];
 
-  const dialogClassName = `${settingsDialogIsOpen ? 'open ' : ''}${darkModeIsActive ? 'dark-mode' : ''}`;
+  const dialogClassName = `${isOpen ? 'open ' : ''}${darkModeIsActive ? 'dark-mode' : ''}`;
 
   const handleClickOutside = e => {
     if (!dialogRef.current.contains(e.target) && !settingsIconRef.current.contains(e.target)) {
-      setSettingsDialogIsOpen(false);
+      setIsOpen(false);
     }
   };
 

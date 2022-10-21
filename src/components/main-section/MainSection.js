@@ -1,6 +1,6 @@
 import React from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
-import { GifResults } from '../gif-results/GifResults';
+import { GifSearchResults } from '../gif-search-results/GifSearchResults';
 import { MoreButton } from '../more-button/MoreButton';
 
 export function MainSection({
@@ -22,7 +22,6 @@ export function MainSection({
 
   const threshold = apiLimit * 4;
   const showMoreBtn = gifs.length && gifs.length % threshold === 0;
-  const displaySpinner = isLoading && apiResOffset === 0;
 
   const handleScroll = () => {
     const refEl = gifsContainerRef.current;
@@ -36,11 +35,12 @@ export function MainSection({
 
   return (
     <main ref={gifsContainerRef} onScroll={handleScroll}>
-      <GifResults
+      <GifSearchResults
         gifs={gifs}
         gifsContainerRef={gifsContainerRef}
+        isLoading={isLoading}
+        apiResOffset={apiResOffset}
         failedToLoad={failedToLoad}
-        displaySpinner={displaySpinner}
         isLowResolution={isLowResolution}
         playOnlyOnHover={playOnlyOnHover}
         lazyLoadingIsOn={lazyLoadingIsOn}

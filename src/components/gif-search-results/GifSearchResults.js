@@ -1,35 +1,35 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GifsGrid } from '../gifs-grid/GifsGrid';
 
-export const GifResults = React.memo(({
+export const GifSearchResults = React.memo(({
   gifs,
   gifsContainerRef,
+  isLoading,
+  apiResOffset,
   failedToLoad,
-  displaySpinner,
   isLowResolution,
   playOnlyOnHover,
   lazyLoadingIsOn
 }) => {
 
-  useEffect(() => console.log('GifResults rerendered'));
+  const displaySpinner = isLoading && apiResOffset === 0;
 
-  let content = null;
   if (displaySpinner) {
     // while search results are loading, render spinner:
-    content = (
+    return (
       <FontAwesomeIcon icon={faSpinner} id="spinner" className='fa-spin' />
     );
   } else if (failedToLoad) {
     // if search fails, remove spinner and inform user:
-    content = (
+    return (
       <p id="error-message">
         Oops, something went wrong with your search. Click <a href='/'>here</a> to refresh.
       </p>
     );
   } else {
-    content = (
+    return (
       <GifsGrid
         gifs={gifs}
         gifsContainerRef={gifsContainerRef}
@@ -39,8 +39,5 @@ export const GifResults = React.memo(({
       />
     );
   }
-
-  return content;
 });
-
 

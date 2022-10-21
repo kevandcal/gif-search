@@ -26,7 +26,6 @@ export function TopBar({
   const settingsIconRef = useRef(null);
   const inputRef = useRef(null);
   const [typedString, setTypedString] = useState("");
-  // const [darkModeIsActive, setDarkModeIsActive] = useState(false);
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
 
   const topBarClassName = `${darkModeIsActive ? 'dark ' : ''}${topBarIsStyled ? 'styled' : ''}`;
@@ -84,8 +83,8 @@ export function TopBar({
         </div>
       </div>
       <SettingsDialog
-        settingsDialogIsOpen={settingsDialogIsOpen}
-        setSettingsDialogIsOpen={setSettingsDialogIsOpen}
+        isOpen={settingsDialogIsOpen}
+        setIsOpen={setSettingsDialogIsOpen}
         settingsIconRef={settingsIconRef}
         darkModeIsActive={darkModeIsActive}
         setDarkModeIsActive={setDarkModeIsActive}

@@ -4,7 +4,7 @@ import { TopBar } from '../top-bar/TopBar';
 import { MainSection } from '../main-section/MainSection';
 
 export function App() {
-  const trendingGifsQueryCode = 'congratsyouhavefoundthesecrettrendinggifscode';
+  const trendingGifsQueryCode = 'ultratopsecrettrendinggifscode';
   const gifsContainerRef = useRef(null);
   const [gifs, setGifs] = useState([]);
   const [queryString, setQueryString] = useState(trendingGifsQueryCode);
@@ -13,7 +13,7 @@ export function App() {
   const [failedToLoad, setFailedToLoad] = useState(false);
   const [topBarIsStyled, setTopBarIsStyled] = useState(false);
   const [isLowResolution, setIsLowResolution] = useState(false);
-  const [playOnlyOnHover, setPlayOnlyOnHover] = useState(false);
+  const [playOnlyOnHover, setPlayOnlyOnHover] = useState(true);
   const [lazyLoadingIsOn, setLazyLoadingIsOn] = useState(true);
   const [darkModeIsActive, setDarkModeIsActive] = useState(false);
 
