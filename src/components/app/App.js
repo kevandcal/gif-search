@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { API_KEY } from '../../secrets.json';
-import { useWindowSize } from '../../hooks/useWindowSize';
 import { TopBar } from '../top-bar/TopBar';
-import { GifResults } from '../gif-results/GifResults';
-import { MoreButton } from '../more-button/MoreButton';
+import { MainSection } from '../main-section/MainSection';
 
 export function App() {
-  const trendingGifsQueryCode = 'jlkasdfpoiqwerklnazxcmvasjf';
-  const { height } = useWindowSize();
+  const trendingGifsQueryCode = 'congratsyouhavefoundthesecrettrendinggifscode';
   const gifsContainerRef = useRef(null);
   const [gifs, setGifs] = useState([]);
   const [queryString, setQueryString] = useState(trendingGifsQueryCode);
@@ -20,8 +17,6 @@ export function App() {
   const [lazyLoadingIsOn, setLazyLoadingIsOn] = useState(true);
 
   const apiLimit = 18;
-  const threshold = apiLimit * 4;
-  const showMoreBtn = gifs.length && gifs.length % threshold === 0;
   const displaySpinner = isLoading && apiResOffset === 0;
 
   const queryApi = async () => {
@@ -47,16 +42,6 @@ export function App() {
     if (queryString && !isLoading) {
       queryApi();
     }
-  };
-
-  const handleScroll = () => {
-    const refEl = gifsContainerRef.current;
-    // infinite scroll:
-    if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !showMoreBtn) {
-      fetchData();
-    }
-    // change top bar styling when scrolled beyond 5vh:
-    setTopBarIsStyled(refEl.scrollTop >= height * 0.05);
   };
 
   const handleLoading = () => {
@@ -87,25 +72,19 @@ export function App() {
         lazyLoadingIsOn={lazyLoadingIsOn}
         setLazyLoadingIsOn={setLazyLoadingIsOn}
       />
-      <div className='gifs-container' ref={gifsContainerRef} onScroll={handleScroll}>
-        <GifResults
-          gifs={gifs}
-          gifsContainerRef={gifsContainerRef}
-          failedToLoad={failedToLoad}
-          displaySpinner={displaySpinner}
-          isLowResolution={isLowResolution}
-          playOnlyOnHover={playOnlyOnHover}
-          lazyLoadingIsOn={lazyLoadingIsOn}
-        />
-        <MoreButton
-          gifs={gifs}
-          setGifs={setGifs}
-          gifsContainerRef={gifsContainerRef}
-          fetchData={fetchData}
-          showMoreBtn={showMoreBtn}
-          threshold={threshold}
-        />
-      </div>
+      <MainSection
+        gifs={gifs}
+        setGifs={setGifs}
+        gifsContainerRef={gifsContainerRef}
+        fetchData={fetchData}
+        apiLimit={apiLimit}
+        failedToLoad={failedToLoad}
+        displaySpinner={displaySpinner}
+        isLowResolution={isLowResolution}
+        playOnlyOnHover={playOnlyOnHover}
+        lazyLoadingIsOn={lazyLoadingIsOn}
+        setTopBarIsStyled={setTopBarIsStyled}
+      />
       <footer><span id='attribution'>Powered by GIPHY</span></footer>
     </>
   );

@@ -5,14 +5,9 @@ export function MoreButton({ gifs, setGifs, gifsContainerRef, fetchData, showMor
   const handleMoreBtnClick = e => {
     e.preventDefault();
     fetchData();
-    // setShowMoreBtn(false);
   };
 
   const handleMoreGifs = () => {
-    // display more button:
-    // if (gifs.length && gifs.length % threshold === 0) {
-    //   setShowMoreBtn(true);
-    // }
     // remove previously displayed gifs once click of more button loads more gifs:
     if (gifs.length > threshold) {
       setGifs(prev => prev.slice(threshold));
