@@ -1,7 +1,7 @@
 import React from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { GifSearchResults } from '../gif-search-results/GifSearchResults';
-import { MoreButton } from '../more-button/MoreButton';
+import { LoadButton } from '../load-button/LoadButton';
 
 export function MainSection({
   gifs,
@@ -45,12 +45,12 @@ export function MainSection({
         playOnlyOnHover={playOnlyOnHover}
         lazyLoadingIsOn={lazyLoadingIsOn}
       />
-      <MoreButton
+      <LoadButton
         gifs={gifs}
         setGifs={setGifs}
         gifsContainerRef={gifsContainerRef}
         fetchData={fetchData}
-        showMoreBtn={showMoreBtn}
+        isDisplayed={showMoreBtn}
         threshold={threshold}
         darkModeIsActive={darkModeIsActive}
       />

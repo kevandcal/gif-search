@@ -285,7 +285,7 @@ main {
     /* width is set using JS in gif-content.js */
 }
 
-#more-button {
+#load-button {
     position: relative;
     display: flex;
     justify-content: center;
@@ -305,51 +305,51 @@ main {
     overflow: hidden;
 }
 
-#more-button:hover {
+#load-button:hover {
     background-color: var(--theme-color-alt);
 }
 
-#more-button:hover:before {
+#load-button:hover:before {
     height: 0;
 }
 
-#more-button:hover:after {
+#load-button:hover:after {
     width: 0;
 }
 
-#more-button:hover #more-button-text {
+#load-button:hover #load-button-text {
     color: var(--theme-color-alt);
     animation-play-state: paused;
 }
 
-#more-button:before,
-#more-button:after {
+#load-button:before,
+#load-button:after {
     content: '';
     position: absolute;
     background-color: #F2F3F4;
     transition: background-color var(--transition-duration), width 0.5s ease, height 0.5s ease;
 }
 
-#more-button:before {
+#load-button:before {
     width: 110%;
     height: calc(100% - 40px);
 }
 
-#more-button:after {
+#load-button:after {
     width: calc(100% - 40px);
     height: 110%;
 }
 
-#more-button-text {
+#load-button-text {
     z-index: 99;
     color: var(--theme-color);
     font-size: 24px;
     letter-spacing: 2px;
     transition: var(--transition-duration);
-    animation: more-btn-text 1.5s linear alternate infinite;
+    animation: load-btn-text 1.5s linear alternate infinite;
 }
 
-#more-button-animation-span {
+#load-button-animation-span {
     position: absolute;
     height: calc(100% - 4px);
     width: calc(100% - 4px);
@@ -358,13 +358,13 @@ main {
     z-index: 80;
 }
 
-#more-button.dark-mode:before,
-#more-button.dark-mode:after,
-#more-button-animation-span.dark-mode {
+#load-button.dark-mode:before,
+#load-button.dark-mode:after,
+#load-button-animation-span.dark-mode {
     background-color: #181920;
 }
 
-@keyframes more-btn-text {
+@keyframes load-btn-text {
     from {
         transform: scale(1);
     }

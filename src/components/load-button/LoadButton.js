@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 
-export function MoreButton({ gifs, setGifs, gifsContainerRef, fetchData, showMoreBtn, threshold, darkModeIsActive }) {
+export function LoadButton({ gifs, setGifs, gifsContainerRef, fetchData, isDisplayed, threshold, darkModeIsActive }) {
 
-  const moreBtnClassName = darkModeIsActive ? 'dark-mode' : '';
+  const loadBtnClassName = darkModeIsActive ? 'dark-mode' : '';
 
   const handleMoreBtnClick = e => {
     e.preventDefault();
@@ -19,10 +19,10 @@ export function MoreButton({ gifs, setGifs, gifsContainerRef, fetchData, showMor
 
   useEffect(handleMoreGifs, [gifs.length]);
 
-  return !showMoreBtn ? null : (
-    <button id='more-button' className={moreBtnClassName} onClick={handleMoreBtnClick}>
-      <span id='more-button-text'>LOAD MORE</span>
-      <span id='more-button-animation-span' className={moreBtnClassName} />
+  return !isDisplayed ? null : (
+    <button id='load-button' className={loadBtnClassName} onClick={handleMoreBtnClick}>
+      <span id='load-button-text'>LOAD MORE</span>
+      <span id='load-button-animation-span' className={loadBtnClassName} />
     </button>
   );
 }
