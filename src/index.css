@@ -353,7 +353,6 @@ input:focus {
     height: calc(100% - 4px);
     width: calc(100% - 4px);
     background-color: #F2F3F4;
-    inset: 2px;
     z-index: 80;
 }
 

@@ -18,26 +18,26 @@ export function App() {
   const [isLowResolution, setIsLowResolution] = useState(false);
   const [playOnlyOnHover, setPlayOnlyOnHover] = useState(false);
   const [lazyLoadingIsOn, setLazyLoadingIsOn] = useState(true);
-  const [showMoreBtn, setShowMoreBtn] = useState(false);
 
+  const apiLimit = 18;
+  const threshold = apiLimit * 4;
+  const showMoreBtn = gifs.length && gifs.length % threshold === 0;
   const displaySpinner = isLoading && apiResOffset === 0;
 
   const queryApi = async () => {
     setIsLoading(true);
-    setShowMoreBtn(false);
-    const limit = 18;
     const searchForTrending = queryString === trendingGifsQueryCode;
     const path = searchForTrending ? 'trending' : 'search';
     const q = searchForTrending ? '' : `&q=${queryString}`;
     // trending path finds currently trending gifs instead of searching for gifs about trending:
-    const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${API_KEY}${q}&limit=${limit}&offset=${apiResOffset}`;
+    const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${API_KEY}${q}&limit=${apiLimit}&offset=${apiResOffset}`;
     const response = await fetch(url);
     const { data, meta } = await response.json();
     setIsLoading(false);
     const statusNotOk = meta.status < 200 || meta.status > 299;
     if (!statusNotOk && data.length) {
       setGifs(gifs.concat(data))
-      setApiResOffset(apiResOffset + limit);
+      setApiResOffset(apiResOffset + apiLimit);
     } else {
       setFailedToLoad(true);
     }
@@ -103,7 +103,7 @@ export function App() {
           gifsContainerRef={gifsContainerRef}
           fetchData={fetchData}
           showMoreBtn={showMoreBtn}
-          setShowMoreBtn={setShowMoreBtn}
+          threshold={threshold}
         />
       </div>
       <footer><span id='attribution'>Powered by GIPHY</span></footer>
