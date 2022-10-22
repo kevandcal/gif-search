@@ -64,6 +64,7 @@ export function App() {
         queryString={queryString}
         setQueryString={setQueryString}
         setGifs={setGifs}
+        setApiResOffset={setApiResOffset}
         setFailedToLoad={setFailedToLoad}
         topBarIsStyled={topBarIsStyled}
         setTopBarIsStyled={setTopBarIsStyled}

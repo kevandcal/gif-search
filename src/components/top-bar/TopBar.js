@@ -10,7 +10,7 @@ export function TopBar({
   queryString,
   setQueryString,
   setGifs,
-  // setApiResOffset,
+  setApiResOffset,
   setFailedToLoad,
   topBarIsStyled,
   setTopBarIsStyled,
@@ -39,7 +39,7 @@ export function TopBar({
       window.alert('Please enter a search term');
     } else if (query !== queryString) {
       setTopBarIsStyled(false);
-      // setApiResOffset(0);
+      setApiResOffset(0);
       setGifs([]);
       setFailedToLoad(false);
       setQueryString(query);
