@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { API_KEY } from '../../secrets.json';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { TopBar } from '../top-bar/TopBar';
 import { MainSection } from '../main-section/MainSection';
 
@@ -12,11 +13,12 @@ export function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [failedToLoad, setFailedToLoad] = useState(false);
   const [topBarIsStyled, setTopBarIsStyled] = useState(false);
-  const [isLowResolution, setIsLowResolution] = useState(false);
-  const [playOnlyOnHover, setPlayOnlyOnHover] = useState(false);
-  const [lazyLoadingIsOn, setLazyLoadingIsOn] = useState(true);
-  const [darkModeIsActive, setDarkModeIsActive] = useState(false);
-  const [infiniteScrollIsActive, setInfiniteScrollIsActive] = useState(true);
+  const [isLowResolution, setIsLowResolution] = useLocalStorage('lowResolution', false);
+  const [playOnlyOnHover, setPlayOnlyOnHover] = useLocalStorage('playOnlyOnHover', false);
+  const [lazyLoadingIsOn, setLazyLoadingIsOn] = useLocalStorage('lazyLoading', true);
+  const [infiniteScrollIsActive, setInfiniteScrollIsActive] = useLocalStorage('infiniteScroll', true);
+  const [darkModeIsActive, setDarkModeIsActive] = useLocalStorage('darkMode', false);
+
 
   const gifsPerRequest = infiniteScrollIsActive ? 18 : 30;
 
