@@ -52,14 +52,16 @@ export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHo
   useEffect(updateSrc, [isInViewport, isLowResolution, playOnlyOnHover, gifObject]);
 
   return (
-    <img
-      ref={gifRef}
-      alt={alt}
-      className="gif"
-      src={src}
-      onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    />
+    <div ref={gifRef} className="gif">
+      {!isInViewport ? null : (
+        <img
+          alt={alt}
+          src={src}
+          onClick={handleClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        />
+      )}
+    </div>
   );
 }

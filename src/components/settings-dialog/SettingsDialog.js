@@ -26,26 +26,31 @@ export function SettingsDialog({
       setFunction: setLazyLoadingIsOn,
       state: lazyLoadingIsOn,
       text: 'Lazy loading',
+      refresh: false
     },
     {
       setFunction: setIsLowResolution,
       state: isLowResolution,
-      text: 'Low resolution'
+      text: 'Low resolution',
+      refresh: false
     },
     {
       setFunction: setPlayOnlyOnHover,
       state: playOnlyOnHover,
-      text: 'Play only on hover'
+      text: 'Play only on hover',
+      refresh: false
     },
     {
       setFunction: setInfiniteScrollIsActive,
       state: infiniteScrollIsActive,
-      text: 'Infinte scroll'
+      text: 'Infinte scroll',
+      refresh: true
     },
     {
       setFunction: setDarkModeIsActive,
       state: darkModeIsActive,
-      text: 'Dark mode'
+      text: 'Dark mode',
+      refresh: false
     }
   ];
 
@@ -80,8 +85,14 @@ export function SettingsDialog({
       className={dialogClassName}
       style={{ left: dialogOffsetLeft }}
     >
-      {settingsButtonData.map(obj => (
-        <SettingsButton setFunction={obj.setFunction} isActive={obj.state} text={obj.text} key={obj.text} />
+      {settingsButtonData.map(setting => (
+        <SettingsButton
+          key={setting.text}
+          setFunction={setting.setFunction}
+          isActive={setting.state}
+          text={setting.text}
+          refreshOnClick={setting.refresh}
+        />
       ))}
     </div>
   );
