@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { API_KEY } from '../../secrets.json';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { TopBar } from '../top-bar/TopBar';
 import { MainSection } from '../main-section/MainSection';
 
 export function App() {
-  const trendingGifsQueryCode = 'ultratopsecrettrendinggifscode';
-  const gifsContainerRef = useRef(null);
+  const trendingGifsQueryCode = useMemo(() => String(Math.random()), []);
   const [gifs, setGifs] = useState([]);
   const [queryString, setQueryString] = useState(trendingGifsQueryCode);
   const [apiResOffset, setApiResOffset] = useState(0);
@@ -19,14 +18,16 @@ export function App() {
   const [infiniteScrollIsActive, setInfiniteScrollIsActive] = useLocalStorage('infiniteScroll', true);
   const [darkModeIsActive, setDarkModeIsActive] = useLocalStorage('darkMode', false);
 
-
   const gifsPerRequest = infiniteScrollIsActive ? 18 : 30;
 
-  const queryApi = async (offset = apiResOffset) => {
+  const fetchGifs = async (query = queryString, offset = apiResOffset) => {
+    if (isLoading) {
+      return;
+    }
     setIsLoading(true);
-    const searchForTrending = queryString === trendingGifsQueryCode;
+    const searchForTrending = query === trendingGifsQueryCode;
     const path = searchForTrending ? 'trending' : 'search';
-    const q = searchForTrending ? '' : `&q=${queryString}`;
+    const q = searchForTrending ? '' : `&q=${query}`;
     // trending path finds currently trending gifs instead of searching for gifs about trending:
     const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${API_KEY}${q}&limit=${gifsPerRequest}&offset=${offset}`;
     const response = await fetch(url);
@@ -41,10 +42,8 @@ export function App() {
     }
   };
 
-  const fetchData = offset => {
-    if (queryString && !isLoading) {
-      queryApi(offset);
-    }
+  const fetchTrendingGifsOnMount = () => {
+    fetchGifs();
   };
 
   const handleLoading = () => {
@@ -53,21 +52,19 @@ export function App() {
     }
   };
 
-  useEffect(fetchData, [queryString]);
+  useEffect(fetchTrendingGifsOnMount, []);
   useEffect(handleLoading, [isLoading, gifs.length]);
 
   return (
     <>
       <TopBar
         trendingGifsQueryCode={trendingGifsQueryCode}
-        gifsContainerRef={gifsContainerRef}
         queryString={queryString}
         setQueryString={setQueryString}
         setGifs={setGifs}
-        setApiResOffset={setApiResOffset}
+        fetchGifs={fetchGifs}
         setFailedToLoad={setFailedToLoad}
         topBarIsStyled={topBarIsStyled}
-        setTopBarIsStyled={setTopBarIsStyled}
         isLowResolution={isLowResolution}
         setIsLowResolution={setIsLowResolution}
         playOnlyOnHover={playOnlyOnHover}
@@ -82,8 +79,8 @@ export function App() {
       <MainSection
         gifs={gifs}
         setGifs={setGifs}
-        gifsContainerRef={gifsContainerRef}
-        fetchData={fetchData}
+        queryString={queryString}
+        fetchGifs={fetchGifs}
         gifsPerRequest={gifsPerRequest}
         failedToLoad={failedToLoad}
         isLoading={isLoading}

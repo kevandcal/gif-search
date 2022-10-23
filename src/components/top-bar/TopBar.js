@@ -6,14 +6,12 @@ import { SearchBar } from '../search-bar/SearchBar';
 
 export function TopBar({
   trendingGifsQueryCode,
-  gifsContainerRef,
   queryString,
   setQueryString,
   setGifs,
-  setApiResOffset,
   setFailedToLoad,
+  fetchGifs,
   topBarIsStyled,
-  setTopBarIsStyled,
   isLowResolution,
   setIsLowResolution,
   playOnlyOnHover,
@@ -27,7 +25,6 @@ export function TopBar({
 }) {
   const settingsIconRef = useRef(null);
   const inputRef = useRef(null);
-  const [typedString, setTypedString] = useState("");
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
 
   const topBarClassName = `${darkModeIsActive ? 'dark ' : ''}${topBarIsStyled ? 'styled' : ''}`;
@@ -37,22 +34,18 @@ export function TopBar({
   const submitQuery = query => {
     if (!query) {
       window.alert('Please enter a search term');
-    } else if (query !== queryString) {
-      setTopBarIsStyled(false);
-      setApiResOffset(0);
+    } else {
       setGifs([]);
       setFailedToLoad(false);
-      setQueryString(query);
       inputRef.current.blur();
-      gifsContainerRef.current.scroll({ top: 0 });
+      fetchGifs(query, 0);
     }
-  }
+  };
 
   const handleHomeIconClick = () => {
-    // window.location.reload();
-    setTypedString('');
-    submitQuery(trendingGifsQueryCode);
-  };
+    submitQuery(trendingGifsQueryCode, 0);
+    setQueryString(trendingGifsQueryCode);
+  }
 
   const handleDarkMode = () => {
     document.body.classList.toggle('dark', darkModeIsActive);
@@ -73,8 +66,9 @@ export function TopBar({
           inputRef={inputRef}
           submitQuery={submitQuery}
           darkModeIsActive={darkModeIsActive}
-          typedString={typedString}
-          setTypedString={setTypedString}
+          trendingGifsQueryCode={trendingGifsQueryCode}
+          queryString={queryString}
+          setQueryString={setQueryString}
         />
         <div
           className='top-bar-icon-container'

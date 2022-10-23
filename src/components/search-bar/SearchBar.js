@@ -7,13 +7,14 @@ export function SearchBar({
   inputRef,
   submitQuery,
   darkModeIsActive,
-  typedString,
-  setTypedString
+  trendingGifsQueryCode,
+  queryString,
+  setQueryString
 }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    submitQuery(typedString);
+    submitQuery(queryString);
   };
 
   return (
@@ -22,8 +23,9 @@ export function SearchBar({
         <InputField
           inputRef={inputRef}
           darkModeIsActive={darkModeIsActive}
-          typedString={typedString}
-          setTypedString={setTypedString}
+          trendingGifsQueryCode={trendingGifsQueryCode}
+          queryString={queryString}
+          setQueryString={setQueryString}
         />
         <button id='submit-btn' aria-label='Search'>
           <FontAwesomeIcon icon={faMagnifyingGlass} id="magnifying-glass-icon" />

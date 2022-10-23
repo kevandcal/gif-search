@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { GifSearchResults } from '../gif-search-results/GifSearchResults';
 import { LoadButton } from '../load-button/LoadButton';
 
 export function MainSection({
   gifs,
-  gifsContainerRef,
-  fetchData,
+  queryString,
+  fetchGifs,
   gifsPerRequest,
   failedToLoad,
   isLoading,
@@ -19,9 +19,9 @@ export function MainSection({
   infiniteScrollIsActive
 }) {
   const { height } = useWindowSize();
+  const gifsContainerRef = useRef(null);
 
   const displayPrevPageBtn = !infiniteScrollIsActive && apiResOffset > gifsPerRequest;
-  // const displayNextPageBtn = !infiniteScrollIsActive && gifs.length % gifsPerRequest === 0;
   const displayNextPageBtn = !infiniteScrollIsActive;
 
   const handleScroll = () => {
@@ -29,7 +29,7 @@ export function MainSection({
     // infinite scroll:
     if (infiniteScrollIsActive) {
       if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !displayNextPageBtn) {
-        fetchData();
+        fetchGifs();
       }
     }
     // change top bar styling when scrolled beyond 5vh:
@@ -39,12 +39,12 @@ export function MainSection({
   const handleGoBackBtnClick = e => {
     e.preventDefault();
     const offset = apiResOffset - (gifsPerRequest * 2);
-    fetchData(offset);
+    fetchGifs(queryString, offset);
   };
 
   const handleMoreBtnClick = e => {
     e.preventDefault();
-    fetchData();
+    fetchGifs();
     gifsContainerRef.current.scroll({ top: 0 });
   };
 
