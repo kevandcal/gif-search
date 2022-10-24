@@ -7,18 +7,15 @@ export const GifSearchResults = React.memo(({
   gifs,
   gifsContainerRef,
   isLoading,
-  apiResOffset,
   failedToLoad,
   isLowResolution,
   playOnlyOnHover,
   lazyLoadingIsOn
 }) => {
-
-  const displaySpinner = isLoading && apiResOffset === 0;
-  // should the second condition be apiResOffset % pageThreshold === 0 or !gifs.length instead of apiResOffset === 0?
+  const displaySpinner = isLoading && !gifs.length;
 
   if (displaySpinner) {
-    // while search results are loading, render spinner:
+    // while initial search results are loading, render spinner:
     return (
       <FontAwesomeIcon icon={faSpinner} id="spinner" className='fa-spin' />
     );
@@ -41,4 +38,3 @@ export const GifSearchResults = React.memo(({
     );
   }
 });
-

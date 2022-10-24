@@ -300,6 +300,7 @@ main:before {
     color: var(--theme-color);
     border: none;
     border-radius: 3px;
+    padding: 0;
     margin: 50px 0;
     font-weight: bold;
     cursor: pointer;

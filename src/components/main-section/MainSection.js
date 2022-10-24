@@ -60,7 +60,6 @@ export function MainSection({
         gifs={gifs}
         gifsContainerRef={gifsContainerRef}
         isLoading={isLoading}
-        apiResOffset={apiResOffset}
         failedToLoad={failedToLoad}
         isLowResolution={isLowResolution}
         playOnlyOnHover={playOnlyOnHover}

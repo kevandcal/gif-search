@@ -7,11 +7,10 @@ export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHo
   const [src, setSrc] = useState('');
   const [isInViewport, setIsInViewport] = useState(false);
 
+  const displayImg = isInViewport || !lazyLoadingIsOn;
+
+  const stillUrl = images.fixed_height_still.url;
   const properResolutionUrl = isLowResolution ? images.fixed_height_downsampled.url : images.fixed_height.url;
-
-  const alt = isInViewport ? gifObject.title : '';
-
-  const handleClick = () => window.open(gifObject.embed_url, '_blank');
 
   const handleMouseEnter = () => {
     if (playOnlyOnHover) {
@@ -21,12 +20,17 @@ export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHo
 
   const handleMouseLeave = () => {
     if (playOnlyOnHover) {
-      setSrc(images.fixed_height_still.url);
+      setSrc(stillUrl);
     }
   };
 
+  const openGiphyPageForGif = () => window.open(gifObject.embed_url, '_blank');
+
   // inspired by https://levelup.gitconnected.com/how-to-implement-lazy-loading-in-react-with-intersection-observer-61c0e53ec8d:
   const handleLazyLoad = () => {
+    if (!lazyLoadingIsOn) {
+      return;
+    }
     const currentGifRef = gifRef.current;
     if (currentGifRef) {
       io.current = new IntersectionObserver(
@@ -41,23 +45,20 @@ export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHo
   };
 
   const updateSrc = () => {
-    let url = '';
-    if (isInViewport || !lazyLoadingIsOn) {
-      url = playOnlyOnHover ? images.fixed_height_still.url : properResolutionUrl;
-    }
+    const url = playOnlyOnHover ? stillUrl : properResolutionUrl;
     setSrc(url);
   };
 
-  useEffect(handleLazyLoad, [gifRef, gifsContainerRef]);
-  useEffect(updateSrc, [isInViewport, isLowResolution, playOnlyOnHover, gifObject]);
+  useEffect(handleLazyLoad, [gifRef, gifsContainerRef, lazyLoadingIsOn]);
+  useEffect(updateSrc, [isLowResolution, playOnlyOnHover, gifObject]);
 
   return (
     <div ref={gifRef} className="gif">
-      {!isInViewport ? null : (
+      {!displayImg ? null : (
         <img
-          alt={alt}
+          alt={gifObject.title}
           src={src}
-          onClick={handleClick}
+          onClick={openGiphyPageForGif}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         />
