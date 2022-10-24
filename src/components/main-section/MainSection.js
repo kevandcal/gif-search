@@ -21,14 +21,14 @@ export function MainSection({
   const { height } = useWindowSize();
   const gifsContainerRef = useRef(null);
 
-  const displayPrevPageBtn = !infiniteScrollIsActive && apiResOffset > gifsPerRequest;
-  const displayNextPageBtn = !infiniteScrollIsActive;
+  const displayLoadMoreBtn = !infiniteScrollIsActive && gifs.length;
+  const displayGoBackBtn = displayLoadMoreBtn && apiResOffset > gifsPerRequest;
 
   const handleScroll = () => {
     const refEl = gifsContainerRef.current;
     // infinite scroll:
     if (infiniteScrollIsActive) {
-      if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !displayNextPageBtn) {
+      if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !displayLoadMoreBtn) {
         fetchGifs();
       }
     }
@@ -53,7 +53,7 @@ export function MainSection({
       <LoadButton
         text='Go Back'
         onClick={handleGoBackBtnClick}
-        isDisplayed={displayPrevPageBtn}
+        isDisplayed={displayGoBackBtn}
         darkModeIsActive={darkModeIsActive}
       />
       <GifSearchResults
@@ -68,7 +68,7 @@ export function MainSection({
       <LoadButton
         text='Load More'
         onClick={handleMoreBtnClick}
-        isDisplayed={displayNextPageBtn}
+        isDisplayed={displayLoadMoreBtn}
         darkModeIsActive={darkModeIsActive}
       />
     </main>

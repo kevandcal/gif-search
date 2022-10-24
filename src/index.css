@@ -288,60 +288,69 @@ main:before {
     /* width is set using JS in gif-content.js */
 }
 
+#load-button-container,
 #load-button {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(var(--gif-height-width)/4);
+    cursor: pointer;
+    transition: var(--transition-duration);
+}
+
+#load-button-container {
+    position: relative;
+    min-height: 98px;
     width: calc(var(--gif-height-width) - 4px);
     max-width: calc(var(--content-width) - 4px);
     background-color: var(--theme-color);
-    color: var(--theme-color);
-    border: none;
     border-radius: 3px;
-    padding: 0;
     margin: 50px 0;
-    font-weight: bold;
-    cursor: pointer;
-    transition: var(--transition-duration);
-    user-select: none;
     overflow: hidden;
 }
 
-#load-button:hover {
+#load-button-container:hover {
     background-color: var(--theme-color-alt);
 }
 
-#load-button:hover:before {
+#load-button-container:hover:before {
     height: 0;
 }
 
-#load-button:hover:after {
+#load-button-container:hover:after {
     width: 0;
 }
 
-#load-button:hover #load-button-text {
+#load-button-container:hover #load-button-text {
     color: var(--theme-color-alt);
     animation-play-state: paused;
 }
 
-#load-button:before,
-#load-button:after {
+#load-button-container:before,
+#load-button-container:after {
     content: '';
     position: absolute;
     background-color: #F2F3F4;
     transition: background-color var(--transition-duration), width 0.5s ease, height 0.5s ease;
 }
 
-#load-button:before {
+#load-button-container:before {
     width: 110%;
     height: calc(100% - 40px);
 }
 
-#load-button:after {
+#load-button-container:after {
     width: calc(100% - 40px);
     height: 110%;
+}
+
+#load-button {
+    position: absolute;
+    height: calc(100% - 4px);
+    width: calc(100% - 4px);
+    border: none;
+    padding: 0;
+    background-color: #F2F3F4;
+    z-index: 80;
 }
 
 #load-button-text {
@@ -349,23 +358,16 @@ main:before {
     color: var(--theme-color);
     font-size: 20px;
     text-transform: uppercase;
+    font-weight: bold;
     letter-spacing: 2px;
     transition: var(--transition-duration);
+    user-select: none;
     animation: load-btn-text 1.5s linear alternate infinite;
 }
 
-#load-button-animation-span {
-    position: absolute;
-    height: calc(100% - 4px);
-    width: calc(100% - 4px);
-    background-color: #F2F3F4;
-    transition: var(--transition-duration);
-    z-index: 80;
-}
-
-#load-button.dark-mode:before,
-#load-button.dark-mode:after,
-#load-button-animation-span.dark-mode {
+#load-button-container.dark-mode:before,
+#load-button-container.dark-mode:after,
+#load-button.dark-mode {
     background-color: #181920;
 }
 
@@ -380,15 +382,14 @@ main:before {
 }
 
 .gif {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     border: 1px solid var(--theme-color);
     box-shadow: 0 0 1px var(--theme-color);
     z-index: 2;
-}
-
-.gif,
-.gif>img {
-    box-sizing: border-box;
     height: var(--gif-height-width);
     width: var(--gif-height-width);
     /* max-width limited to 90vw for narrow (phone) screens:  */
@@ -396,6 +397,8 @@ main:before {
 }
 
 .gif>img {
+    height: 100%;
+    width: 100%;
     object-fit: cover;
 }
 

@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHover, lazyLoadingIsOn }) {
-  const { images } = gifObject;
   const gifRef = useRef(null);
   const io = useRef(null);
   const [src, setSrc] = useState('');
   const [isInViewport, setIsInViewport] = useState(false);
 
-  const displayImg = isInViewport || !lazyLoadingIsOn;
-
+  const { images } = gifObject;
   const stillUrl = images.fixed_height_still.url;
   const properResolutionUrl = isLowResolution ? images.fixed_height_downsampled.url : images.fixed_height.url;
+
+  const displayImg = isInViewport || !lazyLoadingIsOn;
 
   const handleMouseEnter = () => {
     if (playOnlyOnHover) {
