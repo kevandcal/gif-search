@@ -30,8 +30,7 @@ export function App() {
     const q = searchForTrending ? '' : `&q=${query}`;
     // trending path finds currently trending gifs instead of searching for gifs about trending:
     const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${API_KEY}${q}&limit=${gifsPerRequest}&offset=${offset}`;
-    const controller = new AbortController();
-    const response = await fetch(url, { signal: controller.signal });
+    const response = await fetch(url);
     const { data, meta } = await response.json();
     setIsLoading(false);
     const statusNotOk = meta.status < 200 || meta.status > 299;
@@ -41,10 +40,6 @@ export function App() {
     } else {
       setFailedToLoad(true);
     }
-
-    return () => {
-      controller.abort();
-    };
   };
 
   const fetchTrendingGifsOnMount = () => {
