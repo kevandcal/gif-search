@@ -42,17 +42,14 @@ export function App() {
     }
   };
 
-  const fetchTrendingGifsOnMount = () => {
-    fetchGifs();
-  };
-
   const handleLoading = () => {
     if (isLoading && gifs.length) {
       setIsLoading(false);
     }
   };
 
-  useEffect(fetchTrendingGifsOnMount, []);
+  // fetch trending gifs when component mounts:
+  useEffect(fetchGifs, []);
   useEffect(handleLoading, [isLoading, gifs.length]);
 
   return (
