@@ -1,22 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { SettingsButton } from '../settings-button/SettingsButton';
+import { useSettings } from '../../context/settings-context';
 
 export function SettingsDialog({
   isOpen,
   setIsOpen,
   settingsIconRef,
-  darkModeIsActive,
-  setDarkModeIsActive,
-  isLowResolution,
-  setIsLowResolution,
-  playOnlyOnHover,
-  setPlayOnlyOnHover,
-  lazyLoadingIsOn,
-  setLazyLoadingIsOn,
   infiniteScrollIsActive,
-  setInfiniteScrollIsActive
+  setInfiniteScrollIsActive,
 }) {
+  const {
+    isLowResolution,
+    setIsLowResolution,
+    playOnlyOnHover,
+    setPlayOnlyOnHover,
+    lazyLoadingIsOn,
+    setLazyLoadingIsOn,
+    darkModeIsActive,
+    setDarkModeIsActive
+  } = useSettings();
   const { width } = useWindowSize();
   const dialogRef = useRef(null);
   const [dialogOffsetLeft, setDialogOffsetLeft] = useState(0);

@@ -3,6 +3,7 @@ import { API_KEY } from '../../secrets.json';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { TopBar } from '../top-bar/TopBar';
 import { MainSection } from '../main-section/MainSection';
+import { SettingsProvider } from '../../context/settings-context';
 
 export function App() {
   const trendingGifsQueryCode = useMemo(() => String(Math.random()), []);
@@ -12,11 +13,7 @@ export function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [failedToLoad, setFailedToLoad] = useState(false);
   const [topBarIsStyled, setTopBarIsStyled] = useState(false);
-  const [isLowResolution, setIsLowResolution] = useLocalStorage('lowResolution', false);
-  const [playOnlyOnHover, setPlayOnlyOnHover] = useLocalStorage('playOnlyOnHover', false);
-  const [lazyLoadingIsOn, setLazyLoadingIsOn] = useLocalStorage('lazyLoading', true);
   const [infiniteScrollIsActive, setInfiniteScrollIsActive] = useLocalStorage('infiniteScroll', true);
-  const [darkModeIsActive, setDarkModeIsActive] = useLocalStorage('darkMode', false);
 
   const gifsPerRequest = infiniteScrollIsActive ? 18 : 30;
 
@@ -42,18 +39,21 @@ export function App() {
     }
   };
 
+  const fetchGifsOnMount = () => {
+    fetchGifs();
+  };
+
   const handleLoading = () => {
     if (isLoading && gifs.length) {
       setIsLoading(false);
     }
   };
 
-  // fetch trending gifs when component mounts:
-  useEffect(fetchGifs, []);
+  useEffect(fetchGifsOnMount, []);
   useEffect(handleLoading, [isLoading, gifs.length]);
 
   return (
-    <>
+    <SettingsProvider>
       <TopBar
         trendingGifsQueryCode={trendingGifsQueryCode}
         queryString={queryString}
@@ -62,14 +62,6 @@ export function App() {
         fetchGifs={fetchGifs}
         setFailedToLoad={setFailedToLoad}
         topBarIsStyled={topBarIsStyled}
-        isLowResolution={isLowResolution}
-        setIsLowResolution={setIsLowResolution}
-        playOnlyOnHover={playOnlyOnHover}
-        setPlayOnlyOnHover={setPlayOnlyOnHover}
-        lazyLoadingIsOn={lazyLoadingIsOn}
-        setLazyLoadingIsOn={setLazyLoadingIsOn}
-        darkModeIsActive={darkModeIsActive}
-        setDarkModeIsActive={setDarkModeIsActive}
         infiniteScrollIsActive={infiniteScrollIsActive}
         setInfiniteScrollIsActive={setInfiniteScrollIsActive}
       />
@@ -82,17 +74,13 @@ export function App() {
         failedToLoad={failedToLoad}
         isLoading={isLoading}
         apiResOffset={apiResOffset}
-        isLowResolution={isLowResolution}
-        darkModeIsActive={darkModeIsActive}
-        playOnlyOnHover={playOnlyOnHover}
-        lazyLoadingIsOn={lazyLoadingIsOn}
         setTopBarIsStyled={setTopBarIsStyled}
         infiniteScrollIsActive={infiniteScrollIsActive}
       />
       <footer>
         <span id='attribution'>Powered by GIPHY</span>
       </footer>
-    </>
+    </SettingsProvider>
   );
 }
 

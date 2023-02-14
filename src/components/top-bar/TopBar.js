@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from '../settings-dialog/SettingsDialog';
 import { SearchBar } from '../search-bar/SearchBar';
+import { useSettings } from '../../context/settings-context';
 
 export function TopBar({
   trendingGifsQueryCode,
@@ -12,17 +13,10 @@ export function TopBar({
   setFailedToLoad,
   fetchGifs,
   topBarIsStyled,
-  isLowResolution,
-  setIsLowResolution,
-  playOnlyOnHover,
-  setPlayOnlyOnHover,
-  lazyLoadingIsOn,
-  setLazyLoadingIsOn,
-  darkModeIsActive,
-  setDarkModeIsActive,
   infiniteScrollIsActive,
   setInfiniteScrollIsActive
 }) {
+  const { darkModeIsActive } = useSettings();
   const settingsIconRef = useRef(null);
   const inputRef = useRef(null);
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
@@ -82,14 +76,6 @@ export function TopBar({
         isOpen={settingsDialogIsOpen}
         setIsOpen={setSettingsDialogIsOpen}
         settingsIconRef={settingsIconRef}
-        darkModeIsActive={darkModeIsActive}
-        setDarkModeIsActive={setDarkModeIsActive}
-        isLowResolution={isLowResolution}
-        setIsLowResolution={setIsLowResolution}
-        playOnlyOnHover={playOnlyOnHover}
-        setPlayOnlyOnHover={setPlayOnlyOnHover}
-        lazyLoadingIsOn={lazyLoadingIsOn}
-        setLazyLoadingIsOn={setLazyLoadingIsOn}
         infiniteScrollIsActive={infiniteScrollIsActive}
         setInfiniteScrollIsActive={setInfiniteScrollIsActive}
       />

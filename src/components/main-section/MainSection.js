@@ -11,10 +11,6 @@ export function MainSection({
   failedToLoad,
   isLoading,
   apiResOffset,
-  isLowResolution,
-  darkModeIsActive,
-  playOnlyOnHover,
-  lazyLoadingIsOn,
   setTopBarIsStyled,
   infiniteScrollIsActive
 }) {
@@ -54,22 +50,17 @@ export function MainSection({
         text='Go Back'
         onClick={handleGoBackBtnClick}
         isDisplayed={displayGoBackBtn}
-        darkModeIsActive={darkModeIsActive}
       />
       <GifSearchResults
         gifs={gifs}
         gifsContainerRef={gifsContainerRef}
         isLoading={isLoading}
         failedToLoad={failedToLoad}
-        isLowResolution={isLowResolution}
-        playOnlyOnHover={playOnlyOnHover}
-        lazyLoadingIsOn={lazyLoadingIsOn}
       />
       <LoadButton
         text='Load More'
         onClick={handleMoreBtnClick}
         isDisplayed={displayLoadMoreBtn}
-        darkModeIsActive={darkModeIsActive}
       />
     </main>
   )

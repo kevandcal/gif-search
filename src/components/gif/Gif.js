@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useSettings } from '../../context/settings-context';
 
-export function Gif({ gifObject, gifsContainerRef, isLowResolution, playOnlyOnHover, lazyLoadingIsOn }) {
+export function Gif({ gifObject, gifsContainerRef }) {
+  const { isLowResolution, playOnlyOnHover, lazyLoadingIsOn } = useSettings();
   const gifRef = useRef(null);
   const io = useRef(null);
   const [src, setSrc] = useState('');

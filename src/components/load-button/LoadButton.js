@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { useSettings } from '../../context/settings-context';
 
 export function LoadButton({
   text,
   onClick,
   isDisplayed,
-  darkModeIsActive
 }) {
+  const { darkModeIsActive } = useSettings();
 
   const loadBtnClassName = darkModeIsActive ? 'dark-mode' : '';
 

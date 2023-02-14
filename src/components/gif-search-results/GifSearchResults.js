@@ -7,10 +7,7 @@ export const GifSearchResults = React.memo(({
   gifs,
   gifsContainerRef,
   isLoading,
-  failedToLoad,
-  isLowResolution,
-  playOnlyOnHover,
-  lazyLoadingIsOn
+  failedToLoad
 }) => {
   const displaySpinner = isLoading && !gifs.length;
 
@@ -31,9 +28,6 @@ export const GifSearchResults = React.memo(({
       <GifsGrid
         gifs={gifs}
         gifsContainerRef={gifsContainerRef}
-        isLowResolution={isLowResolution}
-        playOnlyOnHover={playOnlyOnHover}
-        lazyLoadingIsOn={lazyLoadingIsOn}
       />
     );
   }

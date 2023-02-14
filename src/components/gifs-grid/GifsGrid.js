@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { Gif } from '../gif/Gif';
 
-export function GifsGrid({ gifs, gifsContainerRef, isLowResolution, playOnlyOnHover, lazyLoadingIsOn }) {
+export function GifsGrid({ gifs, gifsContainerRef }) {
   const { width } = useWindowSize();
   const [gifGridWidth, setGifGridWidth] = useState(0);
 
@@ -28,9 +28,6 @@ export function GifsGrid({ gifs, gifsContainerRef, isLowResolution, playOnlyOnHo
           key={index}
           gifObject={gif}
           gifsContainerRef={gifsContainerRef}
-          isLowResolution={isLowResolution}
-          playOnlyOnHover={playOnlyOnHover}
-          lazyLoadingIsOn={lazyLoadingIsOn}
         />
       ))}
     </div>
