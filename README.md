@@ -11,7 +11,7 @@ This is an app built in React that allows users to search the Giphy database.
 
 ## Built with
 
-React, CSS3, Font Awesome Icons, Giphy API
+React, CSS3, local storage, Font Awesome icons, Giphy API
 
 ## Features
 
@@ -23,10 +23,10 @@ React, CSS3, Font Awesome Icons, Giphy API
 * Gifs are arranged in a 3-column grid if space allows; if not, they are arranged in 1 or 2 columns
 * The app is fully responsive and should work on any screen size
 * To the right of the input field is an ellipsis icon; clicking it opens a dialog of settings
-* Users can toggle the following settings on or off:
-    * Lazy loading
+* Users can toggle between the following settings:
+    * Lazy loading or immediate loading
     * High or low resolution
-    * Playing either only on hover or else whenever at least partially on screen
+    * Playing each gif either only on hover or whenever it is at least partially on screen
     * Infinite scroll or pagination (pagination makes use of custom-built animated buttons)
     * Light or dark mode
 * Settings persist in each user's browser by using local storage
