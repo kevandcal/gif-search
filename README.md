@@ -7,7 +7,7 @@ This is an app built in React that allows users to search the Giphy database.
 <!-- ![GIF Search](src/images/gif-search.gif) -->
 <!-- ![GIF Search](src/images/gif-search-demo-950px.mp4) -->
 
-<video width="100%" height="auto" autoplay>
+<video width="100%" height="auto">
   <source src="src/images/gif-search-demo-950px.mp4" type="video/mp4">
 </video>
 
