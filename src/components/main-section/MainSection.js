@@ -27,10 +27,11 @@ export function MainSection({
   const handleScroll = () => {
     const refEl = gifsContainerRef.current;
     // infinite scroll:
-    if (infiniteScrollIsActive) {
-      if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !displayLoadMoreBtn) {
-        fetchGifs();
-      }
+    if (
+      infiniteScrollIsActive &&
+      (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight)
+    ) {
+      fetchGifs();
     }
     // change top bar styling when scrolled beyond 5vh:
     setTopBarIsStyled(refEl.scrollTop >= height * 0.05);

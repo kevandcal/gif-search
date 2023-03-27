@@ -33,8 +33,7 @@ export function App() {
     const response = await fetch(url);
     const { data, meta } = await response.json();
     setIsLoading(false);
-    const statusNotOk = meta.status < 200 || meta.status > 299;
-    if (!statusNotOk && data.length) {
+    if (meta.status >= 200 && meta.status <= 299 && data.length) {
       setGifs(prev => infiniteScrollIsActive ? prev.concat(data) : data);
       setApiResOffset(offset + gifsPerRequest);
     } else {
@@ -46,14 +45,7 @@ export function App() {
     fetchGifs();
   };
 
-  const handleLoading = () => {
-    if (isLoading && gifs.length) {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(fetchGifsOnMount, []);
-  useEffect(handleLoading, [isLoading, gifs.length]);
 
   return (
     <>
