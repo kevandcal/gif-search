@@ -11,6 +11,7 @@ export function App() {
   const [apiResOffset, setApiResOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [failedToLoad, setFailedToLoad] = useState(false);
+  const [allGifsFetched, setAllGifsFetched] = useState(false);
   const [topBarIsStyled, setTopBarIsStyled] = useState(false);
   const [isLowResolution, setIsLowResolution] = useLocalStorage('lowResolution', false);
   const [playOnlyOnHover, setPlayOnlyOnHover] = useLocalStorage('playOnlyOnHover', false);
@@ -25,19 +26,25 @@ export function App() {
       return;
     }
     setIsLoading(true);
+    setAllGifsFetched(false);
     const searchForTrending = query === trendingGifsQueryCode;
     const path = searchForTrending ? 'trending' : 'search';
     const q = searchForTrending ? '' : `&q=${query}`;
     // trending path finds currently trending gifs instead of searching for gifs about trending:
     const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${API_KEY}${q}&limit=${gifsPerRequest}&offset=${offset}`;
     const response = await fetch(url);
-    const { data, meta } = await response.json();
+    const { data, meta: { status }, pagination: { total_count: totalCount } } = await response.json();
     setIsLoading(false);
-    if (meta.status >= 200 && meta.status <= 299 && data.length) {
-      setGifs(prev => infiniteScrollIsActive ? prev.concat(data) : data);
-      setApiResOffset(offset + gifsPerRequest);
-    } else {
+    if (status < 200 || status > 299) {
       setFailedToLoad(true);
+    } else if (data.length) {
+      setGifs(prev => infiniteScrollIsActive ? prev.concat(data) : data);
+      const numberOfNewGifs = data.length === gifsPerRequest ? gifsPerRequest : Math.min(data.length, gifsPerRequest);
+      const newOffset = offset + numberOfNewGifs;
+      setApiResOffset(newOffset);
+      setAllGifsFetched(newOffset >= totalCount);
+    } else {
+      setAllGifsFetched(true);
     }
   };
 
@@ -75,6 +82,7 @@ export function App() {
         fetchGifs={fetchGifs}
         gifsPerRequest={gifsPerRequest}
         failedToLoad={failedToLoad}
+        allGifsFetched={allGifsFetched}
         isLoading={isLoading}
         apiResOffset={apiResOffset}
         isLowResolution={isLowResolution}

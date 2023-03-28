@@ -10,6 +10,7 @@ export function MainSection({
   gifsPerRequest,
   failedToLoad,
   isLoading,
+  allGifsFetched,
   apiResOffset,
   isLowResolution,
   darkModeIsActive,
@@ -21,14 +22,16 @@ export function MainSection({
   const { height } = useWindowSize();
   const gifsContainerRef = useRef(null);
 
-  const displayLoadMoreBtn = !infiniteScrollIsActive && gifs.length;
-  const displayGoBackBtn = displayLoadMoreBtn && apiResOffset > gifsPerRequest;
+  const displayAnyBtn = !infiniteScrollIsActive && gifs.length;
+  const displayLoadMoreBtn = displayAnyBtn && !allGifsFetched;
+  const displayGoBackBtn = displayAnyBtn && apiResOffset > gifsPerRequest;
 
   const handleScroll = () => {
     const refEl = gifsContainerRef.current;
     // infinite scroll:
     if (
       infiniteScrollIsActive &&
+      !allGifsFetched &&
       (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight)
     ) {
       fetchGifs();
