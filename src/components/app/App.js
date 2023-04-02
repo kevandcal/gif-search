@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useId, useMemo, useState } from 'react';
 import { API_KEY } from '../../secrets.json';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { TopBar } from '../top-bar/TopBar';
@@ -6,6 +6,7 @@ import { MainSection } from '../main-section/MainSection';
 
 export function App() {
   const trendingGifsQueryCode = useMemo(() => String(Math.random()), []);
+  // const trendingGifsQueryCode = useId();
   const [gifs, setGifs] = useState([]);
   const [queryString, setQueryString] = useState(trendingGifsQueryCode);
   const [apiResOffset, setApiResOffset] = useState(0);
