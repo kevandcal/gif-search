@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useMemo, useState } from 'react';
-import { API_KEY } from '../../secrets.json';
+// import API_KEY from '../../secrets.json';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { TopBar } from '../top-bar/TopBar';
 import { MainSection } from '../main-section/MainSection';
@@ -32,7 +32,7 @@ export function App() {
     const path = searchForTrending ? 'trending' : 'search';
     const q = searchForTrending ? '' : `&q=${query}`;
     // trending path finds currently trending gifs instead of searching for gifs about trending:
-    const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${API_KEY}${q}&limit=${gifsPerRequest}&offset=${offset}`;
+    const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${process.env.REACT_APP_GIPHY_API_KEY}${q}&limit=${gifsPerRequest}&offset=${offset}`;
     const response = await fetch(url);
     const { data, meta: { status }, pagination: { total_count: totalCount } } = await response.json();
     setIsLoading(false);
