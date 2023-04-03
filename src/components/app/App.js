@@ -35,8 +35,7 @@ export function App() {
       setFailedToLoad(true);
     } else if (data.length) {
       setGifs(prev => infiniteScrollIsActive ? prev.concat(data) : data);
-      const numberOfNewGifs = data.length === gifsPerRequest ? gifsPerRequest : Math.min(data.length, gifsPerRequest);
-      const newOffset = offset + numberOfNewGifs;
+      const newOffset = offset + Math.min(data.length, gifsPerRequest);
       setApiResOffset(newOffset);
       setAllGifsFetched(newOffset >= totalCount);
     } else {
@@ -50,6 +49,11 @@ export function App() {
 
   // eslint-disable-next-line
   useEffect(fetchGifsOnMount, []);
+  useEffect(() => {
+    if (allGifsFetched) {
+      console.log('all gifs have been fetched');
+    }
+  }, [allGifsFetched]);
 
   return (
     <SettingsProvider>
