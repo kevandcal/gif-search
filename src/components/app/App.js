@@ -48,6 +48,7 @@ export function App() {
     fetchGifs();
   };
 
+  // eslint-disable-next-line
   useEffect(fetchGifsOnMount, []);
 
   return (
