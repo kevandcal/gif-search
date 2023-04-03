@@ -10,6 +10,7 @@ export function MainSection({
   gifsPerRequest,
   failedToLoad,
   isLoading,
+  allGifsFetched,
   apiResOffset,
   setTopBarIsStyled,
   infiniteScrollIsActive
@@ -17,16 +18,19 @@ export function MainSection({
   const { height } = useWindowSize();
   const gifsContainerRef = useRef(null);
 
-  const displayLoadMoreBtn = !infiniteScrollIsActive && gifs.length;
-  const displayGoBackBtn = displayLoadMoreBtn && apiResOffset > gifsPerRequest;
+  const displayAnyBtn = !infiniteScrollIsActive && gifs.length;
+  const displayLoadMoreBtn = displayAnyBtn && !allGifsFetched;
+  const displayGoBackBtn = displayAnyBtn && apiResOffset > gifsPerRequest;
 
   const handleScroll = () => {
     const refEl = gifsContainerRef.current;
     // infinite scroll:
-    if (infiniteScrollIsActive) {
-      if (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight && !displayLoadMoreBtn) {
-        fetchGifs();
-      }
+    if (
+      infiniteScrollIsActive &&
+      !allGifsFetched &&
+      (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight)
+    ) {
+      fetchGifs();
     }
     // change top bar styling when scrolled beyond 5vh:
     setTopBarIsStyled(refEl.scrollTop >= height * 0.05);
