@@ -60,6 +60,7 @@ export function MainSection({
         gifsContainerRef={gifsContainerRef}
         isLoading={isLoading}
         failedToLoad={failedToLoad}
+        allGifsFetched={allGifsFetched}
       />
       <LoadButton
         text='Load More'

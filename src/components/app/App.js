@@ -54,6 +54,7 @@ export function App() {
       console.log('all gifs have been fetched');
     }
   }, [allGifsFetched]);
+  useEffect(() => console.log('gifs:', gifs), [gifs]);
 
   return (
     <SettingsProvider>

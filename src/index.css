@@ -251,8 +251,8 @@ input:focus {
     padding: 0 22px;
 }
 
-#error-message {
-    margin: 50px 0 20px;
+#message {
+    margin: 50px 0;
     text-align: center;
     color: rgb(100, 100, 100);
 }
