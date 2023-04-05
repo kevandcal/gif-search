@@ -52,7 +52,7 @@ export function Gif({ gifObject, gifsContainerRef }) {
   };
 
   useEffect(handleLazyLoad, [gifRef, gifsContainerRef, lazyLoadingIsOn]);
-  useEffect(updateSrc, [isLowResolution, playOnlyOnHover, gifObject]);
+  useEffect(updateSrc, [playOnlyOnHover, stillUrl, properResolutionUrl]);
 
   return (
     <div ref={gifRef} className="gif">
