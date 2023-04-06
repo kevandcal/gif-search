@@ -293,7 +293,6 @@ main:before {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     transition: var(--transition-duration);
 }
 
@@ -350,6 +349,7 @@ main:before {
     border: none;
     padding: 0;
     background-color: #F2F3F4;
+    cursor: pointer;
     z-index: 80;
 }
 

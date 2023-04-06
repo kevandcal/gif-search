@@ -49,12 +49,6 @@ export function App() {
 
   // eslint-disable-next-line
   useEffect(fetchGifsOnMount, []);
-  useEffect(() => {
-    if (allGifsFetched) {
-      console.log('all gifs have been fetched');
-    }
-  }, [allGifsFetched]);
-  useEffect(() => console.log('gifs:', gifs), [gifs]);
 
   return (
     <SettingsProvider>
