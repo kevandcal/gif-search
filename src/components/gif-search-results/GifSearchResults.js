@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GifsGrid } from '../gifs-grid/GifsGrid';
 
-export const GifSearchResults = React.memo(({
+export const GifSearchResults = memo(({
   gifs,
   gifsContainerRef,
   isLoading,

@@ -50,6 +50,8 @@ export function App() {
   // eslint-disable-next-line
   useEffect(fetchGifsOnMount, []);
 
+  // useEffect(() => console.log('App.js rerendered'));
+
   return (
     <SettingsProvider>
       <TopBar
