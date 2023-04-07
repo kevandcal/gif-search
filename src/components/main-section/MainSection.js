@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { GifSearchResults } from '../gif-search-results/GifSearchResults';
 import { LoadButton } from '../load-button/LoadButton';
+import './MainSection.css';
 
 export function MainSection({
   gifs,

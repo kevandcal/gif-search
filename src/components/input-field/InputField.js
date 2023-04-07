@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import './InputField.css';
+
 
 export function InputField({
   inputRef,
@@ -28,12 +30,6 @@ export function InputField({
     inputRef.current.focus();
   };
 
-  const xIcon = !inputValue ? null : (
-    <div id="x-icon-container" onClick={handleXIconClick}>
-      <FontAwesomeIcon icon={faXmark} id='x-icon' />
-    </div>
-  );
-
   return (
     <div id="input-container" className={inputClassName}>
       <input
@@ -45,7 +41,11 @@ export function InputField({
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
       />
-      {xIcon}
+      {inputValue &&
+        <div id="x-icon-container" onClick={handleXIconClick}>
+          <FontAwesomeIcon icon={faXmark} id='x-icon' />
+        </div>
+      }
     </div >
   );
 }

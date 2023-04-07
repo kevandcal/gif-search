@@ -1,0 +1,43 @@
+form {
+  display: flex;
+  align-items: flex-end;
+  margin: 0 auto;
+  height: var(--search-bar-height);
+  width: var(--content-width);
+  max-width: 795px;
+}
+
+form>* {
+  font-size: 16px;
+  margin: 0;
+}
+
+#submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: var(--search-bar-height);
+  /* width: var(--search-btn-width); */
+  padding: 0;
+  color: #eee;
+  background-color: var(--theme-color);
+  border: none;
+  border-radius: 0 2px 2px 0;
+  transition: var(--transition-duration);
+}
+
+#submit-btn:focus {
+  outline: none;
+}
+
+#submit-btn:hover {
+  /* box-shadow: 0 0 0.5vw #33313b; */
+  background-color: var(--theme-color-alt);
+}
+
+#magnifying-glass-icon {
+  height: var(--icon-height);
+  width: auto;
+  padding: 0 22px;
+}

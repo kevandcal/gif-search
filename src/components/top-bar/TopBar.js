@@ -4,6 +4,7 @@ import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from '../settings-dialog/SettingsDialog';
 import { SearchBar } from '../search-bar/SearchBar';
 import { useSettings } from '../../context/settings-context';
+import './TopBar.css';
 
 export function TopBar({
   trendingGifsQueryCode,

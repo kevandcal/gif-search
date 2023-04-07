@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { SettingsButton } from '../settings-button/SettingsButton';
 import { useSettings } from '../../context/settings-context';
+import './SettingsDialog.css';
 
 export function SettingsDialog({
   isOpen,

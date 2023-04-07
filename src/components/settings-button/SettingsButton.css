@@ -1,0 +1,38 @@
+.settings-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 12px;
+  width: 220px;
+  border-bottom: 1px solid #eee;
+  transition: var(--transition-duration);
+  cursor: pointer;
+  user-select: none;
+}
+
+.settings-btn:last-child {
+  border-bottom: none;
+}
+
+.settings-btn:hover {
+  background-color: #eee;
+}
+
+.settings-btn:hover .toggle-switch-icon,
+.settings-btn:hover .settings-btn-text {
+  color: var(--theme-color-alt);
+}
+
+.settings-btn-text {
+  transition: var(--transition-duration);
+  margin-right: 15px;
+  color: var(--theme-color);
+  font-size: 14px;
+}
+
+.toggle-switch-icon {
+  color: var(--theme-color);
+  transition: var(--transition-duration);
+  height: var(--icon-height);
+  width: auto;
+}

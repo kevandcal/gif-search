@@ -1,0 +1,14 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 97vh accounts for 3vh footer height: */
+  height: calc(97vh - var(--top-bar-height));
+  overflow-y: scroll;
+  width: 100vw;
+}
+
+main:before {
+  content: '';
+  min-height: 5vh;
+}

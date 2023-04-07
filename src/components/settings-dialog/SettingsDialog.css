@@ -1,0 +1,33 @@
+#settings-dialog {
+  position: fixed;
+  top: 58px;
+  z-index: 99;
+  visibility: hidden;
+  opacity: 0;
+  transition: var(--transition-duration);
+  border: 1px solid var(--theme-color);
+  border-radius: 2px;
+  background-color: #fff;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 8px var(--theme-color);
+}
+
+#settings-dialog.open {
+  visibility: visible;
+  opacity: 1;
+}
+
+#settings-dialog.dark-mode {
+  background-color: #131516;
+}
+
+#settings-dialog.dark-mode .settings-btn {
+  border-bottom-color: #20212b;
+  background-color: #131516;
+}
+
+#settings-dialog.dark-mode *:hover {
+  background-color: #20212b;
+}
