@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GifsGrid } from '../gifs-grid/GifsGrid';
+import './GifSearchResults.css';
 
 export const GifSearchResults = memo(({
   gifs,
