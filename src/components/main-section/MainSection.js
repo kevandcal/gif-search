@@ -51,11 +51,13 @@ export function MainSection({
 
   return (
     <main ref={gifsContainerRef} onScroll={handleScroll}>
-      <LoadButton
-        text='Go Back'
-        onClick={handleGoBackBtnClick}
-        isDisplayed={displayGoBackBtn}
-      />
+      <div id='go-back-btn-container'>
+        <LoadButton
+          text='Go Back'
+          onClick={handleGoBackBtnClick}
+          isDisplayed={displayGoBackBtn}
+        />
+      </div>
       <GifSearchResults
         gifs={gifs}
         gifsContainerRef={gifsContainerRef}
@@ -63,11 +65,13 @@ export function MainSection({
         failedToLoad={failedToLoad}
         allGifsFetched={allGifsFetched}
       />
-      <LoadButton
-        text='Load More'
-        onClick={handleMoreBtnClick}
-        isDisplayed={displayLoadMoreBtn}
-      />
+      <div id='load-more-btn-container'>
+        <LoadButton
+          text='Load More'
+          onClick={handleMoreBtnClick}
+          isDisplayed={displayLoadMoreBtn}
+        />
+      </div>
     </main>
   )
 }

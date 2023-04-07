@@ -12,3 +12,11 @@ main:before {
   content: '';
   min-height: 5vh;
 }
+
+#go-back-btn-container {
+  margin-bottom: 50px;
+}
+
+#load-more-btn-container {
+  margin: 50px 0;
+}

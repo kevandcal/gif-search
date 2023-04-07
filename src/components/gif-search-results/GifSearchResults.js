@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GifsGrid } from '../gifs-grid/GifsGrid';
+import { LoadButton } from '../load-button/LoadButton';
 import './GifSearchResults.css';
 
 export const GifSearchResults = memo(({
@@ -22,7 +23,7 @@ export const GifSearchResults = memo(({
     return <Message text='Oops, something went wrong with your search.' />;
   } else if (noResults) {
     // if search yields no results, remove spinner and inform user:
-    return <Message text='No results found.' />;
+    return <Message text='No results were found.' />;
   } else {
     return (
       <>
@@ -36,10 +37,20 @@ export const GifSearchResults = memo(({
   }
 });
 
+
 function Message({ text }) {
+  const refreshPage = () => {
+    window.location.reload(false);
+  };
+
   return (
-    <p id="message">
-      {text}&nbsp;<span>Click <a href="/">here</a> to refresh.</span>
-    </p>
+    <div id="message">
+      <p id='message-text'>{text}</p>
+      <LoadButton
+        text='Refresh'
+        onClick={refreshPage}
+        isDisplayed={true}
+      />
+    </div>
   );
 }
