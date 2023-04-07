@@ -1,0 +1,15 @@
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 3vh;
+  display: flex;
+  align-items: center;
+}
+
+#attribution {
+  margin-left: 2vw;
+  font-size: 9px;
+  color: var(--theme-color);
+}

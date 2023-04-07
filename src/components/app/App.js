@@ -3,6 +3,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { TopBar } from '../top-bar/TopBar';
 import { MainSection } from '../main-section/MainSection';
 import { SettingsProvider } from '../../context/settings-context';
+import './App.css';
 
 export function App() {
   const trendingGifsQueryCode = useId();
