@@ -2,14 +2,11 @@
     --content-width: 90vw;
     --top-bar-height: 70px;
     --search-bar-height: 50px;
-    /* --search-btn-width: 90px; */
     --icon-height: 20px;
     --gif-height-width: 395px;
     --theme-color: #0D4B60;
     --theme-color-alt: #2a91b3;
     --transition-duration: 0.3s;
-    /* --theme-color: #22382f; */
-    /* --theme-color-alt: #29b680; */
 }
 
 body {

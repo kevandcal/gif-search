@@ -18,7 +18,6 @@ form>* {
   align-items: center;
   cursor: pointer;
   height: var(--search-bar-height);
-  /* width: var(--search-btn-width); */
   padding: 0;
   color: #eee;
   background-color: var(--theme-color);
@@ -32,7 +31,6 @@ form>* {
 }
 
 #submit-btn:hover {
-  /* box-shadow: 0 0 0.5vw #33313b; */
   background-color: var(--theme-color-alt);
 }
 
