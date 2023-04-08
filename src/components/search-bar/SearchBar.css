@@ -30,8 +30,18 @@ form>* {
   outline: none;
 }
 
+#submit-btn:focus,
 #submit-btn:hover {
   background-color: var(--theme-color-alt);
+}
+
+#submit-btn.deactivated {
+  cursor: default;
+}
+
+#submit-btn.deactivated:focus,
+#submit-btn.deactivated:hover {
+  background-color: var(--theme-color);
 }
 
 #magnifying-glass-icon {

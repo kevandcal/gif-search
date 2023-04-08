@@ -13,11 +13,12 @@ export function SearchBar({
   setQueryString
 }) {
 
+  const submissionCriteriaMet = queryString && (queryString !== trendingGifsQueryCode);
+  const submitBtnClassName = submissionCriteriaMet ? '' : 'deactivated';
+
   const handleSubmit = e => {
     e.preventDefault();
-    if (!queryString || queryString === trendingGifsQueryCode) {
-      window.alert('Please enter a search term');
-    } else {
+    if (submissionCriteriaMet) {
       submitQuery(queryString);
     }
   };
@@ -32,7 +33,7 @@ export function SearchBar({
           queryString={queryString}
           setQueryString={setQueryString}
         />
-        <button id='submit-btn' aria-label='Search'>
+        <button id='submit-btn' aria-label='Search' className={submitBtnClassName}>
           <FontAwesomeIcon icon={faMagnifyingGlass} id="magnifying-glass-icon" />
         </button>
       </form>
