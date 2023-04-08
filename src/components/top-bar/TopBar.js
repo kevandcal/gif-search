@@ -27,18 +27,14 @@ export function TopBar({
   const handleSettingsIconClick = () => setSettingsDialogIsOpen(prev => !prev);
 
   const submitQuery = query => {
-    if (!query) {
-      window.alert('Please enter a search term');
-    } else {
-      setGifs([]);
-      setFailedToLoad(false);
-      inputRef.current.blur();
-      fetchGifs(query, 0);
-    }
+    setGifs([]);
+    setFailedToLoad(false);
+    inputRef.current.blur();
+    fetchGifs(query, 0);
   };
 
   const handleHomeIconClick = () => {
-    submitQuery(trendingGifsQueryCode, 0);
+    submitQuery(trendingGifsQueryCode);
     setQueryString(trendingGifsQueryCode);
   }
 

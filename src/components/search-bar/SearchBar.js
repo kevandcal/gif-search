@@ -15,7 +15,11 @@ export function SearchBar({
 
   const handleSubmit = e => {
     e.preventDefault();
-    submitQuery(queryString);
+    if (!queryString || queryString === trendingGifsQueryCode) {
+      window.alert('Please enter a search term');
+    } else {
+      submitQuery(queryString);
+    }
   };
 
   return (
