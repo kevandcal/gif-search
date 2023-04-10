@@ -29,7 +29,7 @@ export function MainSection({
     if (
       infiniteScrollIsActive &&
       !allGifsFetched &&
-      (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight)
+      (refEl?.scrollTop + refEl?.clientHeight >= refEl?.scrollHeight - 2)
     ) {
       fetchGifs();
     }

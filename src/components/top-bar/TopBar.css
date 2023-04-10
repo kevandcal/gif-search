@@ -26,7 +26,9 @@
   max-width: var(--content-width);
 }
 
-.top-bar-icon-container {
+.top-bar-icon-button {
+  border: none;
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,8 +39,10 @@
   transition: var(--transition-duration);
 }
 
-.top-bar-icon-container:hover {
-  color: var(--theme-color-alt);
+@media (hover: hover) {
+  .top-bar-icon-button:hover {
+    color: var(--theme-color-alt);
+  }
 }
 
 .top-bar-icon {

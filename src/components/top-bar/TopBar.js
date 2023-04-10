@@ -24,8 +24,6 @@ export function TopBar({
 
   const topBarClassName = `${darkModeIsActive ? 'dark ' : ''}${topBarIsStyled ? 'styled' : ''}`;
 
-  const handleSettingsIconClick = () => setSettingsDialogIsOpen(prev => !prev);
-
   const submitQuery = query => {
     setGifs([]);
     setFailedToLoad(false);
@@ -33,10 +31,16 @@ export function TopBar({
     fetchGifs(query, 0);
   };
 
-  const handleHomeIconClick = () => {
+  const handleHomeIconClick = event => {
+    event.preventDefault();
     submitQuery(trendingGifsQueryCode);
     setQueryString(trendingGifsQueryCode);
   }
+
+  const handleSettingsIconClick = event => {
+    event.preventDefault();
+    setSettingsDialogIsOpen(prev => !prev);
+  };
 
   const handleDarkMode = () => {
     document.body.classList.toggle('dark', darkModeIsActive);
@@ -50,9 +54,9 @@ export function TopBar({
       className={topBarClassName}
     >
       <div id='top-bar-content'>
-        <div onClick={handleHomeIconClick} className='top-bar-icon-container'>
+        <button onClick={handleHomeIconClick} className='top-bar-icon-button'>
           <FontAwesomeIcon icon={faHome} className='top-bar-icon' />
-        </div>
+        </button>
         <SearchBar
           inputRef={inputRef}
           submitQuery={submitQuery}
@@ -61,13 +65,13 @@ export function TopBar({
           queryString={queryString}
           setQueryString={setQueryString}
         />
-        <div
-          className='top-bar-icon-container'
+        <button
+          className='top-bar-icon-button'
           ref={settingsIconRef}
           onClick={handleSettingsIconClick}
         >
           <FontAwesomeIcon icon={faEllipsisV} className='top-bar-icon' />
-        </div>
+        </button>
       </div>
       <SettingsDialog
         isOpen={settingsDialogIsOpen}
