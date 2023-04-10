@@ -14,7 +14,7 @@
 }
 
 #input-container.dark-mode input,
-#input-container.dark-mode #x-icon-container {
+#input-container.dark-mode #x-icon-button {
   color: #eee;
   background-color: #33313b;
 }
@@ -34,7 +34,8 @@ input:focus {
   border-color: var(--theme-color-alt);
 }
 
-#x-icon-container {
+#x-icon-button {
+  border: none;
   height: 100%;
   width: 40px;
   display: flex;
@@ -42,11 +43,13 @@ input:focus {
   justify-content: center;
   background-color: white;
   cursor: pointer;
-  transition: var(--transition-duration);
+  transition: background-color var(--transition-duration);
 }
 
-#x-icon-container:hover #x-icon {
-  color: var(--theme-color-alt);
+@media (hover: hover) {
+  #x-icon-button:hover #x-icon {
+    color: var(--theme-color-alt);
+  }
 }
 
 #x-icon {

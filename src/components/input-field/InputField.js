@@ -25,7 +25,8 @@ export function InputField({
   const handleInputFocus = () => setFocusInInput(true);
   const handleInputBlur = () => setFocusInInput(false);
 
-  const handleXIconClick = () => {
+  const handleXIconClick = event => {
+    event.preventDefault();
     setQueryString('');
     inputRef.current.focus();
   };
@@ -42,9 +43,9 @@ export function InputField({
         onBlur={handleInputBlur}
       />
       {inputValue &&
-        <div id="x-icon-container" onClick={handleXIconClick}>
+        <button id="x-icon-button" type='button' onClick={handleXIconClick}>
           <FontAwesomeIcon icon={faXmark} id='x-icon' />
-        </div>
+        </button>
       }
     </div >
   );

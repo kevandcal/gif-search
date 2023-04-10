@@ -35,12 +35,12 @@ form>* {
   background-color: var(--theme-color-alt);
 }
 
-#submit-btn.deactivated {
+#submit-btn.disabled {
   cursor: default;
 }
 
-#submit-btn.deactivated:focus,
-#submit-btn.deactivated:hover {
+#submit-btn.disabled:focus,
+#submit-btn.disabled:hover {
   background-color: var(--theme-color);
 }
 

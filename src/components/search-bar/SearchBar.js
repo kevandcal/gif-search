@@ -14,7 +14,7 @@ export function SearchBar({
 }) {
 
   const submissionCriteriaMet = queryString && (queryString !== trendingGifsQueryCode);
-  const submitBtnClassName = submissionCriteriaMet ? '' : 'deactivated';
+  const submitBtnClassName = submissionCriteriaMet ? '' : 'disabled';
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -25,7 +25,7 @@ export function SearchBar({
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form id='form' onSubmit={handleSubmit}>
         <InputField
           inputRef={inputRef}
           darkModeIsActive={darkModeIsActive}
@@ -33,7 +33,14 @@ export function SearchBar({
           queryString={queryString}
           setQueryString={setQueryString}
         />
-        <button id='submit-btn' aria-label='Search' className={submitBtnClassName}>
+        <button
+          id='submit-btn'
+          type='submit'
+          aria-label='Search'
+          form='form'
+          className={submitBtnClassName}
+          disabled={!submissionCriteriaMet}
+        >
           <FontAwesomeIcon icon={faMagnifyingGlass} id="magnifying-glass-icon" />
         </button>
       </form>
