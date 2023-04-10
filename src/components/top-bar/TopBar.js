@@ -54,7 +54,7 @@ export function TopBar({
       className={topBarClassName}
     >
       <div id='top-bar-content'>
-        <button onClick={handleHomeIconClick} className='top-bar-icon-button'>
+        <button aria-label='Home' onClick={handleHomeIconClick} className='top-bar-icon-button'>
           <FontAwesomeIcon icon={faHome} className='top-bar-icon' />
         </button>
         <SearchBar
@@ -66,6 +66,7 @@ export function TopBar({
           setQueryString={setQueryString}
         />
         <button
+          aria-label='Settings'
           className='top-bar-icon-button'
           ref={settingsIconRef}
           onClick={handleSettingsIconClick}

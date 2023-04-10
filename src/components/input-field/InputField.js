@@ -43,7 +43,7 @@ export function InputField({
         onBlur={handleInputBlur}
       />
       {inputValue &&
-        <button id="x-icon-button" type='button' onClick={handleXIconClick}>
+        <button id="x-icon-button" aria-label='X' type='button' onClick={handleXIconClick}>
           <FontAwesomeIcon icon={faXmark} id='x-icon' />
         </button>
       }
