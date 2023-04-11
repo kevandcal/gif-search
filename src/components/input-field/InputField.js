@@ -10,24 +10,27 @@ export function InputField({
   darkModeIsActive,
   trendingGifsQueryCode,
   queryString,
-  setQueryString
+  setQueryString,
+  title,
+  setTitle
 }) {
   const { width } = useWindowSize();
   const [focusInInput, setFocusInInput] = useState(false);
 
-  const inputValue = queryString === trendingGifsQueryCode ? '' : queryString;
+  // const inputValue = queryString === trendingGifsQueryCode ? '' : queryString;
 
   const inputClassName = `${darkModeIsActive ? 'dark-mode ' : ''}${focusInInput ? 'input-focus' : ''}`;
 
   const placeholder = `What type of GIFs${width > 550 ? ' would you like to see' : ''}?`;
 
-  const handleInputChange = e => setQueryString(e.target.value);
+  const handleInputChange = e => setTitle(e.target.value);
   const handleInputFocus = () => setFocusInInput(true);
   const handleInputBlur = () => setFocusInInput(false);
 
   const handleXIconClick = event => {
     event.preventDefault();
-    setQueryString('');
+    // setQueryString('');
+    setTitle('');
     inputRef.current.focus();
   };
 
@@ -37,12 +40,12 @@ export function InputField({
         type="text"
         ref={inputRef}
         placeholder={placeholder}
-        value={inputValue}
+        value={title}
         onChange={handleInputChange}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
       />
-      {inputValue &&
+      {title &&
         <button id="x-icon-button" aria-label='X' type='button' onClick={handleXIconClick}>
           <FontAwesomeIcon icon={faXmark} id='x-icon' />
         </button>

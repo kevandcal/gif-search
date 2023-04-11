@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { InputField } from '../input-field/InputField';
@@ -12,14 +12,20 @@ export function SearchBar({
   queryString,
   setQueryString
 }) {
+  const [title, setTitle] = useState('');
 
-  const submissionCriteriaMet = queryString && (queryString !== trendingGifsQueryCode);
-  const submitBtnClassName = submissionCriteriaMet ? '' : 'disabled';
+  // const submissionCriteriaMet = queryString && (queryString !== trendingGifsQueryCode);
+  // const submitBtnClassName = submissionCriteriaMet ? '' : 'disabled';
+  const submitBtnClassName = !title ? 'disabled' : '';
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (submissionCriteriaMet) {
-      submitQuery(queryString);
+    // if (submissionCriteriaMet) {
+    //   submitQuery(queryString);
+    // }
+    if (title) {
+      setQueryString(title);
+      submitQuery(title);
     }
   };
 
@@ -32,6 +38,8 @@ export function SearchBar({
           trendingGifsQueryCode={trendingGifsQueryCode}
           queryString={queryString}
           setQueryString={setQueryString}
+          title={title}
+          setTitle={setTitle}
         />
         <button
           id='submit-btn'
@@ -39,7 +47,8 @@ export function SearchBar({
           aria-label='Search'
           form='form'
           className={submitBtnClassName}
-          disabled={!submissionCriteriaMet}
+          // disabled={!submissionCriteriaMet}
+          disabled={!title}
         >
           <FontAwesomeIcon icon={faMagnifyingGlass} id="magnifying-glass-icon" />
         </button>
