@@ -6,7 +6,6 @@ import './MainSection.css';
 
 export function MainSection({
   gifs,
-  queryString,
   fetchGifs,
   gifsPerRequest,
   failedToLoad,
@@ -40,7 +39,7 @@ export function MainSection({
   const handleGoBackBtnClick = e => {
     e.preventDefault();
     const offset = apiResOffset - (gifsPerRequest * 2);
-    fetchGifs(queryString, offset);
+    fetchGifs(undefined, offset);
   };
 
   const handleMoreBtnClick = e => {

@@ -8,8 +8,7 @@ import './TopBar.css';
 
 export function TopBar({
   trendingGifsQueryCode,
-  queryString,
-  setQueryString,
+  queryRef,
   setGifs,
   setFailedToLoad,
   fetchGifs,
@@ -21,6 +20,7 @@ export function TopBar({
   const settingsIconRef = useRef(null);
   const inputRef = useRef(null);
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
+  const [title, setTitle] = useState('');
 
   const topBarClassName = `${darkModeIsActive ? 'dark ' : ''}${topBarIsStyled ? 'styled' : ''}`;
 
@@ -29,12 +29,13 @@ export function TopBar({
     setFailedToLoad(false);
     inputRef.current.blur();
     fetchGifs(query, 0);
+    queryRef.current = query;
   };
 
   const handleHomeIconClick = event => {
     event.preventDefault();
     submitQuery(trendingGifsQueryCode);
-    setQueryString(trendingGifsQueryCode);
+    setTitle('');
   }
 
   const handleSettingsIconClick = event => {
@@ -61,9 +62,8 @@ export function TopBar({
           inputRef={inputRef}
           submitQuery={submitQuery}
           darkModeIsActive={darkModeIsActive}
-          trendingGifsQueryCode={trendingGifsQueryCode}
-          queryString={queryString}
-          setQueryString={setQueryString}
+          title={title}
+          setTitle={setTitle}
         />
         <button
           aria-label='Settings'

@@ -6,6 +6,7 @@ footer {
   height: 3vh;
   display: flex;
   align-items: center;
+  z-index: 99999;
 }
 
 #attribution {

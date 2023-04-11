@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { TopBar } from '../top-bar/TopBar';
 import { MainSection } from '../main-section/MainSection';
@@ -7,8 +7,8 @@ import './App.css';
 
 export function App() {
   const trendingGifsQueryCode = useId();
+  const queryRef = useRef(trendingGifsQueryCode);
   const [gifs, setGifs] = useState([]);
-  const [queryString, setQueryString] = useState(trendingGifsQueryCode);
   const [apiResOffset, setApiResOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [failedToLoad, setFailedToLoad] = useState(false);
@@ -18,7 +18,7 @@ export function App() {
 
   const gifsPerRequest = infiniteScrollIsActive ? 18 : 30;
 
-  const fetchGifs = async (query = queryString, offset = apiResOffset) => {
+  const fetchGifs = async (query = queryRef.current, offset = apiResOffset) => {
     if (isLoading) {
       return;
     }
@@ -54,8 +54,7 @@ export function App() {
     <SettingsProvider>
       <TopBar
         trendingGifsQueryCode={trendingGifsQueryCode}
-        queryString={queryString}
-        setQueryString={setQueryString}
+        queryRef={queryRef}
         setGifs={setGifs}
         fetchGifs={fetchGifs}
         setFailedToLoad={setFailedToLoad}
@@ -65,8 +64,6 @@ export function App() {
       />
       <MainSection
         gifs={gifs}
-        setGifs={setGifs}
-        queryString={queryString}
         fetchGifs={fetchGifs}
         gifsPerRequest={gifsPerRequest}
         failedToLoad={failedToLoad}
