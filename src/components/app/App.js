@@ -23,7 +23,6 @@ export function App() {
       return;
     }
     setIsLoading(true);
-    setAllGifsFetched(false);
     const searchForTrending = query === trendingGifsQueryCode;
     const path = searchForTrending ? 'trending' : 'search';
     const q = searchForTrending ? '' : `&q=${query}`;
