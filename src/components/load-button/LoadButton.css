@@ -38,7 +38,7 @@
   content: '';
   position: absolute;
   background-color: #F2F3F4;
-  transition: background-color var(--transition-duration), width 0.5s ease, height 0.5s ease;
+  transition: background-color var(--transition-duration), width var(--transition-duration) ease, height var(--transition-duration) ease;
 }
 
 #load-button-container:before {
