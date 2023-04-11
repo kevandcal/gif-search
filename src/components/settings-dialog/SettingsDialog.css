@@ -1,6 +1,6 @@
 #settings-dialog {
   position: fixed;
-  top: 58px;
+  top: var(--settings-dialog-top);
   z-index: 99;
   visibility: hidden;
   opacity: 0;

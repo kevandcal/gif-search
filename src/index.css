@@ -1,6 +1,7 @@
 :root {
     --content-width: 90vw;
     --top-bar-height: 70px;
+    --settings-dialog-top: 58px;
     --search-bar-height: 50px;
     --icon-height: 20px;
     --gif-height-width: 395px;
@@ -25,6 +26,7 @@ body.dark {
 @media (max-width: 600px) {
     :root {
         --top-bar-height: 55px;
+        --settings-dialog-top: 46px;
         --search-bar-height: 40px;
         --icon-height: 18px;
     }
