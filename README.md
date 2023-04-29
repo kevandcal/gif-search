@@ -1,6 +1,6 @@
 # GIF Search
 
-This is an app built in React that allows users to search the Giphy database
+This is an app built in React that allows users to search the Giphy database.
 
 ## Demo
 
