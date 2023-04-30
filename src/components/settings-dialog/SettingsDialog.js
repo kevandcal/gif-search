@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { SettingsButton } from '../settings-button/SettingsButton';
 import { useSettings } from '../../context/settings-context';
+import './SettingsDialog.css';
 
 export function SettingsDialog({
   isOpen,
@@ -63,7 +64,7 @@ export function SettingsDialog({
     if (!dialogRef.current.contains(e.target) && !settingsIconRef.current.contains(e.target)) {
       setIsOpen(false);
     }
-  }, [setIsOpen, settingsIconRef]);
+  }, [setIsOpen, dialogRef, settingsIconRef]);
 
   const mousedownEffect = () => {
     document.addEventListener('mousedown', handleClickOutside);

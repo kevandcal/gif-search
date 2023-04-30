@@ -4,11 +4,11 @@ import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from '../settings-dialog/SettingsDialog';
 import { SearchBar } from '../search-bar/SearchBar';
 import { useSettings } from '../../context/settings-context';
+import './TopBar.css';
 
 export function TopBar({
   trendingGifsQueryCode,
-  queryString,
-  setQueryString,
+  queryRef,
   setGifs,
   setFailedToLoad,
   fetchGifs,
@@ -20,26 +20,28 @@ export function TopBar({
   const settingsIconRef = useRef(null);
   const inputRef = useRef(null);
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
+  const [title, setTitle] = useState('');
 
   const topBarClassName = `${darkModeIsActive ? 'dark ' : ''}${topBarIsStyled ? 'styled' : ''}`;
 
-  const handleSettingsIconClick = () => setSettingsDialogIsOpen(prev => !prev);
-
   const submitQuery = query => {
-    if (!query) {
-      window.alert('Please enter a search term');
-    } else {
-      setGifs([]);
-      setFailedToLoad(false);
-      inputRef.current.blur();
-      fetchGifs(query, 0);
-    }
+    setGifs([]);
+    setFailedToLoad(false);
+    inputRef.current.blur();
+    fetchGifs(query, 0);
+    queryRef.current = query;
   };
 
-  const handleHomeIconClick = () => {
-    submitQuery(trendingGifsQueryCode, 0);
-    setQueryString(trendingGifsQueryCode);
+  const handleHomeIconClick = event => {
+    event.preventDefault();
+    submitQuery(trendingGifsQueryCode);
+    setTitle('');
   }
+
+  const handleSettingsIconClick = event => {
+    event.preventDefault();
+    setSettingsDialogIsOpen(prev => !prev);
+  };
 
   const handleDarkMode = () => {
     document.body.classList.toggle('dark', darkModeIsActive);
@@ -53,24 +55,24 @@ export function TopBar({
       className={topBarClassName}
     >
       <div id='top-bar-content'>
-        <div onClick={handleHomeIconClick} className='top-bar-icon-container'>
+        <button aria-label='Home' onClick={handleHomeIconClick} className='top-bar-icon-button'>
           <FontAwesomeIcon icon={faHome} className='top-bar-icon' />
-        </div>
+        </button>
         <SearchBar
           inputRef={inputRef}
           submitQuery={submitQuery}
           darkModeIsActive={darkModeIsActive}
-          trendingGifsQueryCode={trendingGifsQueryCode}
-          queryString={queryString}
-          setQueryString={setQueryString}
+          title={title}
+          setTitle={setTitle}
         />
-        <div
-          className='top-bar-icon-container'
+        <button
+          aria-label='Settings'
+          className='top-bar-icon-button'
           ref={settingsIconRef}
           onClick={handleSettingsIconClick}
         >
           <FontAwesomeIcon icon={faEllipsisV} className='top-bar-icon' />
-        </div>
+        </button>
       </div>
       <SettingsDialog
         isOpen={settingsDialogIsOpen}

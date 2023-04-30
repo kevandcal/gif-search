@@ -2,10 +2,10 @@ import React, { useRef } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { GifSearchResults } from '../gif-search-results/GifSearchResults';
 import { LoadButton } from '../load-button/LoadButton';
+import './MainSection.css';
 
 export function MainSection({
   gifs,
-  queryString,
   fetchGifs,
   gifsPerRequest,
   failedToLoad,
@@ -28,7 +28,7 @@ export function MainSection({
     if (
       infiniteScrollIsActive &&
       !allGifsFetched &&
-      (Math.ceil(refEl?.scrollTop + refEl?.clientHeight) >= refEl?.scrollHeight)
+      (refEl?.scrollTop + refEl?.clientHeight >= refEl?.scrollHeight - 2)
     ) {
       fetchGifs();
     }
@@ -39,7 +39,7 @@ export function MainSection({
   const handleGoBackBtnClick = e => {
     e.preventDefault();
     const offset = apiResOffset - (gifsPerRequest * 2);
-    fetchGifs(queryString, offset);
+    fetchGifs(undefined, offset);
   };
 
   const handleMoreBtnClick = e => {
@@ -50,11 +50,13 @@ export function MainSection({
 
   return (
     <main ref={gifsContainerRef} onScroll={handleScroll}>
-      <LoadButton
-        text='Go Back'
-        onClick={handleGoBackBtnClick}
-        isDisplayed={displayGoBackBtn}
-      />
+      <div id='go-back-btn-container'>
+        <LoadButton
+          text='Go Back'
+          onClick={handleGoBackBtnClick}
+          isDisplayed={displayGoBackBtn}
+        />
+      </div>
       <GifSearchResults
         gifs={gifs}
         gifsContainerRef={gifsContainerRef}
@@ -62,11 +64,13 @@ export function MainSection({
         failedToLoad={failedToLoad}
         allGifsFetched={allGifsFetched}
       />
-      <LoadButton
-        text='Load More'
-        onClick={handleMoreBtnClick}
-        isDisplayed={displayLoadMoreBtn}
-      />
+      <div id='load-more-btn-container'>
+        <LoadButton
+          text='Load More'
+          onClick={handleMoreBtnClick}
+          isDisplayed={displayLoadMoreBtn}
+        />
+      </div>
     </main>
   )
 }

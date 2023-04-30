@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSettings } from '../../context/settings-context';
+import './Gif.css';
 
 export function Gif({ gifObject, gifsContainerRef }) {
   const { isLowResolution, playOnlyOnHover, lazyLoadingIsOn } = useSettings();

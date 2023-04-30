@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons'
+import { faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
+import './SettingsButton.css';
 
 export function SettingsButton({ setFunction, isActive, text, refreshOnClick }) {
   const toggleIcon = isActive ? faToggleOn : faToggleOff;

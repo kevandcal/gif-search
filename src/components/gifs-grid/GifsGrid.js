@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { Gif } from '../gif/Gif';
+import './GifsGrid.css';
 
 export function GifsGrid({ gifs, gifsContainerRef }) {
   const { width } = useWindowSize();
