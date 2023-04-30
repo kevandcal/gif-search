@@ -20,7 +20,7 @@ React, CSS3, Giphy API, Font Awesome icons, local storage
 * Search queries can be cleared by clicking the X icon that appears when the input field is not empty
 * The button for submitting a query is only active (and focusable) when the input field contains text
 * Trending GIFs can be navigated back to by clicking the house icon to the left of the input bar
-* Gifs are arranged in a 3-column grid if space allows; if not, they are arranged in 1 or 2 columns
+* GIFs are arranged in a 3-column grid if space allows; if not, they are arranged in 1 or 2 columns
 * The app is fully responsive and should work on any screen size
 * To the right of the input field is an ellipsis icon; clicking it opens a dialog of settings
 * Users can toggle between the following settings:
