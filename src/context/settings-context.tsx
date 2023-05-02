@@ -1,9 +1,27 @@
-import React, { createContext } from 'react';
+// Structured based on https://kentcdodds.com/blog/how-to-use-react-context-effectively:
+import React, { createContext, ReactNode } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
-const SettingsContext = createContext();
+type SetFunction = (value: boolean | Function) => void;
 
-function SettingsProvider({ children }) {
+type Values = {
+  darkModeIsActive: boolean;
+  isLowResolution: boolean;
+  lazyLoadingIsOn: boolean;
+  playOnlyOnHover: boolean;
+  setDarkModeIsActive: SetFunction;
+  setIsLowResolution: SetFunction;
+  setLazyLoadingIsOn: SetFunction;
+  setPlayOnlyOnHover: SetFunction;
+};
+
+type SettingsProviderProps = {
+  children: ReactNode;
+};
+
+const SettingsContext = createContext<Values | undefined>(undefined);
+
+function SettingsProvider({ children }: SettingsProviderProps) {
   const [isLowResolution, setIsLowResolution] = useLocalStorage('lowResolution', false);
   const [playOnlyOnHover, setPlayOnlyOnHover] = useLocalStorage('playOnlyOnHover', false);
   const [lazyLoadingIsOn, setLazyLoadingIsOn] = useLocalStorage('lazyLoading', true);

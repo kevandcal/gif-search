@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useLocalStorage(key, initialValue) {
+export function useLocalStorage(key: string, initialValue: boolean) {
   // Function with logic to set state initially, only executed once
   const initializeState = () => {
     if (typeof window === "undefined") {
@@ -17,10 +17,11 @@ export function useLocalStorage(key, initialValue) {
       return initialValue;
     }
   };
+
   const [storedValue, setStoredValue] = useState(initializeState);
 
   // Return a wrapped version of useState's setter function that persists the new value to localStorage:
-  const setValue = (value) => {
+  const setValue = (value: boolean | Function) => {
     try {
       // Allow value to be a function so we have same API as useState
       const valueToStore =

@@ -2,13 +2,13 @@ import React, { MouseEventHandler } from 'react';
 import { useSettings } from '../../hooks/useSettings';
 import './LoadButton.css';
 
-type Props = {
+type LoadButtonProps = {
   text: string,
   onClick: MouseEventHandler,
   isDisplayed: boolean
 };
 
-export function LoadButton({ text, onClick, isDisplayed }: Props) {
+export function LoadButton({ text, onClick, isDisplayed }: LoadButtonProps) {
   const { darkModeIsActive } = useSettings();
 
   const loadBtnClassName = darkModeIsActive ? 'dark-mode' : '';

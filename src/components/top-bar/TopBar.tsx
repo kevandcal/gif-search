@@ -1,10 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Ref, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from '../settings-dialog/SettingsDialog';
 import { SearchBar } from '../search-bar/SearchBar';
 import { useSettings } from '../../hooks/useSettings';
 import './TopBar.css';
+
+type TopBarProps = {
+  trendingGifsQueryCode: string;
+  queryRef: { current: string };
+  setGifs: () => void;
+  setFailedToLoad: () => void;
+  fetchGifs: (query: string | undefined, offset: number) => void;
+  topBarIsStyled: boolean;
+  infiniteScrollIsActive: boolean;
+  setInfiniteScrollIsActive: () => void;
+};
 
 export function TopBar({
   trendingGifsQueryCode,
@@ -15,30 +26,30 @@ export function TopBar({
   topBarIsStyled,
   infiniteScrollIsActive,
   setInfiniteScrollIsActive
-}) {
+}: TopBarProps) {
   const { darkModeIsActive } = useSettings();
-  const settingsIconRef = useRef(null);
-  const inputRef = useRef(null);
+  const settingsIconRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [settingsDialogIsOpen, setSettingsDialogIsOpen] = useState(false);
   const [title, setTitle] = useState('');
 
   const topBarClassName = `${darkModeIsActive ? 'dark ' : ''}${topBarIsStyled ? 'styled' : ''}`;
 
-  const submitQuery = query => {
+  const submitQuery = (query: string) => {
     setGifs([]);
     setFailedToLoad(false);
-    inputRef.current.blur();
+    inputRef.current?.blur();
     fetchGifs(query, 0);
     queryRef.current = query;
   };
 
-  const handleHomeIconClick = event => {
+  const handleHomeIconClick = (event: SyntheticEvent) => {
     event.preventDefault();
     submitQuery(trendingGifsQueryCode);
     setTitle('');
   }
 
-  const handleSettingsIconClick = event => {
+  const handleSettingsIconClick = (event: SyntheticEvent) => {
     event.preventDefault();
     setSettingsDialogIsOpen(prev => !prev);
   };

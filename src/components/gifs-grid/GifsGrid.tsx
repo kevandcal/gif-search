@@ -24,10 +24,19 @@ export function GifsGrid({ gifs, gifsContainerRef }) {
 
   return (
     <div id='gifs-grid' style={gifGridStyle}>
-      {gifs.map((gif, index) => (
+      {/* {gifs.map(gif => (
         <Gif
-          key={index}
+          key={gif.id}
           gifObject={gif}
+          gifsContainerRef={gifsContainerRef}
+        />
+      ))} */}
+      {gifs.map(({ id, images, url, title }) => (
+        <Gif
+          key={id}
+          images={images}
+          url={url}
+          title={title}
           gifsContainerRef={gifsContainerRef}
         />
       ))}

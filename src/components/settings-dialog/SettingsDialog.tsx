@@ -1,8 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { useSettings } from '../../hooks/useSettings';
 import { SettingsButton } from '../settings-button/SettingsButton';
 import './SettingsDialog.css';
+
+type SetStateFunction = Dispatch<SetStateAction<boolean>>;
+
+type SettingsDialogProps = {
+  isOpen: boolean;
+  setIsOpen: SetStateFunction;
+  settingsIconRef: RefObject<HTMLButtonElement>;
+  infiniteScrollIsActive: boolean;
+  setInfiniteScrollIsActive: SetStateFunction;
+};
 
 export function SettingsDialog({
   isOpen,
@@ -10,7 +20,7 @@ export function SettingsDialog({
   settingsIconRef,
   infiniteScrollIsActive,
   setInfiniteScrollIsActive,
-}) {
+}: SettingsDialogProps) {
   const {
     isLowResolution,
     setIsLowResolution,
@@ -61,7 +71,7 @@ export function SettingsDialog({
   const dialogClassName = `${isOpen ? 'open ' : ''}${darkModeIsActive ? 'dark-mode' : ''}`;
 
   const handleClickOutside = useCallback(e => {
-    if (!dialogRef.current.contains(e.target) && !settingsIconRef.current.contains(e.target)) {
+    if (!dialogRef.current.contains(e.target) && !settingsIconRef.current?.contains(e.target)) {
       setIsOpen(false);
     }
   }, [setIsOpen, dialogRef, settingsIconRef]);

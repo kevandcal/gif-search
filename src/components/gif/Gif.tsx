@@ -2,14 +2,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSettings } from '../../hooks/useSettings';
 import './Gif.css';
 
-export function Gif({ gifObject, gifsContainerRef }) {
+type GifProps = {
+  images: { [key: string]: { url: string } };
+  url: string;
+  title: string;
+  // gifsContainerRef: ;
+};
+
+export function Gif({ images, url, title, gifsContainerRef }: GifProps) {
   const { isLowResolution, playOnlyOnHover, lazyLoadingIsOn } = useSettings();
   const gifRef = useRef(null);
   const io = useRef(null);
   const [src, setSrc] = useState('');
   const [isInViewport, setIsInViewport] = useState(false);
 
-  const { images } = gifObject;
   const stillUrl = images.fixed_height_still.url;
   const properResolutionUrl = isLowResolution ? images.fixed_height_downsampled.url : images.fixed_height.url;
 
@@ -27,7 +33,7 @@ export function Gif({ gifObject, gifsContainerRef }) {
     }
   };
 
-  const openGiphyPageForGif = () => window.open(gifObject.embed_url, '_blank');
+  const openGiphyPageForGif = () => window.open(url, '_blank');
 
   // inspired by https://levelup.gitconnected.com/how-to-implement-lazy-loading-in-react-with-intersection-observer-61c0e53ec8d:
   const handleLazyLoad = () => {
@@ -59,7 +65,7 @@ export function Gif({ gifObject, gifsContainerRef }) {
     <div ref={gifRef} className="gif">
       {!displayImg ? null : (
         <img
-          alt={gifObject.title}
+          alt={title}
           src={src}
           onClick={openGiphyPageForGif}
           onMouseEnter={handleMouseEnter}

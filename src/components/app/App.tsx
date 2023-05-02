@@ -5,10 +5,17 @@ import { MainSection } from '../main-section/MainSection';
 import { SettingsProvider } from '../../context/settings-context';
 import './App.css';
 
+// type GiphyData = {
+//   id: string;
+//   images: object[];
+//   title: string;
+//   embed_url: string;
+// };
+
 export function App() {
   const trendingGifsQueryCode = useId();
-  const queryRef = useRef(trendingGifsQueryCode);
-  const [gifs, setGifs] = useState([]);
+  const queryRef = useRef<string>(trendingGifsQueryCode);
+  const [gifs, setGifs] = useState<object[]>([]);
   const [apiResOffset, setApiResOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [failedToLoad, setFailedToLoad] = useState(false);
@@ -18,7 +25,7 @@ export function App() {
 
   const gifsPerRequest = infiniteScrollIsActive ? 18 : 30;
 
-  const fetchGifs = async (query = queryRef.current, offset = apiResOffset) => {
+  const fetchGifs = async (query: string | undefined = queryRef.current, offset: number | undefined = apiResOffset) => {
     if (isLoading) {
       return;
     }
@@ -34,6 +41,10 @@ export function App() {
     if (status < 200 || status > 299) {
       setFailedToLoad(true);
     } else if (data.length) {
+      // const filteredData = data.map(({ id, images, title, embed_url: url }: GiphyData) => (
+      //   { id, images, title, url }
+      // ));
+      // setGifs(prev => infiniteScrollIsActive ? prev.concat(filteredData) : filteredData);
       setGifs(prev => infiniteScrollIsActive ? prev.concat(data) : data);
       const newOffset = offset + Math.min(data.length, gifsPerRequest);
       setApiResOffset(newOffset);
@@ -49,6 +60,7 @@ export function App() {
 
   // eslint-disable-next-line
   useEffect(fetchGifsOnMount, []);
+  useEffect(() => console.log('gifs:', gifs), [gifs]);
 
   return (
     <SettingsProvider>
