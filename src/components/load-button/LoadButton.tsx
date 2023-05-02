@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from 'react';
-import { useSettings } from '../../context/settings-context';
+import { useSettings } from '../../hooks/useSettings';
 import './LoadButton.css';
 
 type Props = {

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from '../settings-dialog/SettingsDialog';
 import { SearchBar } from '../search-bar/SearchBar';
-import { useSettings } from '../../context/settings-context';
+import { useSettings } from '../../hooks/useSettings';
 import './TopBar.css';
 
 export function TopBar({

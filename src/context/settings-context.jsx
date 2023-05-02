@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 const SettingsContext = createContext();
@@ -27,9 +27,4 @@ function SettingsProvider({ children }) {
   );
 }
 
-function useSettings() {
-  const context = useContext(SettingsContext);
-  return context;
-}
-
-export { SettingsProvider, useSettings }
+export { SettingsContext, SettingsProvider }
