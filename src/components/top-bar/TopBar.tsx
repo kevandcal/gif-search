@@ -1,4 +1,4 @@
-import React, { Ref, SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, Ref, SetStateAction, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from '../settings-dialog/SettingsDialog';
@@ -9,12 +9,12 @@ import './TopBar.css';
 type TopBarProps = {
   trendingGifsQueryCode: string;
   queryRef: { current: string };
-  setGifs: () => void;
-  setFailedToLoad: () => void;
-  fetchGifs: (query: string | undefined, offset: number) => void;
+  setGifs: Dispatch<SetStateAction<object[]>>;
+  setFailedToLoad: Dispatch<SetStateAction<boolean>>;
+  fetchGifs: (query: string | undefined, offset: number | undefined) => void;
   topBarIsStyled: boolean;
   infiniteScrollIsActive: boolean;
-  setInfiniteScrollIsActive: () => void;
+  setInfiniteScrollIsActive: Dispatch<SetStateAction<boolean>>;
 };
 
 export function TopBar({

@@ -5,12 +5,11 @@ import { MainSection } from '../main-section/MainSection';
 import { SettingsProvider } from '../../context/settings-context';
 import './App.css';
 
-// type GiphyData = {
-//   id: string;
-//   images: object[];
-//   title: string;
-//   embed_url: string;
-// };
+interface GiphyApiResponse {
+  data: object[];
+  meta: { status: number };
+  pagination: { total_count: number };
+}
 
 export function App() {
   const trendingGifsQueryCode = useId();
@@ -34,17 +33,13 @@ export function App() {
     const path = searchForTrending ? 'trending' : 'search';
     const q = searchForTrending ? '' : `&q=${query}`;
     // trending path finds currently trending gifs instead of searching for gifs about trending:
-    const url = `https://api.giphy.com/v1/gifs/${path}?api_key=${import.meta.env.VITE_GIPHY_API_KEY}${q}&limit=${gifsPerRequest}&offset=${offset}`;
-    const response = await fetch(url);
-    const { data, meta: { status }, pagination: { total_count: totalCount } } = await response.json();
+    const endpoint = `https://api.giphy.com/v1/gifs/${path}?api_key=${import.meta.env.VITE_GIPHY_API_KEY}${q}&limit=${gifsPerRequest}&offset=${offset}`;
+    const response = await fetch(endpoint);
+    const { data, meta: { status }, pagination: { total_count: totalCount } }: GiphyApiResponse = await response.json();
     setIsLoading(false);
     if (status < 200 || status > 299) {
       setFailedToLoad(true);
     } else if (data.length) {
-      // const filteredData = data.map(({ id, images, title, embed_url: url }: GiphyData) => (
-      //   { id, images, title, url }
-      // ));
-      // setGifs(prev => infiniteScrollIsActive ? prev.concat(filteredData) : filteredData);
       setGifs(prev => infiniteScrollIsActive ? prev.concat(data) : data);
       const newOffset = offset + Math.min(data.length, gifsPerRequest);
       setApiResOffset(newOffset);

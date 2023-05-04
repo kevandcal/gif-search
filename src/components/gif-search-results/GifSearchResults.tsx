@@ -1,9 +1,17 @@
-import React, { memo } from 'react';
+import React, { memo, MutableRefObject } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GifsGrid } from '../gifs-grid/GifsGrid';
 import { LoadButton } from '../load-button/LoadButton';
 import './GifSearchResults.css';
+
+type GifSearchResultsProps = {
+  gifs: object[];
+  gifsContainerRef: MutableRefObject<HTMLElement | null>;
+  isLoading: boolean;
+  failedToLoad: boolean;
+  allGifsFetched: boolean;
+};
 
 export const GifSearchResults = memo(({
   gifs,
@@ -11,7 +19,7 @@ export const GifSearchResults = memo(({
   isLoading,
   failedToLoad,
   allGifsFetched
-}) => {
+}: GifSearchResultsProps) => {
   const displaySpinner = isLoading && !gifs.length;
   const noResults = allGifsFetched && !gifs.length;
 
@@ -38,9 +46,9 @@ export const GifSearchResults = memo(({
 });
 
 
-function Message({ text }) {
+function Message({ text }: { text: string }) {
   const refreshPage = () => {
-    window.location.reload(false);
+    window.location.reload();
   };
 
   return (

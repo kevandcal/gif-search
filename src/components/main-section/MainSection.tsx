@@ -1,8 +1,20 @@
-import React, { useRef } from 'react';
+import React, { Dispatch, MouseEvent, SetStateAction, useRef } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { GifSearchResults } from '../gif-search-results/GifSearchResults';
 import { LoadButton } from '../load-button/LoadButton';
 import './MainSection.css';
+
+type MainSectionProps = {
+  gifs: object[];
+  fetchGifs: (query?: string | undefined, offset?: number | undefined) => Promise<void>;
+  gifsPerRequest: 18 | 30;
+  failedToLoad: boolean;
+  isLoading: boolean;
+  allGifsFetched: boolean;
+  apiResOffset: number;
+  setTopBarIsStyled: Dispatch<SetStateAction<boolean>>;
+  infiniteScrollIsActive: boolean;
+};
 
 export function MainSection({
   gifs,
@@ -14,38 +26,40 @@ export function MainSection({
   apiResOffset,
   setTopBarIsStyled,
   infiniteScrollIsActive
-}) {
+}: MainSectionProps) {
   const { height } = useWindowSize();
-  const gifsContainerRef = useRef(null);
+  const gifsContainerRef = useRef<HTMLElement | null>(null);
 
   const displayAnyBtn = !infiniteScrollIsActive && gifs.length;
-  const displayLoadMoreBtn = displayAnyBtn && !allGifsFetched;
-  const displayGoBackBtn = displayAnyBtn && apiResOffset > gifsPerRequest;
+  const displayLoadMoreBtn = !!displayAnyBtn && !allGifsFetched;
+  const displayGoBackBtn = !!displayAnyBtn && apiResOffset > gifsPerRequest;
 
   const handleScroll = () => {
     const refEl = gifsContainerRef.current;
-    // infinite scroll:
-    if (
-      infiniteScrollIsActive &&
-      !allGifsFetched &&
-      (refEl?.scrollTop + refEl?.clientHeight >= refEl?.scrollHeight - 2)
-    ) {
+    if (!refEl) {
+      return;
+    }
+    const scrolledNearBottom = refEl.scrollTop + refEl.clientHeight >= refEl.scrollHeight - 2;
+    // infinite scroll
+    if (infiniteScrollIsActive && !allGifsFetched && scrolledNearBottom) {
       fetchGifs();
     }
     // change top bar styling when scrolled beyond 5vh:
-    setTopBarIsStyled(refEl.scrollTop >= height * 0.05);
+    setTopBarIsStyled(!!height && refEl.scrollTop >= height * 0.05);
   };
 
-  const handleGoBackBtnClick = e => {
+  const handleGoBackBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const offset = apiResOffset - (gifsPerRequest * 2);
-    fetchGifs(undefined, offset);
+    // const offset = apiResOffset - (gifsPerRequest * 2);
+    // fetchGifs(undefined, offset);
+    const o = apiResOffset - (gifsPerRequest * 2);
+    fetchGifs(undefined, o);
   };
 
-  const handleMoreBtnClick = e => {
+  const handleMoreBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     fetchGifs();
-    gifsContainerRef.current.scroll({ top: 0 });
+    gifsContainerRef?.current?.scroll({ top: 0 });
   };
 
   return (
