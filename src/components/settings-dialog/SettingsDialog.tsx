@@ -4,14 +4,14 @@ import { useSettings } from '../../hooks/useSettings';
 import { SettingsButton } from '../settings-button/SettingsButton';
 import './SettingsDialog.css';
 
-type SetStateFunction = Dispatch<SetStateAction<boolean>>;
+type SetStateToBoolean = Dispatch<SetStateAction<boolean>>;
 
-type SettingsDialogProps = {
+interface SettingsDialogProps {
   isOpen: boolean;
-  setIsOpen: SetStateFunction;
+  setIsOpen: SetStateToBoolean;
   settingsIconRef: RefObject<HTMLButtonElement>;
   infiniteScrollIsActive: boolean;
-  setInfiniteScrollIsActive: SetStateFunction;
+  setInfiniteScrollIsActive: SetStateToBoolean;
 };
 
 export function SettingsDialog({
@@ -32,7 +32,7 @@ export function SettingsDialog({
     setDarkModeIsActive
   } = useSettings();
   const { width } = useWindowSize();
-  const dialogRef = useRef(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const [dialogOffsetLeft, setDialogOffsetLeft] = useState(0);
 
   const settingsButtonData = [
@@ -70,8 +70,12 @@ export function SettingsDialog({
 
   const dialogClassName = `${isOpen ? 'open ' : ''}${darkModeIsActive ? 'dark-mode' : ''}`;
 
-  const handleClickOutside = useCallback(e => {
-    if (!dialogRef.current.contains(e.target) && !settingsIconRef.current?.contains(e.target)) {
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (
+      e.target instanceof HTMLElement &&
+      !dialogRef.current?.contains(e.target) &&
+      !settingsIconRef.current?.contains(e.target)
+    ) {
       setIsOpen(false);
     }
   }, [setIsOpen, dialogRef, settingsIconRef]);
@@ -83,6 +87,9 @@ export function SettingsDialog({
 
   const updateDialogOffsetLeft = () => {
     const offsetLeft = settingsIconRef.current?.offsetLeft;
+    if (typeof offsetLeft === 'undefined') {
+      return;
+    }
     const dialogWidth = 220;
     const iconWidth = 16;
     const result = offsetLeft - dialogWidth + (iconWidth / 2);
@@ -99,13 +106,13 @@ export function SettingsDialog({
       className={dialogClassName}
       style={{ left: dialogOffsetLeft }}
     >
-      {settingsButtonData.map(setting => (
+      {settingsButtonData.map(({ text, setFunction, state, refresh }) => (
         <SettingsButton
-          key={setting.text}
-          setFunction={setting.setFunction}
-          isActive={setting.state}
-          text={setting.text}
-          refreshOnClick={setting.refresh}
+          key={text}
+          setFunction={setFunction}
+          isActive={state}
+          text={text}
+          refreshOnClick={refresh}
         />
       ))}
     </div>

@@ -2,17 +2,17 @@
 import React, { createContext, Dispatch, SetStateAction, ReactNode } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
-type SetFunction = Dispatch<SetStateAction<boolean>>;
+type SetStateToBoolean = Dispatch<SetStateAction<boolean>>;
 
 interface Values {
   darkModeIsActive: boolean;
   isLowResolution: boolean;
   lazyLoadingIsOn: boolean;
   playOnlyOnHover: boolean;
-  setDarkModeIsActive: SetFunction;
-  setIsLowResolution: SetFunction;
-  setLazyLoadingIsOn: SetFunction;
-  setPlayOnlyOnHover: SetFunction;
+  setDarkModeIsActive: SetStateToBoolean;
+  setIsLowResolution: SetStateToBoolean;
+  setLazyLoadingIsOn: SetStateToBoolean;
+  setPlayOnlyOnHover: SetStateToBoolean;
 };
 
 const SettingsContext = createContext<Values | null>(null);

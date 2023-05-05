@@ -28,7 +28,7 @@ export function MainSection({
   infiniteScrollIsActive
 }: MainSectionProps) {
   const { height } = useWindowSize();
-  const gifsContainerRef = useRef<HTMLElement | null>(null);
+  const gifsContainerRef = useRef<HTMLElement>(null);
 
   const displayAnyBtn = !infiniteScrollIsActive && gifs.length;
   const displayLoadMoreBtn = !!displayAnyBtn && !allGifsFetched;

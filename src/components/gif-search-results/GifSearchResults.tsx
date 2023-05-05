@@ -1,4 +1,4 @@
-import React, { memo, MutableRefObject } from 'react';
+import React, { memo, RefObject } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GifsGrid } from '../gifs-grid/GifsGrid';
@@ -7,7 +7,7 @@ import './GifSearchResults.css';
 
 type GifSearchResultsProps = {
   gifs: object[];
-  gifsContainerRef: MutableRefObject<HTMLElement | null>;
+  gifsContainerRef: RefObject<HTMLElement>;
   isLoading: boolean;
   failedToLoad: boolean;
   allGifsFetched: boolean;
