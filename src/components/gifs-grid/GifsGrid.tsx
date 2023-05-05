@@ -4,7 +4,6 @@ import { Gif } from '../gif/Gif';
 import { GifsInterface } from '../app/App';
 import './GifsGrid.css';
 
-
 interface GifsGridProps {
   gifs: GifsInterface[];
   gifsContainerRef: RefObject<HTMLElement>;

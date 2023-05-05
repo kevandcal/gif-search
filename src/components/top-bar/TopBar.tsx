@@ -7,7 +7,7 @@ import { useSettings } from '../../hooks/useSettings';
 import { GifsInterface } from '../app/App';
 import './TopBar.css';
 
-type TopBarProps = {
+interface TopBarProps {
   trendingGifsQueryCode: string;
   queryRef: { current: string };
   setGifs: Dispatch<SetStateAction<GifsInterface[]>>;

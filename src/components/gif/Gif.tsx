@@ -9,8 +9,7 @@ interface GifProps extends GifsInterface {
 
 export function Gif({ images, url, title, gifsContainerRef }: GifProps) {
   const { isLowResolution, playOnlyOnHover, lazyLoadingIsOn } = useSettings();
-  const gifRef = useRef(null);
-  const io = useRef(null);
+  const gifRef = useRef<HTMLDivElement>(null);
   const [src, setSrc] = useState('');
   const [isInViewport, setIsInViewport] = useState(false);
 
@@ -33,22 +32,23 @@ export function Gif({ images, url, title, gifsContainerRef }: GifProps) {
 
   const openGiphyPageForGif = () => window.open(url, '_blank');
 
-  // inspired by https://levelup.gitconnected.com/how-to-implement-lazy-loading-in-react-with-intersection-observer-61c0e53ec8d:
+  // inspired by https://stackoverflow.com/questions/73051303/intersection-observer-in-typescript-throws-error-in-useref:
   const handleLazyLoad = () => {
     if (!lazyLoadingIsOn) {
       return;
     }
-    const currentGifRef = gifRef.current;
-    if (currentGifRef) {
-      io.current = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => setIsInViewport(entry.isIntersecting));
-        },
-        { root: gifsContainerRef.current }
-      );
-      io.current.observe(currentGifRef);
+    const intObsCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => setIsInViewport(entry.isIntersecting));
+    };
+    const options = { root: gifsContainerRef.current };
+    const observer = new IntersectionObserver(intObsCallback, options);
+    const curGif = gifRef.current;
+    if (curGif) {
+      observer.observe(curGif);
     }
-    return () => io.current.unobserve(currentGifRef);
+    return () => {
+      curGif && observer.unobserve(curGif);
+    };
   };
 
   const updateSrc = () => {
