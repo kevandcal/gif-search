@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { InputFieldProps } from '../search-bar/SearchBar';
 import './InputField.css';
 
 export function InputField({
@@ -9,22 +10,22 @@ export function InputField({
   darkModeIsActive,
   title,
   setTitle
-}) {
+}: InputFieldProps) {
   const { width } = useWindowSize();
   const [focusOnInput, setFocusOnInput] = useState(false);
 
   const inputClassName = `${darkModeIsActive ? 'dark-mode ' : ''}${focusOnInput ? 'input-focus' : ''}`;
 
-  const placeholder = `What type of GIFs${width > 550 ? ' would you like to see' : ''}?`;
+  const placeholder = `What type of GIFs${width && width > 550 ? ' would you like to see' : ''}?`;
 
-  const handleInputChange = e => setTitle(e.target.value);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const handleInputFocus = () => setFocusOnInput(true);
   const handleInputBlur = () => setFocusOnInput(false);
 
-  const handleXIconClick = event => {
+  const handleXIconClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setTitle('');
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { Dispatch, Ref, SetStateAction, SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from '../settings-dialog/SettingsDialog';
@@ -11,7 +11,7 @@ type TopBarProps = {
   queryRef: { current: string };
   setGifs: Dispatch<SetStateAction<object[]>>;
   setFailedToLoad: Dispatch<SetStateAction<boolean>>;
-  fetchGifs: (query: string | undefined, offset: number | undefined) => void;
+  fetchGifs: (query?: string | undefined, offset?: number | undefined) => Promise<void>;
   topBarIsStyled: boolean;
   infiniteScrollIsActive: boolean;
   setInfiniteScrollIsActive: Dispatch<SetStateAction<boolean>>;

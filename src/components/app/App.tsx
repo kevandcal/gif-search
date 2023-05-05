@@ -13,7 +13,7 @@ interface GiphyApiResponse {
 
 export function App() {
   const trendingGifsQueryCode = useId();
-  const queryRef = useRef<string>(trendingGifsQueryCode);
+  const queryRef = useRef(trendingGifsQueryCode);
   const [gifs, setGifs] = useState<object[]>([]);
   const [apiResOffset, setApiResOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +55,6 @@ export function App() {
 
   // eslint-disable-next-line
   useEffect(fetchGifsOnMount, []);
-  useEffect(() => console.log('gifs:', gifs), [gifs]);
 
   return (
     <SettingsProvider>
