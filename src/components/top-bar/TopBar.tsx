@@ -4,12 +4,13 @@ import { faEllipsisV, faHome } from '@fortawesome/free-solid-svg-icons'
 import { SettingsDialog } from '../settings-dialog/SettingsDialog';
 import { SearchBar } from '../search-bar/SearchBar';
 import { useSettings } from '../../hooks/useSettings';
+import { GifsInterface } from '../app/App';
 import './TopBar.css';
 
 type TopBarProps = {
   trendingGifsQueryCode: string;
   queryRef: { current: string };
-  setGifs: Dispatch<SetStateAction<object[]>>;
+  setGifs: Dispatch<SetStateAction<GifsInterface[]>>;
   setFailedToLoad: Dispatch<SetStateAction<boolean>>;
   fetchGifs: (query?: string | undefined, offset?: number | undefined) => Promise<void>;
   topBarIsStyled: boolean;

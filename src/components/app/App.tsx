@@ -5,8 +5,14 @@ import { MainSection } from '../main-section/MainSection';
 import { SettingsProvider } from '../../context/settings-context';
 import './App.css';
 
+export interface GifsInterface {
+  images: { [key: string]: { url: string } };
+  url: string;
+  title: string;
+};
+
 interface GiphyApiResponse {
-  data: object[];
+  data: GifsInterface[];
   meta: { status: number };
   pagination: { total_count: number };
 }
@@ -14,7 +20,7 @@ interface GiphyApiResponse {
 export function App() {
   const trendingGifsQueryCode = useId();
   const queryRef = useRef(trendingGifsQueryCode);
-  const [gifs, setGifs] = useState<object[]>([]);
+  const [gifs, setGifs] = useState<GifsInterface[]>([]);
   const [apiResOffset, setApiResOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [failedToLoad, setFailedToLoad] = useState(false);

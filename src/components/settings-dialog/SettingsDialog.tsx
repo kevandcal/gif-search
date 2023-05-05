@@ -90,8 +90,8 @@ export function SettingsDialog({
     if (typeof offsetLeft === 'undefined') {
       return;
     }
-    const dialogWidth = 220;
-    const iconWidth = 16;
+    const dialogWidth = 222;
+    const iconWidth = 50;
     const result = offsetLeft - dialogWidth + (iconWidth / 2);
     setDialogOffsetLeft(result);
   };

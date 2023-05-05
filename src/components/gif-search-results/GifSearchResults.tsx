@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { GifsGrid } from '../gifs-grid/GifsGrid';
 import { LoadButton } from '../load-button/LoadButton';
+import { GifsInterface } from '../app/App';
 import './GifSearchResults.css';
 
-type GifSearchResultsProps = {
-  gifs: object[];
+interface GifSearchResultsProps {
+  gifs: GifsInterface[];
   gifsContainerRef: RefObject<HTMLElement>;
   isLoading: boolean;
   failedToLoad: boolean;

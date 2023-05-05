@@ -1,15 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { Gif } from '../gif/Gif';
+import { GifsInterface } from '../app/App';
 import './GifsGrid.css';
 
-export function GifsGrid({ gifs, gifsContainerRef }) {
+
+interface GifsGridProps {
+  gifs: GifsInterface[];
+  gifsContainerRef: RefObject<HTMLElement>;
+};
+
+export function GifsGrid({ gifs, gifsContainerRef }: GifsGridProps) {
   const { width } = useWindowSize();
   const [gifGridWidth, setGifGridWidth] = useState(0);
 
   const gifGridStyle = { width: !gifGridWidth ? 0 : gifGridWidth };
 
   const calculateGridWidth = () => {
+    if (typeof width === 'undefined') {
+      return;
+    }
     const availableWidth = width * 0.9;
     const columnGap = 5;
     // for narrow (phone) screens, reduce gif width to 90vw:
@@ -24,16 +34,9 @@ export function GifsGrid({ gifs, gifsContainerRef }) {
 
   return (
     <div id='gifs-grid' style={gifGridStyle}>
-      {/* {gifs.map(gif => (
+      {gifs.map(({ images, url, title }, index) => (
         <Gif
-          key={gif.id}
-          gifObject={gif}
-          gifsContainerRef={gifsContainerRef}
-        />
-      ))} */}
-      {gifs.map(({ id, images, url, title }) => (
-        <Gif
-          key={id}
+          key={index}
           images={images}
           url={url}
           title={title}

@@ -4,6 +4,10 @@
   align-items: center;
   padding: 15px 12px;
   width: 220px;
+  background-color: transparent;
+  border-top: none;
+  border-right: none;
+  border-left: none;
   border-bottom: 1px solid #eee;
   transition: var(--transition-duration);
   cursor: pointer;

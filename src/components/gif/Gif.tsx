@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { useSettings } from '../../hooks/useSettings';
+import { GifsInterface } from '../app/App';
 import './Gif.css';
 
-type GifProps = {
-  images: { [key: string]: { url: string } };
-  url: string;
-  title: string;
-  // gifsContainerRef: ;
+interface GifProps extends GifsInterface {
+  gifsContainerRef: RefObject<HTMLElement>;
 };
 
 export function Gif({ images, url, title, gifsContainerRef }: GifProps) {

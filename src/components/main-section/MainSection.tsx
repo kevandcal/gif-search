@@ -2,10 +2,11 @@ import React, { Dispatch, MouseEvent, SetStateAction, useRef } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { GifSearchResults } from '../gif-search-results/GifSearchResults';
 import { LoadButton } from '../load-button/LoadButton';
+import { GifsInterface } from '../app/App';
 import './MainSection.css';
 
-type MainSectionProps = {
-  gifs: object[];
+interface MainSectionProps {
+  gifs: GifsInterface[];
   fetchGifs: (query?: string | undefined, offset?: number | undefined) => Promise<void>;
   gifsPerRequest: 18 | 30;
   failedToLoad: boolean;
