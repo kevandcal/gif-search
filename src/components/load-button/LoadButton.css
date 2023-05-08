@@ -37,7 +37,7 @@
 #load-button-container:after {
   content: '';
   position: absolute;
-  background-color: #F2F3F4;
+  background-color: var(--background-color-light);
   transition: background-color var(--transition-duration), width var(--transition-duration) ease, height var(--transition-duration) ease;
 }
 
@@ -57,7 +57,7 @@
   width: calc(100% - 4px);
   border: none;
   padding: 0;
-  background-color: #F2F3F4;
+  background-color: var(--background-color-light);
   cursor: pointer;
   z-index: 80;
 }
@@ -77,7 +77,7 @@
 #load-button-container.dark-mode:before,
 #load-button-container.dark-mode:after,
 #load-button.dark-mode {
-  background-color: #181920;
+  background-color: var(--background-color-dark);
 }
 
 @keyframes load-btn-text {

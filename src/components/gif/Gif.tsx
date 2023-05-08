@@ -72,4 +72,4 @@ export function Gif({ images, url, title, gifsContainerRef }: GifProps) {
       )}
     </div>
   );
-}
+};

@@ -73,7 +73,6 @@ export function TopBar({
         <SearchBar
           inputRef={inputRef}
           submitQuery={submitQuery}
-          darkModeIsActive={darkModeIsActive}
           title={title}
           setTitle={setTitle}
         />

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { useSettings } from '../../hooks/useSettings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { InputFieldProps } from '../search-bar/SearchBar';
@@ -7,11 +8,11 @@ import './InputField.css';
 
 export function InputField({
   inputRef,
-  darkModeIsActive,
   title,
   setTitle
 }: InputFieldProps) {
   const { width } = useWindowSize();
+  const { darkModeIsActive } = useSettings();
   const [focusOnInput, setFocusOnInput] = useState(false);
 
   const inputClassName = `${darkModeIsActive ? 'dark-mode ' : ''}${focusOnInput ? 'input-focus' : ''}`;

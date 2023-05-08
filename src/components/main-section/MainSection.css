@@ -2,8 +2,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* 97vh accounts for 3vh footer height: */
-  height: calc(97vh - var(--top-bar-height));
+  height: calc(100vh - var(--top-bar-height) - var(--footer-height));
   overflow-y: scroll;
   width: 100vw;
 }

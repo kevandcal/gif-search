@@ -3,10 +3,16 @@ footer {
   bottom: 0;
   left: 0;
   width: 100vw;
-  height: 3vh;
+  height: var(--footer-height);
   display: flex;
   align-items: center;
+  background-color: var(--background-color-light);
+  transition: var(--transition-duration);
   z-index: 99999;
+}
+
+body.dark footer {
+  background-color: var(--background-color-dark);
 }
 
 #attribution {

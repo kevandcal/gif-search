@@ -6,7 +6,6 @@ import './SearchBar.css';
 
 export interface InputFieldProps {
   inputRef: RefObject<HTMLInputElement>;
-  darkModeIsActive: boolean;
   title: string;
   setTitle: Dispatch<SetStateAction<string>>;
 };
@@ -18,7 +17,6 @@ interface SearchBarProps extends InputFieldProps {
 export function SearchBar({
   inputRef,
   submitQuery,
-  darkModeIsActive,
   title,
   setTitle
 }: SearchBarProps) {
@@ -37,7 +35,6 @@ export function SearchBar({
       <form id='form' onSubmit={handleSubmit}>
         <InputField
           inputRef={inputRef}
-          darkModeIsActive={darkModeIsActive}
           title={title}
           setTitle={setTitle}
         />

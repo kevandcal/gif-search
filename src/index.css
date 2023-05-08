@@ -1,12 +1,15 @@
 :root {
     --content-width: 90vw;
     --top-bar-height: 70px;
+    --footer-height: 20px;
     --settings-dialog-top: 58px;
     --search-bar-height: 50px;
     --icon-height: 20px;
     --gif-height-width: 395px;
     --theme-color: #0D4B60;
     --theme-color-alt: #2a91b3;
+    --background-color-light: #F2F3F4;
+    --background-color-dark: #181920;
     --transition-duration: 0.3s;
 }
 
@@ -14,13 +17,13 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #F2F3F4;
+    background-color: var(--background-color-light);
     font-family: Helvetica, Arial, sans-serif;
     transition: var(--transition-duration);
 }
 
 body.dark {
-    background-color: #181920;
+    background-color: var(--background-color-dark);
 }
 
 @media (max-width: 600px) {
