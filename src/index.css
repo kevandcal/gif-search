@@ -34,10 +34,3 @@ body.dark {
         --icon-height: 18px;
     }
 }
-
-@media (max-width: 500px) {
-    input {
-        font-size: 15px;
-        padding-left: 8px;
-    }
-}

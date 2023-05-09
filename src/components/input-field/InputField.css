@@ -46,14 +46,21 @@ input:focus {
   transition: background-color var(--transition-duration);
 }
 
+#x-icon {
+  height: var(--icon-height);
+  width: auto;
+  transition: var(--transition-duration);
+}
+
 @media (hover: hover) {
   #x-icon-button:hover #x-icon {
     color: var(--theme-color-alt);
   }
 }
 
-#x-icon {
-  height: var(--icon-height);
-  width: auto;
-  transition: var(--transition-duration);
+@media (max-width: 500px) {
+  input {
+    font-size: 15px;
+    padding-left: 8px;
+  }
 }
