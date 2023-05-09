@@ -10,7 +10,7 @@ Click image to try for yourself
 
 ## Built with
 
-React, CSS3, Giphy API, Font Awesome icons, local storage 
+React, Typescript, CSS3, Giphy API, Font Awesome icons, local storage 
 
 ## Features
 
