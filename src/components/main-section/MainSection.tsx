@@ -51,10 +51,8 @@ export function MainSection({
 
   const handleGoBackBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // const offset = apiResOffset - (gifsPerRequest * 2);
-    // fetchGifs(undefined, offset);
-    const o = apiResOffset - (gifsPerRequest * 2);
-    fetchGifs(undefined, o);
+    const offset = apiResOffset - (gifsPerRequest * 2);
+    fetchGifs(undefined, offset);
   };
 
   const handleMoreBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
